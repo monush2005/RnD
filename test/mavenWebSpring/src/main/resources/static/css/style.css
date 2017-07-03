@@ -1,0 +1,139 @@
+body{
+	background:#f4f4f4;
+}
+.min-height{
+	min-height:100%;
+}
+md-content.login-form {
+    min-width: 400px;
+    background: rgba(0,0,0,0);
+}
+.no_padding{
+	padding:0px !important;
+}
+md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar), .loginsubmit{
+	background:#e60000 !important;
+}
+.login-form md-toolbar {
+    min-height: 120px;
+	margin-bottom: 20px;
+}
+.login-form md-toolbar .md-toolbar-tools {
+    height: 120px;
+	max-height:120px;
+	text-align:center;
+}
+md-toolbar.toploginheader {
+    max-height: 60px !important;
+    margin: 0 8px;
+    color: #000;
+    width: 400px;
+	background:none !important;
+}
+span.textlogionform {
+    font-size: 30px;
+	color:#666;
+}
+.max-height{
+	max-height:400px !important;
+}
+
+.table-responsive {
+    float: left;
+    width: 100%;
+    padding: 0px 15px;
+	text-align:center;
+}
+.paging-nav{
+	width:100%
+}
+.paging-nav a {
+    color: #000;
+    float: left;
+    padding: 8px 16px;
+    margin: 0px 4px;
+    background: #ECECEC;
+    text-decoration: none;
+}
+.paging-nav a.selected-page, a[data-direction] {
+    color: #fff;
+    background: #E60000;
+}
+
+.paging-nav {
+    width: auto;
+    display: inline-block;
+    margin: 0 auto;
+}
+
+/*dashboard*/
+
+
+h2.padding15 {
+    padding: 0;
+    color: #fff;
+}
+md-content#content.datamaincontiner {
+    padding: 20px 0 20px 0px;
+}
+.datamaincontiner .label {
+    color: rgba(0, 0, 0, 0.54);
+}
+.datamaincontiner th, .datamaincontiner td {
+    border: 1px solid #ddd;
+    text-align: center !important;
+    padding: 10px !important;
+}
+.datamaincontiner thead.md-table-progress.ng-isolate-scope {
+    display: none !important;
+}
+.tabletitle{
+	color:#fff;
+}
+md-sidenav md-list md-list-item button {
+    width: 100%;
+    height: 45px !important;
+    background: #ececec !important;
+    margin: 0px !important;
+    border-radius: 0px !important;
+	text-align:left !important;
+}
+.no-padding{
+	padding:0px !important;
+}
+
+
+
+
+
+
+/*mobile menu*/
+
+  .mobile {
+    display:none;
+  }
+  .desktop {
+    display:none;
+  }
+  .tablet {
+    display:none;
+  }
+
+@media only screen and (max-width: 1000px) {
+.desktioptoolbar._md._md-toolbar-transitions {
+    display: none;
+}
+.normalviewnav{
+	display:none !important;
+}
+md-content#content.datamaincontiner {
+    padding:20px 10px 20px 0px;
+}
+   .tablet {
+    display:block;
+  }
+
+md-toolbar {
+    height: 48px;
+}
+}

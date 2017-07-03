@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" ng-app="myApp">
+   <head>
+      <meta charset="utf-8" />
+      <title></title>
+      <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css" />
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+      <link rel="stylesheet" href="https://rawgit.com/daniel-nagy/md-data-table/master/dist/md-data-table.css" />
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="css/style.css" />
+	          <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css" />
+        
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+
+        
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+      <script src="https://rawgit.com/daniel-nagy/md-data-table/master/dist/md-data-table.js"></script>
+      <!-- Angular Material Library -->
+      <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.js"></script>
+     
+
+      <script>
+         angular.module('myApp', ['ngMaterial', 'md.data.table'])
+
+
+		 .controller('neeraj', function($scope, $mdSidenav) {
+		$scope.showMobileMainHeader = true;
+		$scope	.openSideNavPanel = function() {
+			$mdSidenav('left').open();
+		};
+		$scope.closeSideNavPanel = function() {
+			$mdSidenav('left').close();
+		};
+	})
+         
+         .config(['$mdThemingProvider', function ($mdThemingProvider) {
+           'use strict';
+           
+           $mdThemingProvider.theme('default')
+             .primaryPalette('blue');
+         }]);
+      </script>
+   </head>
+   <body layout="column"  ng-controller="neeraj">
+      <md-toolbar class="desktioptoolbar">
+         <h2 class="padding15">Vodafone USSD</h2>
+      </md-toolbar>
+      <!--testss-->
+      <div  class="header">
+         <md-sidenav class="md-sidenav-left md-whiteframe-z2"
+            md-component-id="left">
+            <md-toolbar layout="row">
+               <div class="md-toolbar-tools">
+                  <h2 class="padding15">Vodafone USSD</h2>
+                  <span flex="flex"></span>
+                  <md-button class="md-icon-button" aria-label="Close Side Panel" ng-click="closeSideNavPanel()">
+                     <md-tooltip>Close Side Panel</md-tooltip>
+                     <md-icon class="md-default-theme closesidebar material-icons">&#xE5CD;</md-icon>
+                  </md-button>
+               </div>
+            </md-toolbar>
+            <md-content layout-padding="" class="no-padding">
+                 <md-list class="no-padding">
+               <md-list-item>
+                  <md-button class="md-whiteframe-1dp">
+                     <md-icon md-svg-src="http://thenewcode.com/assets/images/thumbnails/homer-simpson.svg"></md-icon>
+                     User1
+                  </md-button>
+               </md-list-item>
+               <md-list-item>
+                  <md-button class="md-whiteframe-1dp">
+                     <md-icon md-svg-src="http://thenewcode.com/assets/images/thumbnails/homer-simpson.svg"></md-icon>
+                     User2
+                  </md-button>
+               </md-list-item>
+               <md-list-item>
+                  <md-button class="md-whiteframe-1dp">
+                     <md-icon md-svg-src="http://thenewcode.com/assets/images/thumbnails/homer-simpson.svg"></md-icon>
+                     User3
+                  </md-button>
+               </md-list-item>
+            </md-list>
+            </md-content>
+         </md-sidenav>
+         <md-toolbar class="tablet">
+            <div class="md-toolbar-tools">
+               <md-button class="md-icon-button" aria-label="Side Panel" ng-click="openSideNavPanel()">
+                  <md-tooltip>Open Side Panel</md-tooltip>
+                  <md-icon class="md-default-theme material-icons">&#xE5D2;</md-icon>
+               </md-button>
+            </div>
+         </md-toolbar>
+      </div>
+      <!-- test-->
+      <div class="" layout="row" flex="flex">
+         <md-sidenav md-is-locked-open="true" class="md-whiteframe-4dp normalviewnav">
+            <md-list>
+               <md-list-item>
+                  <md-button class="md-whiteframe-1dp">
+                     <md-icon md-svg-src="http://thenewcode.com/assets/images/thumbnails/homer-simpson.svg"></md-icon>
+                     User1
+                  </md-button>
+               </md-list-item>
+               <md-list-item>
+                  <md-button class="md-whiteframe-1dp">
+                     <md-icon md-svg-src="http://thenewcode.com/assets/images/thumbnails/homer-simpson.svg"></md-icon>
+                     User2
+                  </md-button>
+               </md-list-item>
+               <md-list-item>
+                  <md-button class="md-whiteframe-1dp">
+                     <md-icon md-svg-src="http://thenewcode.com/assets/images/thumbnails/homer-simpson.svg"></md-icon>
+                     User3
+                  </md-button>
+               </md-list-item>
+            </md-list>
+         </md-sidenav>
+         <md-content id="content" flex="flex" class="datamaincontiner">
+		 <div class="table-responsive">
+           <table id="tableData" class="table table-bordered table-striped">
+          <thead>
+    <tr>
+              <th>id</th>
+              <th>first name</th>
+              <th>surname</th>
+              <th>number</th>
+            </tr>
+  </thead>
+          <tbody>
+    <tr>
+              <td>1</td>
+              <td>Frank</td>
+              <td>Shoulder</td>
+              <td>1246</td>
+            </tr>
+    <tr>
+              <td>2</td>
+              <td>John</td>
+              <td>Jameson</td>
+              <td>4564</td>
+            </tr>
+    <tr>
+              <td>3</td>
+              <td>Philip</td>
+              <td>Jenkins</td>
+              <td>4456</td>
+            </tr>
+    <tr>
+              <td>4</td>
+              <td>Maria</td>
+              <td>Carlston</td>
+              <td>4456</td>
+            </tr>
+    <tr>
+              <td>5</td>
+              <td>Julia</td>
+              <td>Tampelton</td>
+              <td>1246</td>
+            </tr>
+    <tr>
+              <td>6</td>
+              <td>Jane</td>
+              <td>Conor</td>
+              <td>4456</td>
+            </tr>
+    <tr>
+              <td>7</td>
+              <td>Susan</td>
+              <td>Crane</td>
+              <td>1246</td>
+            </tr>
+    <tr>
+              <td>8</td>
+              <td>Lucas</td>
+              <td>Fenric</td>
+              <td>4456</td>
+            </tr>
+    <tr>
+              <td>8</td>
+              <td>Mark</td>
+              <td>Fenric</td>
+              <td>4456</td>
+            </tr>
+    <tr>
+              <td>9</td>
+              <td>Hilde</td>
+              <td>Mayer</td>
+              <td>4456</td>
+            </tr>
+    <tr>
+              <td>10</td>
+              <td>John</td>
+              <td>Tron</td>
+              <td>1246</td>
+            </tr>
+    <tr>
+              <td>11</td>
+              <td>Hans</td>
+              <td>Stark</td>
+              <td>4564</td>
+            </tr>
+  </tbody>
+        </table>
+		</div>
+         </md-content>
+      </div>
+	  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/paging.js"></script> 
+<script type="text/javascript">
+            $(document).ready(function() {
+                $('#tableData').paging({limit:5});
+            });
+        </script>
+        <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+   </body>
+</html>

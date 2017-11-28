@@ -1,0 +1,20 @@
+UserID:-<input type="text" ng-model="user.uname"><br>
+OTP<input type="text" ng-model="user.otp"><br>
+new password<input type="text" ng-model="user.newPswd"><br>
+<button ng-click="forgotPswd(user)">Submit</button>
+        <div style="display: none">
+ 	<md-card layout-padding>
+    <div class="md-dialog-container" id="myDialogFont1">
+      <md-dialog>
+		<div class="popup-svg" align="center">
+		<span><svg style="width:35px;height:35px" viewBox="0 0 24 24">
+    <path fill="#ff0000" d="M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+</svg></span>
+<p>{{errorMsg}}</p>
+<div class="custom_button_box custom-green"><md-button class="md-raised custom-green" ng-click="cancel()">OK</md-button></div>
+</div>
+		</md-dialog>
+  </div>
+  
+  </md-card>
+</div>

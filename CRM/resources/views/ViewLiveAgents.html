@@ -1,0 +1,232 @@
+                <md-card>
+                     <form name="cceForm">   
+             <div layout="row" layout-align="start start" layout-align-xs="" layout-xs="column" class="cust_padding">
+                   <md-input-container flex="50" flex-xs="100" class="no-margin">
+       <md-datepicker flex="100" flex-xs="100" ng-model="fetchChat.startDate"  md-placeholder="Start Date" id="strtDt" name="strtDt" ng-required="true"></md-datepicker>
+         	 <div ng-messages="cceForm.strtDt.$error">
+          	  		<div ng-message="valid">Please enter valid date.</div>
+    			</div> 
+                     </md-input-container>
+                   <md-input-container flex="50" flex-xs="100" class="no-margin">
+       <md-datepicker flex="100" flex-xs="100" ng-model="fetchChat.endDate" md-placeholder="End Date" id="endDt" name="endDt"  ng-required="true"></md-datepicker>
+                         	 <div ng-messages="cceForm.endDt.$error">
+     	 <div  ng-message="valid">Please enter valid date.</div>
+          	  		
+    </div> 
+                    
+                     </md-input-container>
+                                                          
+                	</div> 
+                	
+                	
+             <div layout="row" layout-align="start start" layout-align-xs="" layout-xs="column" class="md-padding">
+                <md-input-container flex="50">
+              <label>Agent Name</label>
+              <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+        <path fill="#7f7f7f" d="M16,13C15.71,13 15.38,13 15.03,13.05C16.19,13.89 17,15 17,16.5V19H23V16.5C23,14.17 18.33,13 16,13M8,13C5.67,13 1,14.17 1,16.5V19H15V16.5C15,14.17 10.33,13 8,13M8,11A3,3 0 0,0 11,8A3,3 0 0,0 8,5A3,3 0 0,0 5,8A3,3 0 0,0 8,11M16,11A3,3 0 0,0 19,8A3,3 0 0,0 16,5A3,3 0 0,0 13,8A3,3 0 0,0 16,11Z" />
+    </svg></md-icon>
+              <md-select  ng-model="fetchChat.agentId" required name="tlId" id="tlId">
+              <md-option value="0">All</md-option>
+                <md-option ng-repeat="b in fetchCceDetails" value="{{b.cceid}}">{{b.uname}}</md-option>
+ 
+              </md-select>
+              <div ng-messages="agentForm.tlId.$error" role="alert">
+          </div>
+            </md-input-container>
+             	<md-input-container  flex="50">
+                <label>Mobile No</label>
+                <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                            <path fill="#7f7f7f" d="M17.25,18H6.75V4H17.25M14,21H10V20H14M16,1H8A3,3 0 0,0 5,4V20A3,3 0 0,0 8,23H16A3,3 0 0,0 19,20V4A3,3 0 0,0 16,1Z" />
+                        </svg></md-icon>
+                <input  type="text" name="mn" id="mn" ng-model="fetchChat.mobileNum"   maxlength="3"  no-special-directive ng-pattern="/^[0-9]{3}$/" />
+                <div ng-messages="agentForm.mn.$error" role="alert">
+                  <div ng-message="required">
+                    Mobile Number is required.
+                  </div>
+                  <div ng-message="pattern">
+                    Mobile Number must be 10 digit number and start with 7,8 or 9 only.
+                  </div>
+                </div>
+                </md-input-container>
+                                                          
+                	</div> 
+                	
+                	<div layout-padding><md-button class="md-raised md-primary custom-green" ng-click="liveAgents(fetchChat)" ng-disabled="!(fetchChat.startDate && fetchChat.endDate  && fetchChat.agentId )">Submit</md-button></div>
+                    
+                  </form> 
+                  </md-card>         
+                
+                
+                <md-card class="_md">
+       <div layout="row" class="layout-row md-padding">           
+   <md-input-container style="min-width:100px;" flex="50">
+                  <label>Search</label>
+                  <input  name="clientName" ng-model="searchedValue" no-special-directive maxlength="30">
+                </md-input-container>
+                </div>
+                <div class="table-responsive">
+<!-- <table width="100%" border="0" class="table crm_table table-bordered" style="text-align:center">
+  
+        	<tr>
+			<th style="text-align: center">Time</th>
+			<th  style="text-align:center">Chat ID</th>
+            	<th  style="text-align:center">Message</th>
+                <th style="text-align:center">From</th>
+
+            </tr>
+            <tr ng-repeat="x in history| filter :searchedValue">
+
+            
+            	<td>{{x.time}}</td>
+            	<td>{{x.chatId}}</td>
+            	<td>{{x.message}}</td>
+                <td>{{x.from}}</td>
+
+            </tr>
+   
+
+
+</table> -->
+
+
+<table width="100%" border="0" class="table crm_table table-bordered" style="text-align:center">
+        	<tr>
+                <th style="text-align:center">MSISDN</th>
+                <th style="text-align:center">View Details</th>
+            </tr>
+            <tr ng-repeat="x in preAgtHistory| filter :searchedValue">
+                <td>{{x.from}}</td>
+                 <td><md-button class="md-raised md-primary custom-green" ng-click="viewLiveAgentsReq(fetchChat,x.from)">click here to view chat history</md-button></td>
+            </tr>
+</table>
+
+</div>
+        </div>
+   </md-card>     
+   
+   
+   
+ <!--    <div class="chat-window" id="neerajwork" style="margin-left:10px;">
+        <div class="col-xs-12 col-md-12">
+        	<div class="panel panel-default">
+                <div class="panel-heading top-bar">
+                    <div class="col-md-8 col-xs-8 padding-l">
+                        <h3 class="panel-title">
+							<span class="label label-danger newmdgcounter">5</span>
+							<span class="glyphicon glyphicon-comment chatheadchaticon"></span>
+							<span class="chathead_text">Chat - Miguel</span>
+						</h3>
+                    </div>
+                    <div class="col-md-4 col-xs-4" style="text-align: right;">
+                        <a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>
+                        <a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span></a>
+                    </div>
+                </div>
+                <div class="panel-body msg_container_base">
+					
+					
+					
+					
+					
+					
+					
+					<div class="chat_msgmain">
+						<div class="top_menu hide">
+							<div class="buttons">
+								<div class="button close"></div>
+								<div class="button minimize"></div>
+								<div class="button maximize"></div>
+							</div>
+							<div class="title">Chat</div>
+						</div>
+						<ul class="messages">
+							<li class="message left appeared">
+								<div class="avatar"><img alt="sent-msg" src="images/send_user.png"></div>
+								<div class="text_wrapper">
+								<div class="text">Hello Philip! :)</div></div>
+							</li>
+							<li class="message right appeared">
+								<div class="avatar"><img alt="sent-msg" src="images/recv_user.png"></div>
+								<div class="text_wrapper">
+								<div class="text">Hi Sandy! How are you?</div></div>
+							</li>
+							<li class="message left appeared">
+								<div class="avatar"><img alt="sent-msg" src="images/send_user.png"></div>							
+								<div class="text_wrapper">
+								<div class="text">I'm fine, thank you!</div></div>
+							</li>
+							<li class="message right appeared">
+								<div class="avatar"><img alt="sent-msg" src="images/recv_user.png"></div>
+								<div class="text_wrapper">
+								<div class="text">Hi Sandy! How are you?</div></div>
+							</li>
+							</ul>
+						
+							
+					</div>
+					
+					
+					
+                </div>
+				
+                <div class="panel-footer fixedbottom ">
+                    <div class="bottom_wrapper clearfix">
+								<div class="message_input_wrapper">
+									<input class="message_input" placeholder="Type your message here..." />
+								</div>
+								<div class="send_message">
+									<div class="icon"><a href="#"><img alt="sent-msg" src="images/sent-mail.png"></a></div>									
+								</div>
+							</div>
+                </div>
+    		</div>
+        </div>
+    </div> -->
+    
+    
+    
+    
+    	<div style="display: none">
+					<md-card layout-padding>
+					<div class="md-dialog-container singalhistorychat" id="chatHisPopUp">
+						<md-dialog style="overflow:visible; height:auto !important;">
+							<div class="chatmain">
+    <div class="chat-window" id="chat_window_1">
+       
+        	<div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="">
+                  	<span class="singalhistorychattext">Chat History</span>
+                  <span class="singalhistorychatclodeicon" ng-click="cancel()">
+                 	<img alt="close" src="resources/images/cancel.png"> 	
+                  </span>
+                  </h4>
+                </div>
+                <div class="panel-body msg_container_base">
+					<div class="chat_msgmain">
+						<div class="top_menu hide">
+							<div class="buttons">
+								<div class="button close"></div>
+								<div class="button minimize"></div>
+								<div class="button maximize"></div>
+							</div>
+							<div class="title">Chat</div>
+						</div>
+						<ul class="list-unstyled media-block user-chat-ul1 messages">
+
+							</ul>
+						
+							
+					</div>
+					
+					
+					
+                </div>
+    		</div>
+    </div>
+			</div>
+						</md-dialog>
+					</div>
+
+					</md-card>
+				</div> 

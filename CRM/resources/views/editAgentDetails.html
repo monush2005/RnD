@@ -1,0 +1,364 @@
+    <div>
+		<div class="" align="left">
+		<md-card>
+		<div class="_md" layout-padding>
+			
+            <md-list role="list">
+              <div class="star-rating"><h4 style="margin:0;">Edit Agent Details</h4></div>
+            </md-list>
+            <form name="editAgentForm">
+             <div layout="row">
+              <md-input-container  flex="50">
+                <label>Employee ID</label>
+                <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                            <path fill="#7f7f7f" d="M17.25,18H6.75V4H17.25M14,21H10V20H14M16,1H8A3,3 0 0,0 5,4V20A3,3 0 0,0 8,23H16A3,3 0 0,0 19,20V4A3,3 0 0,0 16,1Z" />
+                        </svg></md-icon>
+                <input required type="text" name="mobNo" ng-model="editAgentDetails.empid"  maxlength="10"  disabled/>
+                <div ng-messages="editAgentForm.mobNo.$error" role="alert">
+                  <div ng-message="required">
+                    Mobile Number is required.
+                  </div>
+                  <div ng-message="pattern">
+                    Mobile Number must be 12 digit number and start with 7,8 or 9 only.
+                  </div>
+                </div>
+                </md-input-container> 
+                <md-input-container  flex="50">
+                <label>Agent Name</label>
+                <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="#7f7f7f" d="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,7H13.5A2,2 0 0,1 15.5,9V14.5H14V22H10V14.5H8.5V9A2,2 0 0,1 10.5,7Z" />
+                </svg></md-icon>
+                <input required type="text" name="an" id="an" ng-model="editAgentDetails.name" maxlength="50" ng-required="true" ng-pattern="/^[A-Za-z. ]+$/"  />
+                <div ng-messages="editAgentForm.an.$error" role="alert">
+                  <div ng-message="required">
+                    Name is required.
+                  </div>
+             <div ng-message="pattern">
+            Please enter valid agent name.
+          </div>
+                  
+                </div>
+                </md-input-container>
+            </div>
+            
+             <div layout="row">
+             	<md-input-container  flex="50">
+                <label>User Name</label>
+                <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="#7f7f7f" d="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,7H13.5A2,2 0 0,1 15.5,9V14.5H14V22H10V14.5H8.5V9A2,2 0 0,1 10.5,7Z" />
+                </svg></md-icon>
+                <input required type="text" name="un" id="un" ng-model="editAgentDetails.uname"  maxlength="40"/>
+                <div ng-messages="editAgentForm.un.$error" role="alert">
+                  <div ng-message="required">
+                    Name is required.
+                  </div>
+                  
+                </div>
+                </md-input-container>
+                <md-input-container  flex="50" class="plus_91" >
+                <label>Mobile No</label>
+                <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                            <path fill="#7f7f7f" d="M17.25,18H6.75V4H17.25M14,21H10V20H14M16,1H8A3,3 0 0,0 5,4V20A3,3 0 0,0 8,23H16A3,3 0 0,0 19,20V4A3,3 0 0,0 16,1Z" />
+                        </svg></md-icon>
+                <input required type="text" name="mobNo" id="mobNo" ng-model="editAgentDetails.mno"   mobile-length-directive maxlength="10" ng-required="true" no-special-directive ng-pattern="/^[7-9][0-9]{9}$/"/>
+                <div ng-messages="editAgentForm.mobNo.$error" role="alert">
+                  <div ng-message="required">
+                    Mobile Number is required.
+                  </div>
+                  <div ng-message="pattern">
+                    Mobile Number must be 10 digit number and start with 7,8 or 9 only.
+                  </div>
+                </div>
+                </md-input-container>
+            </div>
+            
+             <div layout="row">
+                <md-input-container flex="50">
+              <label>Type</label>
+              <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+        <path fill="#7f7f7f" d="M16,13C15.71,13 15.38,13 15.03,13.05C16.19,13.89 17,15 17,16.5V19H23V16.5C23,14.17 18.33,13 16,13M8,13C5.67,13 1,14.17 1,16.5V19H15V16.5C15,14.17 10.33,13 8,13M8,11A3,3 0 0,0 11,8A3,3 0 0,0 8,5A3,3 0 0,0 5,8A3,3 0 0,0 8,11M16,11A3,3 0 0,0 19,8A3,3 0 0,0 16,5A3,3 0 0,0 13,8A3,3 0 0,0 16,11Z" />
+    </svg></md-icon>
+              <md-select   ng-model="editAgentDetails.type" >
+                <md-option ng-repeat="x in agentTypes" ng-selected="{{editAgentDetails.type==x.typeId}}" value="{{x.typeId}}">{{x.typeName}}</md-option>
+                 
+              </md-select>
+            </md-input-container>
+                <md-input-container flex="50">
+              <label>Status</label>
+              <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+        <path fill="#7f7f7f" d="M16,13C15.71,13 15.38,13 15.03,13.05C16.19,13.89 17,15 17,16.5V19H23V16.5C23,14.17 18.33,13 16,13M8,13C5.67,13 1,14.17 1,16.5V19H15V16.5C15,14.17 10.33,13 8,13M8,11A3,3 0 0,0 11,8A3,3 0 0,0 8,5A3,3 0 0,0 5,8A3,3 0 0,0 8,11M16,11A3,3 0 0,0 19,8A3,3 0 0,0 16,5A3,3 0 0,0 13,8A3,3 0 0,0 16,11Z" />
+    </svg></md-icon>
+              <md-select name="cstatus" id="cstatus" ng-model="editAgentDetails.status" ng-required="true">
+                <md-option ng-repeat="d in agentStatusArr" value="{{d.agentStatusId}}" ng-selected="{{editAgentDetails.status==d.agentStatusValue}}"  >{{d.agentStatusValue}}</md-option>
+		</md-select>
+		             <div ng-messages="editAgentForm.cstatus.$error" role="alert">
+                  <div ng-message="required">
+                  Status is required.
+                  </div>
+                </div>
+            </md-input-container>
+            </div>
+        
+             <div layout="row">
+               
+            
+           <md-input-container flex="50" >
+              <label>Language</label>
+              <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+        <path fill="#7f7f7f" d="M16,13C15.71,13 15.38,13 15.03,13.05C16.19,13.89 17,15 17,16.5V19H23V16.5C23,14.17 18.33,13 16,13M8,13C5.67,13 1,14.17 1,16.5V19H15V16.5C15,14.17 10.33,13 8,13M8,11A3,3 0 0,0 11,8A3,3 0 0,0 8,5A3,3 0 0,0 5,8A3,3 0 0,0 8,11M16,11A3,3 0 0,0 19,8A3,3 0 0,0 16,5A3,3 0 0,0 13,8A3,3 0 0,0 16,11Z" />
+    </svg></md-icon>
+               <md-select name="ccelang" id="cccelang" ng-model="editAgentDetails.ccelang" ng-required="true" multiple >
+                <md-option value="{{c.id}}" ng-repeat="c in languages" >{{c.language}}</md-option> 
+             
+	</md-select>
+             <div ng-messages="editAgentForm.ccelang.$error" role="alert">
+                  <div ng-message="required">
+                    Language is required.
+                  </div>
+                </div>
+            </md-input-container>
+            
+<!--             
+                <md-input-container flex="50">
+              <label>Mode</label>
+              <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+        <path fill="#7f7f7f" d="M16,13C15.71,13 15.38,13 15.03,13.05C16.19,13.89 17,15 17,16.5V19H23V16.5C23,14.17 18.33,13 16,13M8,13C5.67,13 1,14.17 1,16.5V19H15V16.5C15,14.17 10.33,13 8,13M8,11A3,3 0 0,0 11,8A3,3 0 0,0 8,5A3,3 0 0,0 5,8A3,3 0 0,0 8,11M16,11A3,3 0 0,0 19,8A3,3 0 0,0 16,5A3,3 0 0,0 13,8A3,3 0 0,0 16,11Z" />
+    </svg></md-icon>
+              <md-select name="cmode" id="cmode" ng-model="editAgentDetails.ccemode" ng-required="true" multiple>
+                <md-option value="{{x.id}}" ng-repeat="x in modes" id="cmode" name="cmode" >{{x.mode}}</md-option>
+             </md-select>
+             <div ng-messages="editAgentForm.cmode.$error" role="alert">
+                  <div ng-message="required">
+                    Mode is required.
+                  </div>
+                </div>
+            </md-input-container> -->
+                           <md-input-container flex="50" class="plus_91">
+                <label>QR Mobile No.</label>
+                <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                    <path fill="#7f7f7f" d="M17.25,18H6.75V4H17.25M14,21H10V20H14M16,1H8A3,3 0 0,0 5,4V20A3,3 0 0,0 8,23H16A3,3 0 0,0 19,20V4A3,3 0 0,0 16,1Z" />
+                </svg></md-icon>
+                <input required type="text" name="qrmno" id="qrmno" ng-model="editAgentDetails.qrmno" mobile-length-directive maxlength="10" ng-required="true" no-special-directive ng-pattern="/^[7-9][0-9]{9}$/" />
+                <div ng-messages="editAgentForm.qrmno.$error" role="alert">
+                  <div ng-message="required">
+                    QR mobile is required.
+                  </div>
+                  <div ng-message="pattern">
+                    Mobile Number must be 10 digit number and start with 7,8 or 9 only.
+                  </div>
+                </div>
+                </md-input-container>
+           </div>
+           
+             <div layout="row">
+             	<md-input-container  flex="50">
+                <label>Email</label>
+                <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="#7f7f7f" d="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,7H13.5A2,2 0 0,1 15.5,9V14.5H14V22H10V14.5H8.5V9A2,2 0 0,1 10.5,7Z" />
+                </svg></md-icon>
+                <input required type="text" name="email" id="email" ng-model="editAgentDetails.email"  maxlength="50" />
+                <div ng-messages="editAgentForm.email.$error" role="alert">
+                  <div ng-message="required">
+                    Email is required.
+                  </div>
+                  
+                </div>
+                </md-input-container>
+                <md-input-container flex="50">
+              <label>View reports</label>
+              <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+        <path fill="#7f7f7f" d="M16,13C15.71,13 15.38,13 15.03,13.05C16.19,13.89 17,15 17,16.5V19H23V16.5C23,14.17 18.33,13 16,13M8,13C5.67,13 1,14.17 1,16.5V19H15V16.5C15,14.17 10.33,13 8,13M8,11A3,3 0 0,0 11,8A3,3 0 0,0 8,5A3,3 0 0,0 5,8A3,3 0 0,0 8,11M16,11A3,3 0 0,0 19,8A3,3 0 0,0 16,5A3,3 0 0,0 13,8A3,3 0 0,0 16,11Z" />
+    </svg></md-icon>
+              <md-select name="viewrpt" id="viewrpt" ng-model="editAgentDetails.viewrpt" required>
+                <md-option value="{{b.viewrptId}}" ng-repeat="b in viewRptArr">{{b.viewrptValue}}</md-option>
+            </md-select>
+                <div ng-messages="editAgentForm.viewrpt.$error" role="alert">
+                  <div ng-message="required">
+                    View Report is required.
+                  </div>
+              </div>
+            </md-input-container>
+            </div> 
+            
+             <div layout="row">
+               <md-input-container flex="50">
+              <label>Response</label>
+              <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+        <path fill="#7f7f7f" d="M16,13C15.71,13 15.38,13 15.03,13.05C16.19,13.89 17,15 17,16.5V19H23V16.5C23,14.17 18.33,13 16,13M8,13C5.67,13 1,14.17 1,16.5V19H15V16.5C15,14.17 10.33,13 8,13M8,11A3,3 0 0,0 11,8A3,3 0 0,0 8,5A3,3 0 0,0 5,8A3,3 0 0,0 8,11M16,11A3,3 0 0,0 19,8A3,3 0 0,0 16,5A3,3 0 0,0 13,8A3,3 0 0,0 16,11Z" />
+    </svg></md-icon>
+              <md-select name="type" ng-model="editAgentDetails.rrespond" required>
+                <md-option value="{{a.responsdArrId}}" ng-selected="{{editAgentDetails.rrespond==a}}" ng-repeat="a in responsdArr">{{a.responsdArrValue}}</md-option>
+             
+              </md-select>
+            </md-input-container>
+<!--              	<md-input-container  flex="50">
+                <label>Chat</label>
+                <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="#7f7f7f" d="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,7H13.5A2,2 0 0,1 15.5,9V14.5H14V22H10V14.5H8.5V9A2,2 0 0,1 10.5,7Z" />
+                </svg></md-icon>
+                <input required type="text" name="chatId" id="chatId" ng-model="editAgentDetails.chat" mobile-length-directive maxlength="2" ng-required="true" no-special-directive />
+                <div ng-messages="editAgentForm.chatId.$error" role="alert">
+                  <div ng-message="required">
+                    Chat is required.
+                  </div>
+                  
+                </div>
+                </md-input-container> -->
+                
+                <md-input-container  flex="50" ng-show="ivrFlg==true">
+                <label>Terminal ID</label>
+                <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="#7f7f7f" d="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,7H13.5A2,2 0 0,1 15.5,9V14.5H14V22H10V14.5H8.5V9A2,2 0 0,1 10.5,7Z" />
+                </svg></md-icon>
+                <input required type="text" name="terminalid" numbers-only  id="terminalid" ng-model="editAgentDetails.terminalid"  maxlength="6" ng-required="true" no-special-directive />
+                <div ng-messages="editAgentForm.terminalid.$error" role="alert">
+                  <div ng-message="required">
+                    Terminal ID is required.
+                  </div>
+                  
+                </div>
+                </md-input-container>
+                
+            </div>
+            
+<!--              <div layout="row">
+               <md-input-container  flex="50">
+                <label>Query</label>
+                <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="#7f7f7f" d="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,7H13.5A2,2 0 0,1 15.5,9V14.5H14V22H10V14.5H8.5V9A2,2 0 0,1 10.5,7Z" />
+                </svg></md-icon>
+                <input required type="text" name="qID" id="qID" ng-model="editAgentDetails.query" mobile-length-directive maxlength="2" ng-required="true" no-special-directive />
+                <div ng-messages="editAgentForm.qID.$error" role="alert">
+                  <div ng-message="required">
+                    Query is required.
+                  </div>
+                  
+                </div>
+                </md-input-container>
+             	<md-input-container  flex="50">
+                <label>Call</label>
+                <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="#7f7f7f" d="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,7H13.5A2,2 0 0,1 15.5,9V14.5H14V22H10V14.5H8.5V9A2,2 0 0,1 10.5,7Z" />
+                </svg></md-icon>
+                <input required type="text" name="cid" id="cid"  ng-model="editAgentDetails.call" mobile-length-directive maxlength="2" ng-required="true" no-special-directive />
+                <div ng-messages="editAgentForm.cid.$error" role="alert">
+                  <div ng-message="required">
+                    Call is required.
+                  </div>
+                  
+                </div>
+                </md-input-container>
+                
+            </div> -->
+            
+             <div layout="row">
+<!--                <md-input-container flex="50" class="plus_91">
+                <label>QR Mobile No.</label>
+                <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                    <path fill="#7f7f7f" d="M17.25,18H6.75V4H17.25M14,21H10V20H14M16,1H8A3,3 0 0,0 5,4V20A3,3 0 0,0 8,23H16A3,3 0 0,0 19,20V4A3,3 0 0,0 16,1Z" />
+                </svg></md-icon>
+                <input required type="text" name="qrmno" id="qrmno" ng-model="editAgentDetails.qrmno" mobile-length-directive maxlength="10" ng-required="true" no-special-directive ng-pattern="/^[7-9][0-9]{9}$/" />
+                <div ng-messages="editAgentForm.qrmno.$error" role="alert">
+                  <div ng-message="required">
+                    QR mobile is required.
+                  </div>
+                  <div ng-message="pattern">
+                    Mobile Number must be 10 digit number and start with 7,8 or 9 only.
+                  </div>
+                </div>
+                </md-input-container> -->
+<!--              	<md-input-container  flex="50">
+                <label>SME</label>
+                <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="#7f7f7f" d="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,7H13.5A2,2 0 0,1 15.5,9V14.5H14V22H10V14.5H8.5V9A2,2 0 0,1 10.5,7Z" />
+                </svg></md-icon>
+                <input required type="text" name="aadNo" ng-model="editAgentDetails.sme"  />
+                <div ng-messages="editAgentForm.aadNo.$error" role="alert">
+                  <div ng-message="required">
+                    Name is required.
+                  </div>
+                  
+                </div>
+                </md-input-container> -->
+                
+            </div>
+ 
+<!--              <div layout="row">
+                <md-input-container flex="100">
+              <label>View Repots</label>
+              <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+        <path fill="#7f7f7f" d="M16,13C15.71,13 15.38,13 15.03,13.05C16.19,13.89 17,15 17,16.5V19H23V16.5C23,14.17 18.33,13 16,13M8,13C5.67,13 1,14.17 1,16.5V19H15V16.5C15,14.17 10.33,13 8,13M8,11A3,3 0 0,0 11,8A3,3 0 0,0 8,5A3,3 0 0,0 5,8A3,3 0 0,0 8,11M16,11A3,3 0 0,0 19,8A3,3 0 0,0 16,5A3,3 0 0,0 13,8A3,3 0 0,0 16,11Z" />
+    </svg></md-icon>
+              <md-select name="type" ng-model="editAgentDetails.viewreports" >
+                <md-option value="app">English</md-option>
+            
+              </md-select>
+            </md-input-container>
+            </div>
+            
+            <md-input-container class="md-block">
+              <label>Submit Text </label>
+              <md-icon></md-icon>
+              <textarea ng-model="dd" md-maxlength="150" rows="3" md-select-on-focus></textarea>
+            </md-input-container>
+            	
+        </div> -->
+        
+       
+        <div class="custom_button_box1" align="center" layout-margin><!-- ng-disabled="editAgentForm.$invalid" -->
+            <md-button class="md-raised custom-green" ng-click="editAddAgent(editAgentDetails)" ng-disabled="!((editAgentDetails.empid && editAgentDetails.name && editAgentDetails.uname && editAgentDetails.mno && editAgentDetails.ccelang && editAgentDetails.type && editAgentDetails.status && editAgentDetails.qrmno && editAgentDetails.email && editAgentDetails.viewrpt && editAgentDetails.rrespond))" >Submit</md-button>
+            <md-button class="md-raised md-primary md-hue-2 md-primary" ng-click="reset(editAgentDetails)">Refresh</md-button>
+        </div>
+        </div>
+        </md-card>
+        
+        </form>
+    </div>
+    
+
+ 
+ 
+ 
+ 
+ 	  				<div style="display: none">
+					<md-card layout-padding>
+					<div class="md-dialog-container" id="commonSuccess">
+						<md-dialog class="crm-dialog-height">
+						<div class="popup-svg" align="center">
+							<span><svg style="width: 24px; height: 24px"
+									viewBox="0 0 24 24">
+    <path fill="#008000"
+										d="M23,10C23,8.89 22.1,8 21,8H14.68L15.64,3.43C15.66,3.33 15.67,3.22 15.67,3.11C15.67,2.7 15.5,2.32 15.23,2.05L14.17,1L7.59,7.58C7.22,7.95 7,8.45 7,9V19A2,2 0 0,0 9,21H18C18.83,21 19.54,20.5 19.84,19.78L22.86,12.73C22.95,12.5 23,12.26 23,12V10.08L23,10M1,21H5V9H1V21Z" />
+</svg></span>
+							<p>{{successMsg}}</p>
+							<div class="custom_button_box custom-green">
+								<md-button class="md-raised custom-green" ng-click="cancel()">OKbx</md-button>
+							</div>
+						</div>
+						</md-dialog>
+					</div>
+					 </md-card>
+				</div>
+
+
+
+				<div style="display: none">
+					<md-card layout-padding>
+					<div class="md-dialog-container" id="commonError">
+						<md-dialog style="overflow:hidden; height:auto !important;">
+						<div class="popup-svg" align="center">
+							<span><svg style="width: 35px; height: 35px"
+									viewBox="0 0 24 24">
+    <path fill="#ff0000"
+										d="M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+</svg></span>
+							<p>{{errorMsg}}</p>
+							<div class="custom_button_box custom-green">
+								<md-button class="md-raised custom-green" ng-click="cancel()">OKshakdja</md-button>
+							</div>
+						</div>
+						</md-dialog>
+					</div>
+
+					</md-card>
+				</div>	

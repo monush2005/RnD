@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="30 seconds">
+	<property name="APP_LOG" value="/home/application/logs/crmweb" />
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
+			by default -->
+		<encoder>
+			<pattern>%d{dd-MMM-yyyy HH:mm:ss.SSS} [%-5level- %M - %L] %class{5} -
+				%X{UNIQUE} - %msg%ex{short}%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="acccess"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${APP_LOG}/%d{dd-MM-yyyy,aux}/access_%d{HH}.log</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{dd-MMM-yyyy HH:mm:ss.SSS} [%-5level- %M - %L] %class{5} -
+				%X{UNIQUE} - %msg%ex{short}%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="LOG-FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${APP_LOG}/%d{dd-MM-yyyy, aux}/log_%d{HH}.log</fileNamePattern>
+
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{dd-MMM-yyyy HH:mm:ss.SSS} [%-5level- %M - %L] %class{5} -
+				%X{UNIQUE} - %msg%ex{short}%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="umangweb"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${APP_LOG}/%d{dd-MM-yyyy,aux}/umangweb_%d{HH}.log</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{dd-MMM-yyyy HH:mm:ss.SSS} [%-5level- %M - %L] %class{5} -
+				%X{UNIQUE} - %msg%ex{short}%n</pattern>
+		</encoder>
+	</appender>
+	<!-- Strictly speaking, the level attribute is not necessary since -->
+	<!-- the level of the root level is set to DEBUG by default. -->
+	<logger name="umangwebOut" level="DEBUG" additivity="false">
+		<appender-ref ref="umangweb" />
+	</logger>
+	<logger name="acccessOut" level="DEBUG" additivity="false">
+		<appender-ref ref="acccess" />
+	</logger>
+	<root level="INFO">
+		<appender-ref ref="LOG-FILE" />
+<!-- 		<appender-ref ref="STDOUT" /> -->
+	</root>
+
+</configuration>

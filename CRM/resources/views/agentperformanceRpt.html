@@ -1,0 +1,385 @@
+  <style>
+
+.pagination {
+	margin: 20px 0;
+}
+
+.pagination ul {
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+	margin-left: 0;
+	margin-bottom: 0;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.pagination ul>li {
+	display: inline;
+}
+
+.pagination ul>li>a,.pagination ul>li>span {
+	float: left;
+	padding: 4px 12px;
+	line-height: 20px;
+	text-decoration: none;
+	background-color: #ffffff;
+	border: 1px solid #dddddd;
+	border-left-width: 0;
+}
+
+.pagination ul>li>a:hover,.pagination ul>li>a:focus,.pagination ul>.active>a,.pagination ul>.active>span
+	{
+	background-color: #f5f5f5;
+}
+
+.pagination ul>.active>a,.pagination ul>.active>span {
+	color: #999999;
+	cursor: default;
+}
+
+.pagination ul>.disabled>span,.pagination ul>.disabled>a,.pagination ul>.disabled>a:hover,.pagination ul>.disabled>a:focus
+	{
+	color: #999999;
+	background-color: transparent;
+	cursor: default;
+}
+
+.pagination ul>li:first-child>a,.pagination ul>li:first-child>span {
+	border-left-width: 1px;
+	-webkit-border-top-left-radius: 4px;
+	-moz-border-radius-topleft: 4px;
+	border-top-left-radius: 4px;
+	-webkit-border-bottom-left-radius: 4px;
+	-moz-border-radius-bottomleft: 4px;
+	border-bottom-left-radius: 4px;
+}
+
+.pagination ul>li:last-child>a,.pagination ul>li:last-child>span {
+	-webkit-border-top-right-radius: 4px;
+	-moz-border-radius-topright: 4px;
+	border-top-right-radius: 4px;
+	-webkit-border-bottom-right-radius: 4px;
+	-moz-border-radius-bottomright: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+.pagination-centered {
+	text-align: center;
+}
+
+.pagination-right {
+	text-align: right;
+}
+
+.pagination-large ul>li>a,.pagination-large ul>li>span {
+	padding: 11px 19px;
+	font-size: 17.5px;
+}
+
+.pagination-large ul>li:first-child>a,.pagination-large ul>li:first-child>span
+	{
+	-webkit-border-top-left-radius: 6px;
+	-moz-border-radius-topleft: 6px;
+	border-top-left-radius: 6px;
+	-webkit-border-bottom-left-radius: 6px;
+	-moz-border-radius-bottomleft: 6px;
+	border-bottom-left-radius: 6px;
+}
+
+.pagination-large ul>li:last-child>a,.pagination-large ul>li:last-child>span
+	{
+	-webkit-border-top-right-radius: 6px;
+	-moz-border-radius-topright: 6px;
+	border-top-right-radius: 6px;
+	-webkit-border-bottom-right-radius: 6px;
+	-moz-border-radius-bottomright: 6px;
+	border-bottom-right-radius: 6px;
+}
+
+.pagination-mini ul>li:first-child>a,.pagination-small ul>li:first-child>a,.pagination-mini ul>li:first-child>span,.pagination-small ul>li:first-child>span
+	{
+	-webkit-border-top-left-radius: 3px;
+	-moz-border-radius-topleft: 3px;
+	border-top-left-radius: 3px;
+	-webkit-border-bottom-left-radius: 3px;
+	-moz-border-radius-bottomleft: 3px;
+	border-bottom-left-radius: 3px;
+}
+
+.pagination-mini ul>li:last-child>a,.pagination-small ul>li:last-child>a,.pagination-mini ul>li:last-child>span,.pagination-small ul>li:last-child>span
+	{
+	-webkit-border-top-right-radius: 3px;
+	-moz-border-radius-topright: 3px;
+	border-top-right-radius: 3px;
+	-webkit-border-bottom-right-radius: 3px;
+	-moz-border-radius-bottomright: 3px;
+	border-bottom-right-radius: 3px;
+}
+
+.pagination-small ul>li>a,.pagination-small ul>li>span {
+	padding: 2px 10px;
+	font-size: 11.9px;
+}
+
+.pagination-mini ul>li>a,.pagination-mini ul>li>span {
+	padding: 0 6px;
+	font-size: 10.5px;
+}
+
+.pager {
+	margin: 20px 0;
+	list-style: none;
+	text-align: center;
+	*zoom: 1;
+}
+
+.pager:before,.pager:after {
+	display: table;
+	content: "";
+	line-height: 0;
+}
+
+.pager:after {
+	clear: both;
+}
+
+.pager li {
+	display: inline;
+}
+
+.pager li>a,.pager li>span {
+	display: inline-block;
+	padding: 5px 14px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+
+.pager li>a:hover,.pager li>a:focus {
+	text-decoration: none;
+	background-color: #f5f5f5;
+}
+
+.pager .next>a,.pager .next>span {
+	float: right;
+}
+
+.pager .previous>a,.pager .previous>span {
+	float: left;
+}
+
+.pager .disabled>a,.pager .disabled>a:hover,.pager .disabled>a:focus,.pager .disabled>span
+	{
+	color: #999999;
+	background-color: #fff;
+	cursor: default;
+}
+.right_box {
+position:absolute;
+top:59px;
+width:calc(100% -374px);
+right:0;
+margin:20px 40px;
+}
+</style>
+  
+  <md-card>        
+                     <form name="cceForm">   
+             <div layout="row" layout-align="start start" layout-align-xs="" layout-xs="column" class="cust_padding">
+                   <md-input-container flex="33" flex-xs="100" class="no-margin">
+       <md-datepicker flex="100" flex-xs="100" ng-model="obj.strtDate"  md-placeholder="Start Date" id="strtDt" name="strtDt" ng-required="true"></md-datepicker>
+         	 <div ng-messages="cceForm.strtDt.$error">
+          	  		<div ng-message="valid">Please enter valid date.</div>
+    			</div> 
+                     </md-input-container>
+                   <md-input-container flex="33" flex-xs="100" class="no-margin">
+       <md-datepicker flex="100" flex-xs="100" ng-model="obj.endDate" md-placeholder="End Date" id="endDt" name="endDt"  ng-required="true"></md-datepicker>
+                         	 <div ng-messages="cceForm.endDt.$error">
+     	 <div  ng-message="valid">Please enter valid date.</div>
+          	  		
+    </div> 
+                    
+                     </md-input-container>
+                                     <md-input-container flex="33">
+              <label>Agent Name</label>
+              <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+        <path fill="#7f7f7f" d="M16,13C15.71,13 15.38,13 15.03,13.05C16.19,13.89 17,15 17,16.5V19H23V16.5C23,14.17 18.33,13 16,13M8,13C5.67,13 1,14.17 1,16.5V19H15V16.5C15,14.17 10.33,13 8,13M8,11A3,3 0 0,0 11,8A3,3 0 0,0 8,5A3,3 0 0,0 5,8A3,3 0 0,0 8,11M16,11A3,3 0 0,0 19,8A3,3 0 0,0 16,5A3,3 0 0,0 13,8A3,3 0 0,0 16,11Z" />
+    </svg></md-icon>
+              <md-select  ng-model="obj.agentId"  name="tlId" id="tlId">
+              <md-option value="all">All</md-option>
+                <md-option ng-repeat="b in fetchCceDetails" value="{{b.cceid}}">{{b.uname}}</md-option>
+ 
+              </md-select>
+              <div ng-messages="agentForm.tlId.$error" role="alert">
+          </div>
+            </md-input-container>
+                	<div><md-button class="md-raised md-primary custom-green" ng-click="agentPerformanceRptReq(obj)" ng-disabled="!(obj.strtDate && obj.endDate)">Submit</md-button></div>
+                  </div>   
+                  </form>          
+                
+ </md-card>               
+                
+    <md-card class="md-padding">            
+
+             <div layout="row" layout-align="start start" layout-align-xs="" layout-xs="column" class="cust_padding">
+           <md-input-container style="min-width:100px;" flex="50" >
+                  <label>Search</label>
+                  <input  name="clientName" ng-model="searchedValue" no-special-directive maxlength="30">
+                </md-input-container>
+                 <md-input-container style="min-width:100px;" flex="50" >
+ <md-button style="float:right" class="md-raised md-primary custom-green" ng-click="exportToExcel('#tableToExport')" >Export to excel</md-button></div>
+                </md-input-container>
+                
+                </div>
+                <div style="float:left;width: 100%;overflow: scroll;    white-space: nowrap; padding: 0px;" class="tab_scroll action-btn" >
+ <table width="100%" border="0" class="table crm_table newrestablecss" style="text-align:center; display:none" class="table crm_table crm-table-scroll" id="tableToExport">
+  
+        	<tr>
+        	<th  style="text-align:center">CCEID</th>
+        	<th  style="text-align:center">Channel</th>
+			<th style="text-align: center">Net login time</th>
+            	<th  style="text-align:center">Total break time</th>
+                <th style="text-align:center">Total calls</th>
+                <th style="text-align:center">Total chats</th>
+                <th style="text-align:center">Total Handling Time</th>
+                <th  style="text-align:center">Total idle duration</th>
+                <th style="text-align:center">Total login time</th>
+                <th style="text-align:center">Total wrapup time</th>
+                <th style="text-align:center">Total talk time</th>
+                <th style="text-align:center">utilization</th>
+
+            </tr>
+            <tr ng-repeat="x in agentPerformancerptData | filter :searchedValue">
+     <span ng-if="viewPendingHistoryResponsePojo.rs=='S'">Total Records Found :<strong>{{(viewPendingHistoryResponsePojo.pd.history | filter:searchedValue).length}}</strong></span>
+        <div ng-switch="(viewPendingHistoryResponsePojo.pd.history | filter:searchedValue).length">
+            <span ng-switch-when="0" style="color:red;">NO MATCH FOUND</span> 
+ 	</div>
+            	<td>{{x.cceid}}</td>
+            	<td>{{x.channel}}</td>
+            	<td>{{x.netLoginTime}}</td>
+            	<td>{{x.totalBreakTime}}</td>
+                <td>{{x.totalCalls}}</td>
+                <td>{{x.totalChats}}</td>
+                <td>{{x.totalHandlingTime}}</td>
+                 <td>{{x.totalIdleDuration}}</td>
+                <td>{{x.totalLoginTime}}</td>
+                <td>{{x.totalWrapUpTime}}</td>
+                <td>{{x.totaltTalktime}}</td>
+                <td>{{x.utilization}}</td>
+            </tr>
+   
+
+
+</table>
+ 
+
+
+
+<table width="100%" border="0" class="table crm_table newrestablecss table-bordered" style="text-align:center" >
+        	<tr>
+        	<th  style="text-align:center">CCEID</th>
+        	<th  style="text-align:center">Channel</th>
+			<th style="text-align: center">Net login time</th>
+            	<th  style="text-align:center">Total break time</th>
+                <th style="text-align:center">Total calls</th>
+                <th style="text-align:center">Total chats</th>
+                <th style="text-align:center">Total Handling Time</th>
+                <th  style="text-align:center">Total idle duration</th>
+                <th style="text-align:center">Total login time</th>
+                <th style="text-align:center">Total wrapup time</th>
+                <th style="text-align:center">Total talk time</th>
+                <th style="text-align:center">utilization</th>
+
+            </tr>
+            <tr ng-repeat="x in agentPerformancerptData | filter :searchedValue">
+     <span ng-if="viewPendingHistoryResponsePojo.rs=='S'">Total Records Found :<strong>{{(viewPendingHistoryResponsePojo.pd.history | filter:searchedValue).length}}</strong></span>
+        <div ng-switch="(viewPendingHistoryResponsePojo.pd.history | filter:searchedValue).length">
+            <span ng-switch-when="0" style="color:red;">NO MATCH FOUND</span> 
+ 	</div>
+            	<td>{{x.cceid}}</td>
+            	<td>{{x.channel}}</td>
+            	<td>{{x.netLoginTime}}</td>
+            	<td>{{x.totalBreakTime}}</td>
+                <td>{{x.totalCalls}}</td>
+                <td>{{x.totalChats}}</td>
+                <td>{{x.totalHandlingTime}}</td>
+                 <td>{{x.totalIdleDuration}}</td>
+                <td>{{x.totalLoginTime}}</td>
+                <td>{{x.totalWrapUpTime}}</td>
+                <td>{{x.totaltTalktime}}</td>
+                <td>{{x.utilization}}</td>
+            </tr>
+             <tfoot ng-show="dataFlg==true">
+						<td colspan="15" style="text-align:center;">
+							<div class="pagination" align="center">
+								<ul>
+									<li ng-class="prevPageDisabled()"><a href
+										ng-click="prevPage()">Prev</a></li>
+									<li ng-repeat="n in range()"
+										ng-class="{active: n == currentPage}" ng-click="setPage(n)">
+										<a style="cursor: pointer;">{{n+1}}</a>
+									</li>
+									<li ng-class="nextPageDisabled()"><a href
+										ng-click="nextPage()">Next</a></li>
+								</ul>
+							</div>
+						</td>
+					</tfoot>
+
+
+</table>
+        </div>
+        </div>
+   </md-card>     
+   
+   
+           				<div style="display: none">
+					<md-card layout-padding>
+					<div class="md-dialog-container" id="commonSuccess">
+						<md-dialog class="crm-dialog-height">
+						<div class="popup-svg" align="center">
+							<span><svg style="width: 24px; height: 24px"
+									viewBox="0 0 24 24">
+    <path fill="#008000"
+										d="M23,10C23,8.89 22.1,8 21,8H14.68L15.64,3.43C15.66,3.33 15.67,3.22 15.67,3.11C15.67,2.7 15.5,2.32 15.23,2.05L14.17,1L7.59,7.58C7.22,7.95 7,8.45 7,9V19A2,2 0 0,0 9,21H18C18.83,21 19.54,20.5 19.84,19.78L22.86,12.73C22.95,12.5 23,12.26 23,12V10.08L23,10M1,21H5V9H1V21Z" />
+</svg></span>
+							<p>{{successMsg}}</p>
+							<div class="custom_button_box custom-green">
+								<md-button class="md-raised custom-green" ng-click="cancel()">OK</md-button>
+							</div>
+						</div>
+						</md-dialog>
+					</div>
+					 </md-card>
+				</div>
+
+
+
+				<div style="display: none">
+					<md-card layout-padding>
+					<div class="md-dialog-container" id="commonError">
+						<md-dialog style="overflow:hidden; height:auto !important;">
+						<div class="popup-svg" align="center">
+							<span><svg style="width: 35px; height: 35px"
+									viewBox="0 0 24 24">
+    <path fill="#ff0000"
+										d="M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+</svg></span>
+							<p>{{errorMsg}}</p>
+							<div class="custom_button_box custom-green">
+								<md-button class="md-raised custom-green" ng-click="cancel()">OK</md-button>
+							</div>
+						</div>
+						</md-dialog>
+					</div>
+
+					</md-card>
+				</div> 
+  

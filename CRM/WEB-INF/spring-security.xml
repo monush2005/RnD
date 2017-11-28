@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Configuring RoleVoter bean to use custom access roles, by default roles 
+		should be in the form ROLE_{XXX} -->
+
+	<http authentication-manager-ref="dao-auth"
+		access-decision-manager-ref="accessDecisionManager">
+
+		<session-management invalid-session-url="/">
+			<concurrency-control max-sessions="1"
+				expired-url="/" />
+		</session-management>
+	</http>
+
+	<!-- <beans:bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"></beans:bean> -->
+
+
+	<!-- <authentication-manager id="jdbc-auth"> -->
+	<!-- <authentication-provider> -->
+	<!-- <jdbc-user-service data-source-ref="dataSource" -->
+	<!-- users-by-username-query="select username,password,enabled from Employees 
+		where username = ?" -->
+	<!-- authorities-by-username-query="select username,role from Roles where 
+		username = ?" /> -->
+	<!-- </authentication-provider> -->
+	<!-- </authentication-manager> -->
+
+	<!-- MySQL DB DataSource -->
+	<!-- <beans:bean id="dataSource" -->
+	<!-- class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+
+	<!-- <beans:property name="driverClassName" value="com.mysql.jdbc.Driver" 
+		/> -->
+	<!-- <beans:property name="url" -->
+	<!-- value="jdbc:mysql://localhost:3306/veer" /> -->
+	<!-- <beans:property name="username" value="veer" /> -->
+	<!-- <beans:property name="password" value="veer123" /> -->
+	<!-- </beans:bean> -->
+
+	<!-- If DataSource is configured in Tomcat Servlet Container -->
+	<!-- <beans:bean id="dbDataSource" -->
+	<!-- class="org.springframework.jndi.JndiObjectFactoryBean"> -->
+	<!-- <beans:property name="jndiName" value="java:comp/env/jdbc/MyLocalDB" 
+		/> -->
+	<!-- </beans:bean> -->
+
+	<!-- <authentication-manager id="in-memory-auth"> -->
+	<!-- <authentication-provider> -->
+	<!-- <user-service> -->
+	<!-- <user name="veer" password="veer123" authorities="Admin" /> -->
+	<!-- </user-service> -->
+	<!-- </authentication-provider> -->
+	<!-- </authentication-manager> -->
+
+
+</beans:beans>

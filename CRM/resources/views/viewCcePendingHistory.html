@@ -1,0 +1,68 @@
+                <md-card class="_md">
+                     <form name="cceForm">   
+             <div layout="row" layout-align="start start" layout-align-xs="" layout-xs="column" class="cust_padding">
+                   <md-input-container flex="50" flex-xs="100" class="no-margin">
+       <md-datepicker flex="100" flex-xs="100" ng-model="obj.strtDate"  md-placeholder="Start Date" id="strtDt" name="strtDt" ng-required="true"></md-datepicker>
+         	 <div ng-messages="cceForm.strtDt.$error">
+          	  		<div ng-message="valid">Please enter valid date.</div>
+    			</div> 
+                     </md-input-container>
+                   <md-input-container flex="50" flex-xs="100" class="no-margin">
+       <md-datepicker flex="100" flex-xs="100" ng-model="obj.endDate" md-placeholder="End Date" id="endDt" name="endDt"  ng-required="true"></md-datepicker>
+                         	 <div ng-messages="cceForm.endDt.$error">
+     	 <div  ng-message="valid">Please enter valid date.</div>
+          	  		
+    </div> 
+                    
+                     </md-input-container>
+                	<div><md-button class="md-raised md-primary custom-green" ng-click="viewPendingDetails(obj)" ng-disabled="!(obj.strtDate && obj.endDate)">Submit</md-button></div>
+                  </div>   
+                  </form>          
+                
+                
+                
+       <div class="tab_scroll md-padding">      
+       <div layout="row" layout-align="start start" layout-align-xs="" layout-xs="column" class="cust_padding">   
+   <md-input-container  flex="50">
+                  <label>Search</label>
+                  <input  name="clientName" ng-model="searchedValue" no-special-directive maxlength="30">
+                </md-input-container>
+                </div>
+<table width="100%" border="0" class="table crm_table table-bordered" style="text-align:center">
+  
+        	<tr>
+			<th style="text-align: center">CCE ID</th>
+			<th  style="text-align:center">CCE Name</th>
+            	<th  style="text-align:center">Pending Email</th>
+                <th style="text-align:center">Pending Chat</th>
+                <th style="text-align:center">Pending Call</th>
+                <th style="text-align:center">Pending Message</th>
+                <th  style="text-align:center">Answered Email</th>
+                <th style="text-align:center">Answered Chat</th>
+                <th style="text-align:center">Answered Call</th>
+                <th style="text-align:center">Answered Message</th>
+            </tr>
+            <tr ng-repeat="x in history| filter :searchedValue">
+     <span ng-if="viewPendingHistoryResponsePojo.rs=='S'">Total Records Found :<strong>{{(viewPendingHistoryResponsePojo.pd.history | filter:searchedValue).length}}</strong></span>
+        <div ng-switch="(viewPendingHistoryResponsePojo.pd.history | filter:searchedValue).length">
+            <span ng-switch-when="0" style="color:red;">NO MATCH FOUND</span> 
+ 	</div>
+            
+            	<td>{{x.cceid}}</td>
+            	<td>{{x.agentname}}</td>
+            	<td>{{x.email}}</td>
+                <td>{{x.chat}}</td>
+                <td>{{x.call}}</td>
+                <td>{{x.message}}</td>
+                 <td>{{x.pendingEmail}}</td>
+                <td>{{x.pendingChat}}</td>
+                <td>{{x.pendingCall}}</td>
+                <td>{{x.pendingMsg}}</td>
+            </tr>
+   
+
+
+</table>
+</div>
+        </div>
+   </md-card>     

@@ -1,0 +1,1016 @@
+<style>
+   .acidjs-rating-stars,
+   .acidjs-rating-stars label::before
+   {
+   display: inline-block;
+   }
+   .acidjs-rating-stars label:hover,
+   .acidjs-rating-stars label:hover ~ label
+   {
+   color: #189800;
+   }
+   .acidjs-rating-stars *
+   {
+   margin: 0;
+   padding: 0;
+   }
+   .acidjs-rating-stars input
+   {
+   display: none;
+   }
+   .acidjs-rating-stars
+   {
+   unicode-bidi: bidi-override;
+   direction: rtl;
+   }
+   .acidjs-rating-stars label
+   {
+   color: #ccc;
+   }
+   .acidjs-rating-stars label::before
+   {
+   content: "\2605";
+   width: 18px;
+   line-height: 18px;
+   text-align: center;
+   font-size: 18px;
+   cursor: pointer;
+   }
+   .acidjs-rating-stars input:checked ~ label
+   {
+   color: #f5b301;
+   }
+   .acidjs-rating-disabled
+   {
+   opacity: .50;
+   -webkit-pointer-events: none;
+   -moz-pointer-events: none;
+   pointer-events: none;
+   }
+</style>
+<style>
+   .pagination {
+   margin: 20px 0;
+   }
+   .pagination ul {
+   display: inline-block;
+   *display: inline;
+   *zoom: 1;
+   margin-left: 0;
+   margin-bottom: 0;
+   -webkit-border-radius: 4px;
+   -moz-border-radius: 4px;
+   border-radius: 4px;
+   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+   }
+   .pagination ul>li {
+   display: inline;
+   }
+   .pagination ul>li>a,.pagination ul>li>span {
+   float: left;
+   padding: 4px 12px;
+   line-height: 20px;
+   text-decoration: none;
+   background-color: #ffffff;
+   border: 1px solid #dddddd;
+   border-left-width: 0;
+   }
+   .pagination ul>li>a:hover,.pagination ul>li>a:focus,.pagination ul>.active>a,.pagination ul>.active>span
+   {   
+	background-color: #3F51B5;
+	color:#fff !important;
+   }
+   .pagination ul>.active>a,.pagination ul>.active>span {
+   color: #999999;
+   cursor: default;
+   }
+   .pagination ul>.disabled>span,.pagination ul>.disabled>a,.pagination ul>.disabled>a:hover,.pagination ul>.disabled>a:focus
+   {
+   color: #999999;
+   background-color: transparent;
+   cursor: default;
+   }
+   .pagination ul>li:first-child>a,.pagination ul>li:first-child>span {
+   border-left-width: 1px;
+   -webkit-border-top-left-radius: 4px;
+   -moz-border-radius-topleft: 4px;
+   border-top-left-radius: 4px;
+   -webkit-border-bottom-left-radius: 4px;
+   -moz-border-radius-bottomleft: 4px;
+   border-bottom-left-radius: 4px;
+   }
+   .pagination ul>li:last-child>a,.pagination ul>li:last-child>span {
+   -webkit-border-top-right-radius: 4px;
+   -moz-border-radius-topright: 4px;
+   border-top-right-radius: 4px;
+   -webkit-border-bottom-right-radius: 4px;
+   -moz-border-radius-bottomright: 4px;
+   border-bottom-right-radius: 4px;
+   }
+   .pagination-centered {
+   text-align: center;
+   }
+   .pagination-right {
+   text-align: right;
+   }
+   .pagination-large ul>li>a,.pagination-large ul>li>span {
+   padding: 11px 19px;
+   font-size: 17.5px;
+   }
+   .pagination-large ul>li:first-child>a,.pagination-large ul>li:first-child>span
+   {
+   -webkit-border-top-left-radius: 6px;
+   -moz-border-radius-topleft: 6px;
+   border-top-left-radius: 6px;
+   -webkit-border-bottom-left-radius: 6px;
+   -moz-border-radius-bottomleft: 6px;
+   border-bottom-left-radius: 6px;
+   }
+   .pagination-large ul>li:last-child>a,.pagination-large ul>li:last-child>span
+   {
+   -webkit-border-top-right-radius: 6px;
+   -moz-border-radius-topright: 6px;
+   border-top-right-radius: 6px;
+   -webkit-border-bottom-right-radius: 6px;
+   -moz-border-radius-bottomright: 6px;
+   border-bottom-right-radius: 6px;
+   }
+   .pagination-mini ul>li:first-child>a,.pagination-small ul>li:first-child>a,.pagination-mini ul>li:first-child>span,.pagination-small ul>li:first-child>span
+   {
+   -webkit-border-top-left-radius: 3px;
+   -moz-border-radius-topleft: 3px;
+   border-top-left-radius: 3px;
+   -webkit-border-bottom-left-radius: 3px;
+   -moz-border-radius-bottomleft: 3px;
+   border-bottom-left-radius: 3px;
+   }
+   .pagination-mini ul>li:last-child>a,.pagination-small ul>li:last-child>a,.pagination-mini ul>li:last-child>span,.pagination-small ul>li:last-child>span
+   {
+   -webkit-border-top-right-radius: 3px;
+   -moz-border-radius-topright: 3px;
+   border-top-right-radius: 3px;
+   -webkit-border-bottom-right-radius: 3px;
+   -moz-border-radius-bottomright: 3px;
+   border-bottom-right-radius: 3px;
+   }
+   .pagination-small ul>li>a,.pagination-small ul>li>span {
+   padding: 2px 10px;
+   font-size: 11.9px;
+   }
+   .pagination-mini ul>li>a,.pagination-mini ul>li>span {
+   padding: 0 6px;
+   font-size: 10.5px;
+   }
+   .pager {
+   margin: 20px 0;
+   list-style: none;
+   text-align: center;
+   *zoom: 1;
+   }
+   .pager:before,.pager:after {
+   display: table;
+   content: "";
+   line-height: 0;
+   }
+   .pager:after {
+   clear: both;
+   }
+   .pager li {
+   display: inline;
+   }
+   .pager li>a,.pager li>span {
+   display: inline-block;
+   padding: 5px 14px;
+   background-color: #fff;
+   border: 1px solid #ddd;
+   -webkit-border-radius: 15px;
+   -moz-border-radius: 15px;
+   border-radius: 15px;
+   }
+   .pager li>a:hover,.pager li>a:focus {
+   text-decoration: none;
+   background-color: #f5f5f5;
+   }
+   .pager .next>a,.pager .next>span {
+   float: right;
+   }
+   .pager .previous>a,.pager .previous>span {
+   float: left;
+   }
+   .pager .disabled>a,.pager .disabled>a:hover,.pager .disabled>a:focus,.pager .disabled>span
+   {
+   color: #999999;
+   background-color: #fff;
+   cursor: default;
+   }
+</style>
+<md-content>
+   <md-card class="_md">
+      <div layout="row" layout-xs="column" layout-padding layout-margin layout-align="space-between center">
+              <div class="full-width no-padding">
+            <div layout="row">
+               <div flex="33">
+                  <md-button aria-label="More" ng-click="addAgent()" class="full-width">
+                     <svg style="width:24px;height:24px; position:relative; top:6px; right:5px;" viewBox="0 0 24 24">
+                        <path fill="#5f5f5f" d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                     </svg>
+                     <strong>Add Agent</strong>
+                  </md-button>
+               </div>
+               <!--                 <div flex="30">
+                  <md-button aria-label="More" ng-click="showAddCatpopUp()">
+                          <svg style="width:24px;height:24px; position:relative; top:6px; right:5px;" viewBox="0 0 24 24">
+                              <path fill="#5f5f5f" d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                          </svg>
+                  <strong>Add Category</strong>
+                  </md-button>
+                  </div>
+                  <div flex="30">
+                  <md-button aria-label="More">
+                          <svg style="width:24px;height:24px; position:relative; top:6px; right:5px;" viewBox="0 0 24 24">
+                              <path fill="#5f5f5f" d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                          </svg>
+                  <strong>Add Sub-category</strong>
+                  </md-button>
+                  </div> -->
+               <div flex="33">
+                  <md-button aria-label="More" ng-click="manageCat()" class="full-width">
+                     <svg style="width:24px;height:24px; position:relative; top:6px; right:5px;" viewBox="0 0 24 24">
+                        <path fill="#5f5f5f" d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                     </svg>
+                     <strong>Manage category and sub-category</strong>
+                  </md-button>
+               </div>
+               <!--           
+                  <div flex="20">
+                  <md-button aria-label="More" ng-click="fetchChatRpt()">
+                  <svg style="width:24px;height:24px; position:relative; top:6px; right:5px;" viewBox="0 0 24 24">
+                  <path fill="#5f5f5f" d="M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M7,20H9V14H7V20M11,20H13V12H11V20M15,20H17V16H15V20Z" />
+                  </svg>
+                  <strong>View report of chat agents</strong>
+                  </md-button>
+                  </div>
+                  
+                        <div flex="20">
+                  <md-button aria-label="More" ng-click="fetchIvrRpt()" >
+                  <svg style="width:24px;height:24px; position:relative; top:6px; right:5px;" viewBox="0 0 24 24">
+                  
+                  <path fill="#5f5f5f" d="M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M7,20H9V14H7V20M11,20H13V12H11V20M15,20H17V16H15V20Z" />
+                  </svg>
+                  <strong>View report of IVR agents</strong>
+                  </md-button>
+                  </div>
+                  -->
+             
+               <div flex="33">
+                  <md-button aria-label="More" ng-click="forceLogoutAllAgents()" class="full-width">
+                     <svg style="width:26px;height:26px; position:relative; top:6px; right:5px;" viewBox="0 0 24 24">
+                        <path fill="#5f5f5f" d="M16.56,5.44L15.11,6.89C16.84,7.94 18,9.83 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12C6,9.83 7.16,7.94 8.88,6.88L7.44,5.44C5.36,6.88 4,9.28 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12C20,9.28 18.64,6.88 16.56,5.44M13,3H11V13H13" />
+                     </svg>
+                     <strong>Logout All Agents</strong>
+                  </md-button>
+                  <md-button aria-label="More" ></md-button>
+               </div>
+            </div>
+         </div>
+         </div>
+         <div flex="100" flex-xs="100" layout="column" align="right">
+            <div layout="row">
+         
+         
+         
+         
+         
+         
+         
+         <md-input-container flex="50"  flex-xs="100" layout="column" >
+            <label for="testInput" style="text-align:left;">Search Member</label>
+            <input type="text" id="searchedValue"
+               ng-model="searchedValue" no-special-directive md-autofocus maxlength="30"> 
+         </md-input-container>
+           <div flex="50">
+                  <md-input-container style="width: 96%;">
+                     <label>View Collective team report</label>
+                     <md-icon>
+                        <svg style="width:24px;height:24px; position:relative; top:6px; right:5px;" viewBox="0 0 24 24">
+                           <path fill="#5f5f5f" d="M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M7,20H9V14H7V20M11,20H13V12H11V20M15,20H17V16H15V20Z" />
+                        </svg>
+                     </md-icon>
+                     <md-select  ng-model="reportType"  name="reportType" id="reportType">
+                        <md-option value="ivr" ng-click="fetchIvrRpt()">View IVR report</md-option>
+                        <md-option value="chat" ng-click="fetchChatRpt()">View chat report</md-option>
+                        <md-option value="email" ng-click="fetchEmailRpt()">View email report</md-option>
+                        <md-option value="query" ng-click="fetchQueryRpt()">View query report</md-option>
+                        <!--                 <md-option value="all" ng-click="fetchAllRpt()">View all report</md-option> -->
+                     </md-select>
+                     <!--                  <md-select>
+                        <md-option >View IVR report</md-option>
+                        <md-option>View chat report</md-option>
+                        <md-option >View email report</md-option>
+                        </md-select> -->
+                  </md-input-container>
+               </div>
+               </div>
+               
+    
+         <!-- <div flex="50" flex-xs="100" layout="column" align="right">
+            <div layout="row" layout="column">
+                 <div flex="30">
+            <md-button ng-click="addAgent()" class="md-icon-button" aria-label="More" >
+            		<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+            <path fill="#5f5f5f" d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+            </svg>
+            <strong>Add Agent</strong> </md-button>
+            </div>
+             <div flex="30">
+                        <md-button  ng-click="showAddCatpopUp()"  class="md-icon-button" aria-label="More" >
+            		<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+            <path fill="#5f5f5f" d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+            </svg>
+            <strong>Add Category</strong></md-button>
+            </div>
+            <div flex="30">
+                    <md-button ng-click="showAddCatpopUp()" class="md-icon-button" aria-label="More" >
+            		<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+            <path fill="#5f5f5f" d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+            </svg>
+            <strong>Add Category</strong></md-button>
+            </div>
+            </div>
+             
+            </div> -->
+      </div>
+      <div class="tab_scroll action-btn">
+         <table width="100%" border="0" class="table crm_table crm-table-scroll table-bordered" cellspacing="0" cellpadding="0">
+            <span ng-if="FetchCceDetailsResponsePojo.rs=='S'">Total Records Found :<strong>{{(FetchCceDetailsResponsePojo.pd.cceDetails | filter:searchedValue).length}}</strong></span>
+            <div ng-switch="(FetchCceDetailsResponsePojo.pd.cceDetails| filter:searchedValue).length">
+               <span ng-switch-when="0" style="color:red;">NO MATCH FOUND</span> 
+            </div>
+            <tbody>
+               <tr>
+                  <th>Agent Id</th>
+                  <th>Agent Name</th>
+                  <th>User Name</th>
+                  <th>Agent Status</th>
+                  <!--    <th>Email</th> -->
+                  <th width="30%" style="text-align:center;">Action</th>
+               </tr>
+               <!--  |filter:searchedValue  -->
+               <tr ng-repeat="x in fetchCceDetails|filter:searchedValue| offset: currentPage*itemsPerPage | limitTo: itemsPerPage">
+                  <td>{{x.cceid}}</td>
+                  <td valign="top">{{x.name}}</td>
+                  <td>{{x.uname}}</td>
+                  <td>{{x.status}}</td>
+                  <!-- <td>{{x.email}}</td> -->
+                  <td align="right">
+                     <md-button class="md-icon-button md-primary" aria-label="Settings" ng-click="showRatingDialog(x)">
+                        <md-tooltip md-direction="bottom">Rate Agent</md-tooltip>
+                        <md-icon>
+                           <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+                              <path fill="#5f5f5f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />
+                           </svg>
+                        </md-icon>
+                     </md-button>
+                    <!-- <md-button class="md-icon-button md-primary" aria-label="Settings" ng-click="fetchCcePerformance(x)">
+                        <md-tooltip md-direction="bottom">Report card</md-tooltip>
+                        <md-icon>
+                           <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+                              <path fill="#5f5f5f" d="M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M7,20H9V14H7V20M11,20H13V12H11V20M15,20H17V16H15V20Z" />
+                           </svg>
+                        </md-icon>
+                     </md-button>-->
+                     <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="ResetPswd(x)">
+                        <md-tooltip md-direction="bottom">Reset Password</md-tooltip>
+                        <md-icon>
+                           <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+                              <path fill="#5f5f5f" d="M22,18V22H18V19H15V16H12L9.74,13.74C9.19,13.91 8.61,14 8,14A6,6 0 0,1 2,8A6,6 0 0,1 8,2A6,6 0 0,1 14,8C14,8.61 13.91,9.19 13.74,9.74L22,18M7,5A2,2 0 0,0 5,7A2,2 0 0,0 7,9A2,2 0 0,0 9,7A2,2 0 0,0 7,5Z" />
+                           </svg>
+                        </md-icon>
+                     </md-button>
+                     <md-button class="md-icon-button" aria-label="More" ng-click="blockCce(x)">
+                        <md-tooltip md-direction="bottom">Block an agent</md-tooltip>
+                        <md-icon>
+                           <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+                              <path fill="#5f5f5f" d="M12,0A12,12 0 0,1 24,12A12,12 0 0,1 12,24A12,12 0 0,1 0,12A12,12 0 0,1 12,0M12,2A10,10 0 0,0 2,12C2,14.4 2.85,16.6 4.26,18.33L18.33,4.26C16.6,2.85 14.4,2 12,2M12,22A10,10 0 0,0 22,12C22,9.6 21.15,7.4 19.74,5.67L5.67,19.74C7.4,21.15 9.6,22 12,22Z" />
+                           </svg>
+                        </md-icon>
+                     </md-button>
+                     <md-button class="md-icon-button"  aria-label="More" ng-click="EditAgentDetails(x)">
+                        <md-tooltip md-direction="bottom">Edit agent details</md-tooltip>
+                        <md-icon>
+                           <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+                              <path fill="#5f5f5f" d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+                           </svg>
+                        </md-icon>
+                     </md-button>
+                     <md-button class="md-icon-button" ng-click="logoutCce(x)" aria-label="More">
+                        <md-tooltip md-direction="bottom">Logout</md-tooltip>
+                        <md-icon>
+                           <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+                              <path fill="#5f5f5f" d="M16.56,5.44L15.11,6.89C16.84,7.94 18,9.83 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12C6,9.83 7.16,7.94 8.88,6.88L7.44,5.44C5.36,6.88 4,9.28 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12C20,9.28 18.64,6.88 16.56,5.44M13,3H11V13H13" />
+                           </svg>
+                        </md-icon>
+                     </md-button>
+                     <md-button class="md-icon-button" ng-click="deleteCce(x)" aria-label="More">
+                        <md-tooltip md-direction="bottom">Delete an agent</md-tooltip>
+                        <md-icon>
+                           <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+                              <path fill="#5f5f5f" d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+                           </svg>
+                        </md-icon>
+                     </md-button>
+                  </td>
+               </tr >
+            <tfoot ng-if="FetchCceDetailsResponsePojo.rs=='S'">
+               <td colspan="10" style="text-align:center;">
+                  <div class="pagination" align="center">
+                     <ul>
+                        <li ng-class="prevPageDisabled()"><a href
+                           ng-click="prevPage()">Prev</a></li>
+                        <li ng-repeat="n in range()"
+                           ng-class="{active: n == currentPage}" ng-click="setPage(n)">
+                           <a style="cursor: pointer;">{{n+1}}</a>
+                        </li>
+                        <li ng-class="nextPageDisabled()"><a href
+                           ng-click="nextPage()">Next</a></li>
+                     </ul>
+                  </div>
+               </td>
+            </tfoot>
+            </tbody>
+         </table>
+      </div>
+   </md-card>
+</md-content>
+<div style="visibility: hidden">
+   <div class="md-dialog-container" id="ratingPopUp">
+      <md-dialog class="umang-dialog crm-dialog-height" style="min-width:320px;">
+         <div class="" align="left">
+            <md-card class="_md rate-icon-mrgn">
+               <md-list-item ng-show="emailFlag1==true">
+                  <p align="left">Email</p>
+                  <div class="acidjs-rating-stars">
+                     <input type="radio" ng-click="countEmailRate('5')" name="group-1" id="group-1-0"  /><label for="group-1-0" ></label>
+                     <input type="radio" ng-click="countEmailRate('4')"  name="group-1"id="group-1-1"  /><label for="group-1-1"></label>
+                     <input type="radio" ng-click="countEmailRate('3')" name="group-1" id="group-1-2"  /><label for="group-1-2"></label>
+                     <input type="radio" ng-click="countEmailRate('2')" name="group-1" id="group-1-3"  /><label for="group-1-3"></label>
+                     <input type="radio" ng-click="countEmailRate('1')" name="group-1" id="group-1-4"   /><label for="group-1-4"></label>
+                  </div>
+               </md-list-item>
+               <md-divider></md-divider>
+               <md-list-item ng-show="chatFlag1==true">
+                  <p align="left">Chat</p>
+                  <div class="acidjs-rating-stars">
+                     <input type="radio" ng-click="countChatRate('5')" name="group-2" id="group-2-0"  /><label for="group-2-0" ></label>
+                     <input type="radio" ng-click="countChatRate('4')"  name="group-2"id="group-2-1"  /><label for="group-2-1"></label>
+                     <input type="radio" ng-click="countChatRate('3')" name="group-2" id="group-2-2"  /><label for="group-2-2"></label>
+                     <input type="radio" ng-click="countChatRate('2')" name="group-2" id="group-2-3"  /><label for="group-2-3"></label>
+                     <input type="radio" ng-click="countChatRate('1')" name="group-2" id="group-2-4"   /><label for="group-2-4"></label>
+                  </div>
+               </md-list-item>
+               <md-divider></md-divider>
+               <md-list-item ng-show="smsFlag1==true">
+                  <p align="left">SMS</p>
+                  <div class="acidjs-rating-stars">
+                     <input type="radio" ng-click="countCallRate('5')" name="group-3" id="group-3-0"  /><label for="group-3-0" ></label>
+                     <input type="radio" ng-click="countCallRate('4')"  name="group-3"id="group-3-1"  /><label for="group-3-1"></label>
+                     <input type="radio" ng-click="countCallRate('3')" name="group-3" id="group-3-2"  /><label for="group-3-2"></label>
+                     <input type="radio" ng-click="countCallRate('2')" name="group-3" id="group-3-3"  /><label for="group-3-3"></label>
+                     <input type="radio" ng-click="countCallRate('1')" name="group-3" id="group-3-4"   /><label for="group-3-4"></label>
+                  </div>
+               </md-list-item>
+               <md-divider></md-divider>
+               <md-list-item ng-show="ivrFlag1==true">
+                  <p align="left">Call</p>
+                  <div class="acidjs-rating-stars">
+                     <input type="radio" ng-click="countSmsRate('5')" name="group-4" id="group-4-0"  /><label for="group-4-0" ></label>
+                     <input type="radio" ng-click="countSmsRate('4')"  name="group-4"id="group-4-1"  /><label for="group-4-1"></label>
+                     <input type="radio" ng-click="countSmsRate('3')" name="group-4" id="group-4-2"  /><label for="group-4-2"></label>
+                     <input type="radio" ng-click="countSmsRate('2')" name="group-4" id="group-4-3"  /><label for="group-4-3"></label>
+                     <input type="radio" ng-click="countSmsRate('1')" name="group-4" id="group-4-4"   /><label for="group-4-4"></label>
+                  </div>
+               </md-list-item>
+            </md-card>
+            <md-card>
+               <md-input-container class="md-block">
+                  <label>Remarks</label>
+                  <textarea ng-model="ratingRemarks" maxlength="150" rows="3" md-select-on-focus></textarea>
+               </md-input-container>
+            </md-card>
+            <div align="center">
+               <md-button class="md-primary custom-blue" ng-click="cancel()">Cancel</md-button>
+               <md-button class="md-primary custom-green md-raised" ng-click="rateAgent()">Submit</md-button>
+            </div>
+         </div>
+      </md-dialog>
+   </div>
+</div>
+<div style="visibility: hidden">
+   <div class="md-dialog-container" id="blockAgent">
+      <md-dialog class="umang-dialog crm-dialog-height" layout-margin style="min-width:320px;">
+         <div class="" align="left">
+            <div class="_md rate-icon-mrgn">
+               <md-list-item>
+                  <p align="center" style="padding:25px 0;" layout-padding>Are you sure, you want to block the agent.</p>
+               </md-list-item>
+            </div>
+            <div align="center">
+               <md-button  class="md-primary md-raised" ng-click="cancel()">Cancel</md-button>
+               <md-button class="md-primary custom-green md-raised" ng-click="confirmBlockAgent()">Confirm</md-button>
+            </div>
+         </div>
+      </md-dialog>
+   </div>
+</div>
+<div style="visibility: hidden">
+   <div class="md-dialog-container" id="deleteAgent">
+      <md-dialog class="umang-dialog crm-dialog-height" layout-margin style="min-width:320px;">
+         <div class="" align="left">
+            <div class="_md rate-icon-mrgn">
+               <md-list-item>
+                  <p align="center" style="padding:25px 0;" layout-padding>Are you sure, you want to delete the agent.</p>
+               </md-list-item>
+            </div>
+            <div align="center">
+               <md-button class="md-primary md-raised"  ng-click="cancel()">Cancel</md-button>
+               <md-button  class="md-primary custom-green md-raised" ng-click="confirmDeleteAgent()">Confirm</md-button>
+            </div>
+         </div>
+      </md-dialog>
+   </div>
+</div>
+
+<div style="visibility: hidden">
+   <div class="md-dialog-container" id="forceLogoutAll">
+      <md-dialog class="umang-dialog crm-dialog-height" layout-margin style="min-width:320px;">
+         <div class="" align="left">
+            <div class="_md rate-icon-mrgn">
+               <md-list-item>
+                  <p align="center" style="padding:25px 0;" layout-padding>Are you sure, you want to force logout all agents.</p>
+               </md-list-item>
+            </div>
+            <div align="center">
+               <md-button class="md-primary md-raised"  ng-click="cancel()">Cancel</md-button>
+               <md-button  class="md-primary custom-green md-raised" ng-click="logout1()">Confirm</md-button>
+            </div>
+         </div>
+      </md-dialog>
+   </div>
+</div>
+
+
+<div style="visibility: hidden">
+   <div class="md-dialog-container" id="logoutAgent">
+      <md-dialog class="umang-dialog crm-dialog-height" layout-margin style="min-width:320px;">
+         <div class="" align="left">
+            <div class="_md rate-icon-mrgn">
+               <md-list-item>
+                  <p align="center" style="padding:25px 0;" layout-padding>Are you sure, you want to logout the agent.</p>
+               </md-list-item>
+            </div>
+            <div align="center">
+               <md-button class="md-primary md-raised"  ng-click="cancel()">Cancel</md-button>
+               <md-button  class="md-primary custom-green md-raised" ng-click="logOutCce()">Logout</md-button>
+            </div>
+         </div>
+      </md-dialog>
+   </div>
+</div>
+<div style="visibility: hidden">
+   <div class="md-dialog-container" id="agentReportCard">
+      <md-dialog class="umang-dialog crm-dialog-height" layout-margin style="min-width:320px;">
+         <div class="" align="left">
+            <div class="_md rate-icon-mrgn">
+               <div layout="column" layout-padding="" class="layout-padding layout-column">
+                  <div align="center" class="md-body-1"><strong>Agent Report Card</strong></div>
+                  <md-divider></md-divider>
+                  <div class="md-body-1 crm-pro-detail">Queries handled: <strong>{{fetchCcePerformanceDetails.queriesHandled}}</strong></div>
+                  <div class="md-body-1 crm-pro-detail">Average time: <strong>{{fetchCcePerformanceDetails.averageTime}}</strong></div>
+                  <div class="md-body-1 crm-pro-detail">Within TAT: <strong>{{fetchCcePerformanceDetails.tatsSuccessful}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">TAT crossed: <strong>{{fetchCcePerformanceDetails.tatsCrossed}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Unique user count(query): <strong>{{fetchCcePerformanceDetails.uniqueUserCount}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">No. of queries forwarded: <strong>{{fetchCcePerformanceDetails.queriesForwarded}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Issues reported: <strong>{{fetchCcePerformanceDetails.issuesReported}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Response time: <strong>{{fetchCcePerformanceDetails.responseTime}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Average spent time: <strong>{{fetchCcePerformanceDetails.averageSpentTime}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Average remarks length: <strong>{{fetchCcePerformanceDetails.avgRemarks}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Categories handled: <strong>{{fetchCcePerformanceDetails.categoryHandled}}</strong> </div>
+               </div>
+            </div>
+         </div>
+         <div align="center">
+            <md-button class="md-primary custom-green md-raised" ng-click="cancel()">Ok</md-button>
+         </div>
+      </md-dialog>
+   </div>
+</div>
+<div style="visibility: hidden">
+   <div class="md-dialog-container" id="emailAgentReportCard">
+      <md-dialog class="umang-dialog crm-dialog-height" layout-margin style="min-width:320px;">
+         <div class="" align="left">
+            <div class="_md rate-icon-mrgn">
+               <div layout="column" layout-padding="" class="layout-padding layout-column">
+                  <div align="center" class="md-body-1"><strong>Agent Report Card </strong></div>
+                  <md-divider></md-divider>
+                  <div class="md-body-1 crm-pro-detail">No. of emails handled: <strong>{{fetchCcePerformanceDetails.emailHandled}}</strong></div>
+                  <div class="md-body-1 crm-pro-detail">Response time: <strong>{{fetchCcePerformanceDetails.responsedTime}}</strong></div>
+                  <div class="md-body-1 crm-pro-detail">Average time: <strong>{{fetchCcePerformanceDetails.averageTime}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Total time: <strong>{{fetchCcePerformanceDetails.totalTime}}</strong> </div>
+               </div>
+            </div>
+         </div>
+         <div align="center">
+            <md-button class="md-primary custom-green md-raised" ng-click="cancel()">Ok</md-button>
+         </div>
+      </md-dialog>
+   </div>
+</div>
+<div style="display: none">
+   <md-card layout-padding>
+      <div class="md-dialog-container" id="commonSuccess">
+         <md-dialog class="crm-dialog-height">
+            <div class="popup-svg" align="center">
+               <span>
+                  <svg style="width: 24px; height: 24px"
+                     viewBox="0 0 24 24">
+                     <path fill="#008000"
+                        d="M23,10C23,8.89 22.1,8 21,8H14.68L15.64,3.43C15.66,3.33 15.67,3.22 15.67,3.11C15.67,2.7 15.5,2.32 15.23,2.05L14.17,1L7.59,7.58C7.22,7.95 7,8.45 7,9V19A2,2 0 0,0 9,21H18C18.83,21 19.54,20.5 19.84,19.78L22.86,12.73C22.95,12.5 23,12.26 23,12V10.08L23,10M1,21H5V9H1V21Z" />
+                  </svg>
+               </span>
+               <p>{{successMsg}}</p>
+               <div class="custom_button_box custom-green">
+                  <md-button class="md-raised custom-green" ng-click="cancel()">OK</md-button>
+               </div>
+            </div>
+         </md-dialog>
+      </div>
+   </md-card>
+</div>
+<div style="display: none">
+   <md-card layout-padding>
+      <div class="md-dialog-container" id="commonError">
+         <md-dialog style="overflow:hidden; height:auto !important;">
+            <div class="popup-svg" align="center">
+               <span>
+                  <svg style="width: 35px; height: 35px"
+                     viewBox="0 0 24 24">
+                     <path fill="#ff0000"
+                        d="M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                  </svg>
+               </span>
+               <p>{{errorMsg}}</p>
+               <div class="custom_button_box custom-green">
+                  <md-button class="md-raised custom-green" ng-click="cancel()">OK</md-button>
+               </div>
+            </div>
+         </md-dialog>
+      </div>
+   </md-card>
+</div>
+<div style="display: none">
+   <md-card layout-padding>
+      <div class="md-dialog-container" id="commonSuccess">
+         <md-dialog class="crm-dialog-height">
+            <div class="popup-svg" align="center">
+               <span>
+                  <svg style="width: 24px; height: 24px"
+                     viewBox="0 0 24 24">
+                     <path fill="#008000"
+                        d="M23,10C23,8.89 22.1,8 21,8H14.68L15.64,3.43C15.66,3.33 15.67,3.22 15.67,3.11C15.67,2.7 15.5,2.32 15.23,2.05L14.17,1L7.59,7.58C7.22,7.95 7,8.45 7,9V19A2,2 0 0,0 9,21H18C18.83,21 19.54,20.5 19.84,19.78L22.86,12.73C22.95,12.5 23,12.26 23,12V10.08L23,10M1,21H5V9H1V21Z" />
+                  </svg>
+               </span>
+               <p>{{successMsg}}</p>
+               <div class="custom_button_box custom-green">
+                  <md-button class="md-raised custom-green" ng-click="cancel()">OK</md-button>
+               </div>
+            </div>
+         </md-dialog>
+      </div>
+   </md-card>
+</div>
+<div style="display: none">
+   <md-card layout-padding>
+      <div class="md-dialog-container" id="commonError">
+         <md-dialog style="overflow:hidden; height:auto !important;">
+            <div class="popup-svg" align="center">
+               <span>
+                  <svg style="width: 35px; height: 35px"
+                     viewBox="0 0 24 24">
+                     <path fill="#ff0000"
+                        d="M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                  </svg>
+               </span>
+               <p>{{errorMsg}}</p>
+               <div class="custom_button_box custom-green">
+                  <md-button class="md-raised custom-green" ng-click="cancel()">OK</md-button>
+               </div>
+            </div>
+         </md-dialog>
+      </div>
+   </md-card>
+</div>
+<div style="visibility: hidden">
+   <div class="md-dialog-container" id="ivrReportCard">
+      <md-dialog class="umang-dialog crm-dialog-height" layout-margin style="min-width:320px;">
+         <div class="" align="left">
+            <div class="_md rate-icon-mrgn">
+               <div layout="column" layout-padding="" class="layout-padding layout-column">
+                  <div align="center" class="md-body-1"><strong>Collective IVR report </strong></div>
+                  <md-input-container flex="10"  flex-xs="100" layout="column">
+                     <md-button class="md-raised custom-green" ng-click="exportToExcelIvr('#tableToExport')">Export to excel</md-button>
+                  </md-input-container>
+                  <md-divider></md-divider>
+                  <div class="md-body-1 crm-pro-detail">Average duration calls: <strong>{{IvrVals.average_Duration_Calls}}</strong></div>
+                  <div class="md-body-1 crm-pro-detail">Average handling calls: <strong>{{IvrVals.average_Handling_Calls}}</strong></div>
+                  <div class="md-body-1 crm-pro-detail">Average hold calls: <strong>{{IvrVals.average_Hold_Calls}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Average wrap up calls: <strong>{{IvrVals.average_Wrap_up_Calls}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Average snapshot filling time: <strong>{{IvrVals.average_snapshot_filling_time}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Blank calls: <strong>{{IvrVals.blank_Calls}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Calls unanswered: <strong>{{IvrVals.calls_Unanswered}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Calls handled: <strong>{{IvrVals.calls_handled}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Multiplelingual calls handled: <strong>{{IvrVals.multilingual_calls_handled}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Average remarks length: <strong>{{IvrVals.sla_Calls}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Total duration calls: <strong>{{IvrVals.total_Duration_Calls}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">total handling calls: <strong>{{IvrVals.total_Handling_Calls}}</strong> </div>
+               </div>
+            </div>
+         </div>
+         <div align="center">
+            <md-button class="md-primary custom-green md-raised" ng-click="cancel()">Ok</md-button>
+         </div>
+      </md-dialog>
+   </div>
+</div>
+<div style="visibility: hidden">
+   <div class="md-dialog-container" id="chatReportCard">
+      <md-dialog class="umang-dialog crm-dialog-height" layout-margin style="min-width:320px;">
+         <div class="" align="left">
+            <div class="_md rate-icon-mrgn">
+               <div layout="column" layout-padding="" class="layout-padding layout-column">
+                  <div align="center" class="md-body-1"><strong>Collective chat report</strong></div>
+                  <md-input-container flex="10"  flex-xs="100" layout="column">
+                     <md-button class="md-raised custom-green" ng-click="exportToExcelIvr('#tableToExport1')">Export to excel</md-button>
+                  </md-input-container>
+                  <md-divider></md-divider>
+                  <div class="md-body-1 crm-pro-detail">Chat handled: <strong>{{chatReportCard.chat_handled}}</strong></div>
+                  <div class="md-body-1 crm-pro-detail">Categories handled: <strong>{{chatReportCard.categories_handled}}</strong></div>
+                  <div class="md-body-1 crm-pro-detail">Issues reported: <strong>{{chatReportCard.issues_reported}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Transferred: <strong>{{IvchatReportCardrVals.transferred}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Unique users contacted: <strong>{{chatReportCard.unique_users_contacted}}</strong> </div>
+               </div>
+            </div>
+         </div>
+         <div align="center">
+            <md-button class="md-primary custom-green md-raised" ng-click="cancel()">Ok</md-button>
+         </div>
+      </md-dialog>
+   </div>
+</div>
+<div style="visibility: hidden">
+   <div class="md-dialog-container" id="emailReportCard">
+      <md-dialog class="umang-dialog crm-dialog-height" layout-margin style="min-width:320px;">
+         <div class="" align="left">
+            <div class="_md rate-icon-mrgn">
+               <div layout="column" layout-padding="" class="layout-padding layout-column">
+                  <div align="center" class="md-body-1"><strong>Collective Email report</strong></div>
+                  <md-input-container flex="10"  flex-xs="100" layout="column">
+                  <md-button class="md-raised custom-green" ng-click="exportToExcelEmail('#tableToExportEmail')">Export to excel</md-button>
+                  <md-divider></md-divider>
+                  <div class="md-body-1 crm-pro-detail">Email handled: <strong>{{emailReportCard.emailHandled}}</strong></div>
+                  <div class="md-body-1 crm-pro-detail">Average time: <strong>{{emailReportCard.averageTime}}</strong></div>
+                  <div class="md-body-1 crm-pro-detail">Response time: <strong>{{emailReportCard.responsedTime}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Total time: <strong>{{emailReportCard.totalTime}}</strong> </div>
+               </div>
+            </div>
+         </div>
+         <div align="center">
+            <md-button class="md-primary custom-green md-raised" ng-click="cancel()">Ok</md-button>
+         </div>
+      </md-dialog>
+   </div>
+</div>
+<div style="visibility: hidden">
+   <div class="md-dialog-container" id="queryReportCard">
+      <md-dialog class="umang-dialog crm-dialog-height" layout-margin style="min-width:320px;">
+         <div class="" align="left">
+            <div class="_md rate-icon-mrgn">
+               <div layout="column" layout-padding="" class="layout-padding layout-column">
+                  <div align="center" class="md-body-1"><strong>Collective chat report</strong></div>
+                  <md-input-container flex="10"  flex-xs="100" layout="column">
+                  <md-button class="md-raised custom-green" ng-click="exportToExcelQuery('#tableToQuery')">Export to excel</md-button>
+                  <md-divider></md-divider>
+                  <div class="md-body-1 crm-pro-detail">Queries handled: <strong>{{queryReportCard.queriesHandled}}</strong></div>
+                  <div class="md-body-1 crm-pro-detail">Queries forwarded: <strong>{{queryReportCard.queriesForwarded}}</strong></div>
+                  <div class="md-body-1 crm-pro-detail">Average spent time: <strong>{{queryReportCard.averageSpentTime}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Average time: <strong>{{queryReportCard.averageTime}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Average remarks: <strong>{{queryReportCard.avgRemarks}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Category handled: <strong>{{queryReportCard.categoryHandled}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Issues reported: <strong>{{queryReportCard.issuesReported}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Response time: <strong>{{queryReportCard.responseTime}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">TAT crossed: <strong>{{queryReportCard.tatsCrossed}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">TAT successful: <strong>{{queryReportCard.tatsSuccessful}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Unique user count: <strong>{{queryReportCard.uniqueUserCount}}</strong> </div>
+               </div>
+            </div>
+         </div>
+         <div align="center">
+            <md-button class="md-primary custom-green md-raised" ng-click="cancel()">Ok</md-button>
+         </div>
+      </md-dialog>
+   </div>
+</div>
+<div style="visibility: hidden">
+   <div class="md-dialog-container" id="allReportCard">
+      <md-dialog class="umang-dialog crm-dialog-height" layout-margin style="min-width:320px;">
+         <div class="" align="left">
+            <div class="_md rate-icon-mrgn">
+               <div layout="column" layout-padding="" class="layout-padding layout-column">
+                  <div align="center" class="md-body-1"><strong>Collective report</strong></div>
+                  <md-input-container flex="10"  flex-xs="100" layout="column">
+                  <md-button class="md-raised custom-green" ng-click="exportToExcelQuery('#tableToAll')">Export to excel</md-button>
+                  <md-divider></md-divider>
+                  <div class="md-body-1 crm-pro-detail">Queries handled: <strong>{{allReportCard.queries_handled}}</strong></div>
+                  <div class="md-body-1 crm-pro-detail">Queries forwarded: <strong>{{allReportCard.queries_forwarded}}</strong></div>
+                  <div class="md-body-1 crm-pro-detail">Average spent time: <strong>{{allReportCard.average_spent_time}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Average time: <strong>{{allReportCard.average_time}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Average remarks: <strong>{{allReportCard.avg_remarks}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Category handled: <strong>{{allReportCard.category_handled}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Issues reported: <strong>{{allReportCard.issues_reported}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Response time: <strong>{{allReportCard.responed_time}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">TAT crossed: <strong>{{allReportCard.tats_crossed}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">TAT successful: <strong>{{allReportCard.tats_successful}}</strong> </div>
+                  <div class="md-body-1 crm-pro-detail">Unique user count: <strong>{{allReportCard.unique_user_count}}</strong> </div>
+               </div>
+            </div>
+         </div>
+         <div align="center">
+            <md-button class="md-primary custom-green md-raised" ng-click="cancel()">Ok</md-button>
+         </div>
+      </md-dialog>
+   </div>
+</div>
+<div class="tab_scroll action-btn" id="tableToExport" style="visibility: hidden">
+   <table width="100%" border="0" class="table crm_table crm-table-scroll" cellspacing="0" cellpadding="0">
+</div>
+<tbody>
+<tr>
+<th>Average duration call</th>
+<th>Calls unanswered</th>
+<th>No. of multilingual calls handled</th>
+<th>Average snapshot filling time</th>
+<th>Total duration calls</th>
+<th>Average hold calls</th>
+<th>Average handling calls</th>
+<th>Total handling calls</th>
+<th>Average wrap up calls</th>
+<th>Blank calls</th>
+<th>Calls handled</th>
+</tr>
+<!--  |filter:searchedValue  -->
+<tr ng-repeat="x in fetchIvrRptResponsePojo.pd|filter:searchedValue| offset: currentPage*itemsPerPage | limitTo: itemsPerPage">
+<td >{{x.average_Duration_Calls}}</td>
+<td>{{x.calls_Unanswered}}</td>
+<td>{{x.multilingual_calls_handled}}</td>
+<td>{{x.average_snapshot_filling_time}}</td>
+<td>{{x.total_Duration_Calls}}</td>
+<td>{{x.average_Hold_Calls}}</td>
+<td>{{x.average_Handling_Calls}}</td>
+<td>{{x.total_Handling_Calls}}</td>
+<td>{{x.average_Wrap_up_Calls}}</td>
+<td>{{x.blank_Calls}}</td>
+<td>{{x.calls_handled}}</td>
+</tr >
+</tbody>
+</table>
+</div>
+<div class="tab_scroll action-btn" id="tableToExport1" style="visibility: hidden">
+   <table width="100%" border="0" class="table crm_table crm-table-scroll" cellspacing="0" cellpadding="0">
+      <!--          <span ng-if="fetchChatRptResponsePojo.rs=='S'">Total Records Found :<strong>{{(fetchChatRptResponsePojo.pd.cceDetails | filter:searchedValue).length}}</strong></span>
+         <div ng-switch="(fetchChatRptResponsePojo.pd.cceDetails| filter:searchedValue).length">
+             <span ng-switch-when="0" style="color:red;">NO MATCH FOUND</span>  -->
+</div>
+<tbody>
+<tr>
+<th>No. of chat handled</th>
+<th>Unique users contacted</th>
+<th>Categories handled</th>
+<th>Transfered</th>
+<th>Issues reported</th>
+</tr>
+<!--  |filter:searchedValue  -->
+<tr ng-repeat="x in fetchChatRptResponsePojo.pd|filter:searchedValue| offset: currentPage*itemsPerPage | limitTo: itemsPerPage">
+<td >{{x.chat_handled}}</td>
+<td>{{x.unique_users_contacted}}</td>
+<td>{{x.categories_handled}}</td>
+<td>{{x.transferred}}</td>
+<td>{{x.issues_reported}}</td>
+</tr >
+<!--                  <tfoot ng-if="fetchChatRptResponsePojo.rs=='S'">
+   <td colspan="10" style="text-align:center;">
+   	<div class="pagination" align="center">
+   		<ul>
+   			<li ng-class="prevPageDisabled()"><a href
+   				ng-click="prevPage()">Prev</a></li>
+   			<li ng-repeat="n in range()"
+   				ng-class="{active: n == currentPage}" ng-click="setPage(n)">
+   				<a style="cursor: pointer;">{{n+1}}</a>
+   			</li>
+   			<li ng-class="nextPageDisabled()"><a href
+   				ng-click="nextPage()">Next</a></li>
+   		</ul>
+   	</div>
+   </td>
+   </tfoot> -->
+</tbody>
+</table>
+</div>
+<div class="tab_scroll action-btn" id="tableToExportEmail" style="visibility: hidden">
+   <table width="100%" border="0" class="table crm_table crm-table-scroll" cellspacing="0" cellpadding="0">
+</div>
+<tbody>
+<tr>
+<th>Email handled</th>
+<th>Average time</th>
+<th>Response time</th>
+<th>Total time</th>
+</tr>
+<!--  |filter:searchedValue  -->
+<tr >
+<td >{{emailReportCard.emailHandled}}</td>
+<td>{{emailReportCard.averageTime}}</td>
+<td>{{emailReportCard.responsedTime}}</td>
+<td>{{emailReportCard.totalTime}}</td>
+</tr >
+</tbody>
+</table>
+</div>
+<div class="tab_scroll action-btn" id="tableToQuery" style="visibility: hidden">
+   <table width="100%" border="0" class="table crm_table crm-table-scroll" cellspacing="0" cellpadding="0">
+</div>
+<tbody>
+<tr>
+<th>Queries handled</th>
+<th>Queries Forwarded</th>
+<th>Average spent time</th>
+<th>Average time</th>
+<th>Average remarks</th>
+<th>Category handled</th>
+<th>Issues reported</th>
+<th>Response time</th>
+<th>TAT crossed</th>
+<th>TAT successful</th>
+<th>Unique user count</th>
+</tr>
+<!--  |filter:searchedValue  -->
+<tr >
+<td >{{queryReportCard.queriesHandled}}</td>
+<td>{{queryReportCard.queriesForwarded}}</td>
+<td>{{queryReportCard.averageSpentTime}}</td>
+<td>{{queryReportCard.averageTime}}</td>
+<td>{{queryReportCard.avgRemarks}}</td>
+<td>{{queryReportCard.categoryHandled}}</td>
+<td>{{queryReportCard.issuesReported}}</td>
+<td>{{queryReportCard.responseTime}}</td>
+<td>{{queryReportCard.tatsCrossed}}</td>
+<td>{{queryReportCard.tatsSuccessful}}</td>
+<td>{{queryReportCard.uniqueUserCount}}</td>
+</tr >
+</tbody>
+</table>
+</div>
+<div class="tab_scroll action-btn" id="tableToAll" style="visibility: hidden">
+   <table width="100%" border="0" class="table crm_table crm-table-scroll" cellspacing="0" cellpadding="0">
+</div>
+<tbody>
+<tr>
+<th>Queries handled</th>
+<th>Queries Forwarded</th>
+<th>Average spent time</th>
+<th>Average time</th>
+<th>Average remarks</th>
+<th>Category handled</th>
+<th>Issues reported</th>
+<th>Response time</th>
+<th>TAT crossed</th>
+<th>TAT successful</th>
+<th>Unique user count</th>
+</tr>
+<!--  |filter:searchedValue  -->
+<tr >
+<td >{{allReportCard.queries_handled}}</td>
+<td>{{allReportCard.queries_forwarded}}</td>
+<td>{{allReportCard.average_spent_time}}</td>
+<td>{{allReportCard.average_time}}</td>
+<td>{{allReportCard.avg_remarks}}</td>
+<td>{{allReportCard.category_handled}}</td>
+<td>{{allReportCard.issues_reported}}</td>
+<td>{{allReportCard.responed_time}}</td>
+<td>{{queryReportCard.tats_crossed}}</td>
+<td>{{allReportCard.tats_successful}}</td>
+<td>{{allReportCard.unique_user_count}}</td>
+</tr >
+</tbody>
+</table>
+</div>

@@ -1,0 +1,1047 @@
+<!doctype html>
+<html ng-app="CRM">
+<!-- manifest="../manifest.appcache"  type="text/appcache-manifest" -->
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="minimum-scale=1.0, width=device-width, maximum-scale=0.25, initial-scale=1.0, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Umang</title>
+<link href="resources/css/angular-material.min.css" rel="stylesheet"
+	type="text/css">
+<link href="resources/css//angular-material.min.css" rel="stylesheet"
+	type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Roboto"
+	rel="stylesheet">
+<link href="resources/css/custom.css" rel="stylesheet" type="text/css">
+<link href="resources/css/chat-style1.css" rel="stylesheet"
+	type="text/css">
+<script type="text/javascript" src="resources/js/jquery/jquery.min.js"></script>
+ <script type="text/javascript" src="resources/js/jquery/google.js"></script> 
+<script type="text/javascript" src="resources/js/jquery/transliteration.I.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="resources/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="resources/css/font-awesome.min.css" /> 
+<!-- <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Montserrat:400,700"> -->
+<link rel="stylesheet" type="text/css"
+	href="resources/css/customerChatBox.css" />
+
+<!-- Custom JS -->
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script src="resources/js/angular/angular.min.js"></script>
+<script src="resources/js/angular/angular-animate.min.js"></script>
+<script src="resources/js/angular/angular-aria.min.js"></script>
+<script src="resources/js/angular/angular-material.min.js"></script>
+<script src="resources/js/angular/angular-messages.min.js"></script>
+<script src="resources/js/angular/SHA256.js"></script>
+<script src="resources/js/angular/angular-route.js"></script>
+<script src="resources/js/angular/angular-sanitize.min.js"></script>
+<script src="resources/js/main/CRM11.js?v=91"></script>
+
+
+<style>
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url(/CRM/resources/images/process.gif) center no-repeat #fff;
+	background-size: 125px 125px;
+}
+
+.md-dialog-container, md-dialog {
+	height: 100% !important;
+}
+
+md-content {
+	overflow: auto !important;
+}
+
+.position-fixed {
+	position: fixed !important;
+}
+
+.right-room {
+	margin-left: 320px;
+	margin-top: 65px;
+}
+
+@media screen and (max-width:1280px) {
+	.right-room {
+		margin-left: 0px;
+	}
+}
+
+@media screen and (min-width:1280px) {
+	.top-bar {
+		margin-left: 320px;
+		width:79%;
+	}
+}
+
+<!--chat css -->
+
+.panel {
+	background-color: #ffffff;
+	border: 1px solid #b0b0b0;
+	bottom: 0;
+	font-family: "Open Sans", sans-serif; 
+	height: 415px;
+	position: relative; 
+	right: 20px;
+	width: 300px;
+}
+
+.consumer-chat-container {
+    float: none;
+    margin-right: 0px;
+    display: inline-block;
+}
+
+.my-chat-space {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	z-index:1000;
+}
+
+.nano {
+	height: 250px;
+}
+
+@media only screen and (max-width: 500px) {
+	.panel {
+		background-color: #ffffff;
+		border: 1px solid #b0b0b0;
+		bottom: 0;
+		font-family: "Open Sans", sans-serif;
+		position: fixed;
+		right: 20px;
+		width: 250px;
+	}
+	.nano {
+		height: 200px;
+	}
+}
+
+.btn.outline {
+	background: none;
+	padding: 4px 4px;
+	margin-top: 3px;
+}
+
+.btn-primary.outline {
+	border: 1px solid #000 !important;
+	color: #000 !important;
+}
+
+.btn-primary.outline:hover, .btn-primary.outline:focus, .btn-primary.outline:active,
+	.btn-primary.outline.active, .open>.dropdown-toggle.btn-primary {
+	color: #000 !important;
+	border-color: #000 !important;
+}
+
+.btn-primary.outline:active, .btn-primary.outline.active {
+	border-color: #000 !important;
+	color: #000 !important;
+	box-shadow: none;
+}
+
+.panel {
+	background-color: #ffffff;
+	border: 1px solid #b0b0b0;
+	bottom: 0;
+	font-family: "Open Sans", sans-serif; #
+	height: 415px;
+	position: relative; #
+	right: 20px;
+	width: 300px;
+}
+
+
+
+.my-chat-space {
+	position: fixed;
+    bottom: 0;
+    width: auto;
+    right: 0;
+}
+
+.nano {
+	height: 312px;
+}
+
+@media only screen and (max-width: 500px) {
+	.panel {
+		background-color: #ffffff;
+		border: 1px solid #b0b0b0;
+		bottom: 0;
+		font-family: "Open Sans", sans-serif;
+		position: fixed;
+		right: 20px;
+		width: 250px;
+	}
+	.nano {
+		height: 200px;
+	}
+}
+
+.panel-heading {
+	background: #72a4fd none repeat scroll 0 0;
+}
+
+#demo-chat-body {
+	background: #f4f8f8 none repeat scroll 0 0;
+}
+
+.btn {
+	border-radius: 3px;
+}
+
+.media-left, .media>.pull-left {
+	padding-right: 0;
+}
+
+.speech::before {
+	border-right: 7px solid #fff;
+}
+
+.speech {
+	background: #fff none repeat scroll 0 0;
+	color: #000;
+	border-radius: 6px;
+	bottom: 0px;
+}
+
+.speech .media-heading {
+	color: #000;
+}
+
+.speech-right>.speech::before {
+	border-color: transparent -moz-use-text-color transparent #ffffff !important;
+}
+
+.speech-right>.speech {
+	background: #d6dcfe none repeat scroll 0 0;
+	color: #000;
+}
+
+.speech-right>.speech .media-heading {
+	color: #000;
+}
+
+.btn.outline {
+	margin-top: 3px;
+}
+
+.carousel {
+	height: 80%;
+}
+
+.carousel-inner {
+	height: 100%;
+}
+
+.carousel-caption {
+	top: 120px;
+}
+
+.cntrl-btn { 
+	padding: 0; 
+	font-size: 25px;
+	background: transparent;
+}
+
+.cntrl-btn:hover, .cntrl-btn.focus, .cntrl-btn:focus, .cntrl-btn.active
+	{
+	background: transparent;
+}
+
+.carousel-caption {
+	color: #000;
+}
+
+.carousel-control.left, .carousel-control.right {
+	background-image: none;
+}
+
+.carousel-control {
+	opacity: 1;
+}
+
+.carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right,
+	.carousel-control .icon-next, .carousel-control .icon-prev {
+	font-size: 11px;
+}
+
+.crsl-left-btn {
+	background-color: #72a4fd;
+	padding: 10px;
+	border-radius: 50%;
+}
+
+</style>
+
+</head>
+<div id="loaderId" class="se-pre-con"></div>
+<div id="loaderText"
+	style="display: none; position: fixed; left: 0px; top: 375px; width: 100%; height: 100%; z-index: 9999; text-align: center; vertical-align: middle;">Dear
+	User, We are re-trying to get status of your request. Please wait while
+	we re-try</div>
+
+<body id="agentChat">
+	<!-- <div style="width:100%;height:100px;background:yellow;position:fixed">
+	  d,mbdbfjbfkjbfkjbfkjff 
+	</div> -->
+	
+	<div layout="column" ng-controller="myCtrlController">
+		<section layout="row" flex>
+			<md-sidenav ng-show="flagHideDrawer==true" flex="25"
+				class="md-sidenav-left position-fixed" md-component-id="left"
+				md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4">
+
+			<md-toolbar class="md-theme-indigo">
+				<h1 class="md-toolbar-tools logomainn"><img src="/CRM/resources/images/logo-umang1.png" /></h1>
+			</md-toolbar> <md-content layout-padding> <md-button
+				ng-click="close1()" class="md-primary" hide-gt-md> Close
+			Sidenav Left </md-button>
+	<md-list-item class="secondary-button-padding"  ng-click="viewTicket()" ng-if="ivrFlag=='true' || flagAdmin=='true' || flagTL=='true' || chatFlag=='true' || smsFlag=='true'">
+	<i class="fa fa-cog" aria-hidden="true"></i>
+	<p>Dashboard</p>
+	</md-list-item> 
+	
+	<md-list-item class="secondary-button-padding"  ng-click="createTicket()"  >
+	<i class="fa fa-ticket" aria-hidden="true"></i>
+	<p>Create Ticket</p>
+	</md-list-item> 
+	
+	 <md-list-item class="secondary-button-padding"  ng-click="showPrerenderedDialog($event)"  ng-if="ivrFlag=='true' || flagAdmin=='true' || flagTL=='true'">
+	<i class="fa fa-microphone" aria-hidden="true"></i>
+	<p>IVR </p>
+	</md-list-item>
+	
+	
+
+	
+	<md-list-item class="secondary-button-padding" ng-click="ticketHistory()">
+	<i class="fa fa-ticket" aria-hidden="true"></i>
+	<p>Ticket History</p>
+	</md-list-item> 
+	
+	<md-list-item class="secondary-button-padding"  ng-click="fetchServices()">
+	<i class="fa fa-arrow-down" aria-hidden="true"></i>
+	<p>Fetch Services</p>
+	</md-list-item>
+	
+	 <md-list-item class="secondary-button-padding"  ng-click="viewAgents()" ng-if="flagAdmin=='true'"><!-- ng-hide="flagTL==false" -->
+	<i class="fa fa-wrench" aria-hidden="true"></i>
+	<p>Control Panel </p>
+	</md-list-item> 
+	
+	<md-list-item  class="secondary-button-padding" ng-click="viewPendingDtls()" ng-if="flagAdmin=='true'|| flagTL=='true'">
+	<i class="fa fa-info-circle" aria-hidden="true"></i>
+	<p>View Pending Details</p>
+	</md-list-item> 
+	
+	<md-list-item class="secondary-button-padding"  ng-click="viewDetails()" ng-if="flagAdmin=='true' || flagTL=='true'">
+	<i class="fa fa-ticket" aria-hidden="true"></i>
+	<p>View Ticket Details</p>
+	</md-list-item> 
+	
+	<md-list-item id="listItmID" ng-disabled="false"  class="secondary-button-padding" ng-click="getChat()" ng-if="chatFlag=='true' || flagTL=='true'">
+	<i class="fa fa-commenting" aria-hidden="true"></i>
+	<p>Chat </p>
+	</md-list-item> 
+	
+	<md-list-item  class="secondary-button-padding" ng-click="getEmails()"  ng-if="emailFlag=='true' || flagAdmin=='true' || flagTL=='true'" ><!-- ng-if="emailFlag=='true'" -->
+	<i class="fa fa-envelope" aria-hidden="true"></i>
+	<p>Emails </p>
+	</md-list-item>  
+	
+	<md-list-item  class="secondary-button-padding" ng-click="getViewFeedbacks()" ng-if="flagViewer=='true' || flagAdmin=='true' || flagTL=='true'">
+	<i class="fa fa-comments" aria-hidden="true"></i>
+	<p>View Feedbacks</p>
+	</md-list-item>
+	
+ 		<md-list-item  class="secondary-button-padding" ng-click="viewLiveAgents()" ng-if=" flagAdmin=='true' || flagTL=='true'">
+	<i class="fa fa-comments" aria-hidden="true"></i>
+	<p>View Live agents</p>
+	</md-list-item>
+	
+	
+   
+<!--    			<md-list-item class="secondary-button-padding" ng-click="logout()">
+			<p>Logout</p>
+			</md-list-item>   -->
+			</md-content> </md-sidenav>
+
+
+			<div layout="column" flex="{{flexFlag}}" class="layout-column flex">
+				<md-toolbar layout="row" class="md-theme-indigo position-fixed top-bar"
+					ng-show="flagHideDrawer==true">
+				<h1 flex="95" flex-xs="85" class="md-toolbar-tools" >
+					<span ng-click="toggleLeft()" hide-gt-md><md-button
+							class="md-icon-button md-primary" aria-label="Settings">
+						<svg style="width: 24px; height: 24px" class="md-primary"
+							viewBox="0 0 24 24">
+    <path fill="#fff" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+</svg></span>Welcome {{userType}}
+					<!-- <md-button ng-click="ctrlPanel()">Control Panel</md-button> -->
+				</h1>
+				<div align="right" class="user-profile" layout="row" layout-align="center center">
+				  <!-- <md-button class="md-icon-button" ng-click="logout()" >
+				  <md-tooltip md-direction="bottom">Logout</md-tooltip>
+				    <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+   <path fill="#fff" d="M19,3H5C3.89,3 3,3.89 3,5V9H5V5H19V19H5V15H3V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M10.08,15.58L11.5,17L16.5,12L11.5,7L10.08,8.41L12.67,11H3V13H12.67L10.08,15.58Z" />
+</svg></md-icon>
+				  </md-button> -->
+				  
+				  <md-button class="md-raised" ng-click="logout()">Logout</md-button>
+				  
+				  
+				</div>
+				</md-toolbar>
+
+				<md-content ng-view class="right-content right-room" 
+					flex> </md-content>
+
+
+				<div style="display: none">
+					<md-card layout-padding>
+					<div class="md-dialog-container" id="commonSuccess">
+						<md-dialog class="crm-dialog-height">
+						<div class="popup-svg" align="center">
+							<span><svg style="width: 24px; height: 24px"
+									viewBox="0 0 24 24">
+    <path fill="#008000"
+										d="M23,10C23,8.89 22.1,8 21,8H14.68L15.64,3.43C15.66,3.33 15.67,3.22 15.67,3.11C15.67,2.7 15.5,2.32 15.23,2.05L14.17,1L7.59,7.58C7.22,7.95 7,8.45 7,9V19A2,2 0 0,0 9,21H18C18.83,21 19.54,20.5 19.84,19.78L22.86,12.73C22.95,12.5 23,12.26 23,12V10.08L23,10M1,21H5V9H1V21Z" />
+</svg></span>
+							<p>{{successMsg}}</p>
+							<div class="custom_button_box custom-green">
+								<md-button class="md-raised custom-green" ng-click="cancel()">OK</md-button>
+							</div>
+						</div>
+						</md-dialog>
+					</div>
+					 </md-card>
+				</div>
+
+
+
+				<div style="display: none">
+					<md-card layout-padding>
+					<div class="md-dialog-container" id="commonError">
+						<md-dialog style="overflow:hidden; height:auto !important;">
+						<div class="popup-svg" align="center">
+							<span><svg style="width: 35px; height: 35px"
+									viewBox="0 0 24 24">
+    <path fill="#ff0000"
+										d="M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+</svg></span>
+							<p>{{errorMsg}}</p>
+							<div class="custom_button_box custom-green">
+								<md-button class="md-raised custom-green" ng-click="cancel()">OK</md-button>
+							</div>
+						</div>
+						</md-dialog>
+					</div>
+
+					</md-card>
+				</div>
+			</div>
+		</section>
+
+
+
+		<!-- chat module -->
+	<div id="agentChat">	
+		<div class="my-chat-space"></div>
+<!-- 	Begin page content
+	 start  --> 
+	<div class="example-chat-window" style="display: none">
+		<div class="consumer-chat-container" data-userjid=""  data-chatid="" data-fbchatid="" data-chatuniqueid="" ref-Id="" >
+			<div class="crm-chat_window">
+				
+				 <div class="top_menu">
+ <div class="title">
+		<svg style="width:16px;height:16px" viewBox="0 0 24 24">
+            <path fill="#41c822" d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2Z" />
+        </svg><span class="chat_namesite">UMANG</span>
+         <span class="usrIdUni" id="userName"></span>
+       <!--  <span>CCE is typing...</span> -->
+       <select name="langpair" style="height:32px; padding:0;"class="langpair" id="langpair" size="1">
+    <option value="ENGLISH">Select one...</option><!-- this is more more UX to me says, "hey, change me and Ill do something..."-->
+    <option value="ENGLISH">ENGLISH</option>
+    <option value="BENGALI">BENGALI</option>
+    <option value="GUJARATI">GUJARATI</option>
+    <option value="HINDI">HINDI</option>
+    <option value="KANNADA">KANNADA</option>
+    <option value="MALAYALAM">MALAYALAM</option>
+    <option value="MARATHI">MARATHI</option>
+    <option value="ORIYA">ORIYA</option>
+    <option value="PUNJABI">PUNJABI</option>
+    <option value="TAMIL">TAMIL</option>
+    <option value="TELUGU">TELUGU</option>
+    <option value="URDU">URDU</option>
+</select>
+      </div>
+    <div class="buttons">
+    
+ 		<svg style="width:20px;height:20px" viewBox="0 0 24 24"  class="miniMize_window" id="TEST" onclick="minimizeWindow(this.id)">
+			<path fill="#fff" d="M20,14H4V10H20" />
+		</svg> &nbsp;
+		 <!--  onclick="wrapChat1(this.id)" -->
+		 
+		  <svg style="width:20px;height:20px" viewBox="0 0 24 24" class="wCls" id="wId" onclick="wrapChat1(this.id)">
+    <path fill="#fff" d="M12,19.2C9.5,19.2 7.29,17.92 6,16C6.03,14 10,12.9 12,12.9C14,12.9 17.97,14 18,16C16.71,17.92 14.5,19.2 12,19.2M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z" />
+			</svg>
+		 
+	 <svg style="width:20px;height:20px" viewBox="0 0 24 24" class="wClss" id="wrId" onclick="wrapChat2(this.id)">
+    <path fill="#fff" d="M21,5H3V7H21V5M3,19H10V17H3V19M3,13H18C19,13 20,13.43 20,15C20,16.57 19,17 18,17H16V15L12,18L16,21V19H18C20.95,19 22,17.73 22,15C22,12.28 21,11 18,11H3V13Z" />
+</svg>
+         
+        		<svg style="width:20px;height:2opx" viewBox="0 0 24 24" class="chat-close" >
+					<path fill="#fff" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+		 		</svg>
+		 		
+
+		 		
+		 		
+		 		
+	
+    </div>
+  </div>
+  
+  <div class="close-this-window"  data-chatid="" data-fbchatid="" data-chatuniqueid="" ref-Id="">
+  			<div id="demo-chat-body" class="collapse in chatroom-height">
+					<div class="nano has-scrollbar">
+						<div id="" class="nano-content pad-all pad-topbot0 pad-left5" tabindex="0"
+							style="right: -17px;">
+							<ul  id="message" class="list-unstyled media-block user-chat-ul messages">
+							
+							</ul>
+						</div>
+				 		<div class="nano-pane">
+							<div class="nano-slider"
+								style="height: 141px; transform: translate(0px, 0px);"></div>
+						</div>  
+					</div>
+
+					<!--Widget footer-->
+					<div class="panel-footer">
+						<div class="row bottom_wrapper clearfix" >
+							<div class="col-xs-9">
+<!-- 		<input type="text" id="" placeholder="Enter your text" class="form-control chat-input message-text">
+ -->		<textarea rows="4" cols="5" id="message-text" placeholder="Enter your message here..." class="form-control chat-input message-text"></textarea>
+									
+							</div>
+							
+      
+      <button class="md-fab md-primary2 chat-user-icon sendMessage" style="float:right;">
+            
+  
+                <img src="resources/images/btn-send.png" alt="">
+            
+        </button>
+      
+						</div>
+					</div>
+				</div>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--  end  -->
+	
+
+		
+     <div style="visibility: hidden">
+    <div class="md-dialog-container crm-ticket" id="createTicketPopUp" style="height:auto;z-index:80">
+    <form name="createTicketForm1">
+    	<md-dialog class="umang-dialog crm-tckt-popup" style="min-width:600px;">
+		<div class="" align="left">
+		<md-card class="_md" layout-padding>
+            <md-list role="list">
+              <div class="star-rating"><h4 style="margin:0;">WrapUp Window</h4></div>
+            </md-list>
+                       
+             <div layout="row">
+                <md-input-container  flex="50" class="plus_91" >
+                <label>Mobile Number</label>
+                <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                            <path fill="#7f7f7f" d="M17.25,18H6.75V4H17.25M14,21H10V20H14M16,1H8A3,3 0 0,0 5,4V20A3,3 0 0,0 8,23H16A3,3 0 0,0 19,20V4A3,3 0 0,0 16,1Z" />
+                        </svg></md-icon>
+                <input type="tel" name="mobNo" autocomplete="off" id="mobNo" ng-model="user.user_mno" mobile-length-directive maxlength="10" ng-required="true" no-special-directive ng-pattern="/^[7-9][0-9]{9}$/"/>
+         <div ng-messages="createTicketForm1.mobNo.$error" role="alert">
+          <div ng-message="required">
+            Mobile Number is required.
+          </div>
+          <div ng-message="pattern">
+            Mobile Number must be 10 digit number and start with 7,8 or 9 only.
+          </div>
+        </div>
+                </md-input-container>
+                <md-input-container  flex="50">
+                <label>User Name</label>
+                <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="#7f7f7f" d="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,7H13.5A2,2 0 0,1 15.5,9V14.5H14V22H10V14.5H8.5V9A2,2 0 0,1 10.5,7Z" />
+                </svg></md-icon>
+               <input type="text" name="fatherName"  id="fatherName" ng-model="user.ufathers_name" maxlength="50" characters-only-directive no-special-directive/>
+
+                </md-input-container>
+            </div>
+            
+            <div layout="row">
+                <md-input-container flex="50">
+              <label>Category</label>
+              <md-icon>
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+				<path fill="#5f5f5f" d="M4,2C2.89,2 2,2.89 2,4V14H4V4H14V2H4M8,6C6.89,6 6,6.89 6,8V18H8V8H18V6H8M12,10C10.89,10 10,10.89 10,12V20C10,21.11 10.89,22 12,22H20C21.11,22 22,21.11 22,20V12C22,10.89 21.11,10 20,10H12Z" />
+			</svg>
+			</md-icon>
+                  <md-select name="category" ng-model="user.category" ng-required="true" ng-change="fetchSubCategories(user.category)">
+            <md-option ng-repeat="x in fetchCategoriesResponsePojo.pd" value="{{x.catid}}">{{x.catnam}}</md-option>
+            
+          </md-select>
+           <div ng-messages="createTicketForm1.category.$error" role="alert">
+          <div ng-message="required">
+            Category is required.
+          </div>
+        </div>
+            </md-input-container>
+            </div>
+        
+            <div layout="row">
+                <md-input-container flex="50" >
+              <label>Department Name </label>
+              <md-icon>
+              	<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+    <path fill="#5f5f5f" d="M12.6,2.86C15.27,4.1 18,5.39 20.66,6.63C20.81,6.7 21,6.75 21,6.95C21,7.15 20.81,7.19 20.66,7.26C18,8.5 15.3,9.77 12.62,11C12.21,11.21 11.79,11.21 11.38,11C8.69,9.76 6,8.5 3.32,7.25C3.18,7.19 3,7.14 3,6.94C3,6.76 3.18,6.71 3.31,6.65C6,5.39 8.74,4.1 11.44,2.85C11.73,2.72 12.3,2.73 12.6,2.86M12,21.15C11.8,21.15 11.66,21.07 11.38,20.97C8.69,19.73 6,18.47 3.33,17.22C3.19,17.15 3,17.11 3,16.9C3,16.7 3.19,16.66 3.34,16.59C3.78,16.38 4.23,16.17 4.67,15.96C5.12,15.76 5.56,15.76 6,15.97C7.79,16.8 9.57,17.63 11.35,18.46C11.79,18.67 12.23,18.66 12.67,18.46C14.45,17.62 16.23,16.79 18,15.96C18.44,15.76 18.87,15.75 19.29,15.95C19.77,16.16 20.24,16.39 20.71,16.61C20.78,16.64 20.85,16.68 20.91,16.73C21.04,16.83 21.04,17 20.91,17.08C20.83,17.14 20.74,17.19 20.65,17.23C18,18.5 15.33,19.72 12.66,20.95C12.46,21.05 12.19,21.15 12,21.15M12,16.17C11.9,16.17 11.55,16.07 11.36,16C8.68,14.74 6,13.5 3.34,12.24C3.2,12.18 3,12.13 3,11.93C3,11.72 3.2,11.68 3.35,11.61C3.8,11.39 4.25,11.18 4.7,10.97C5.13,10.78 5.56,10.78 6,11C7.78,11.82 9.58,12.66 11.38,13.5C11.79,13.69 12.21,13.69 12.63,13.5C14.43,12.65 16.23,11.81 18.04,10.97C18.45,10.78 18.87,10.78 19.29,10.97C19.76,11.19 20.24,11.41 20.71,11.63C20.77,11.66 20.84,11.69 20.9,11.74C21.04,11.85 21.04,12 20.89,12.12C20.84,12.16 20.77,12.19 20.71,12.22C18,13.5 15.31,14.75 12.61,16C12.42,16.09 12.08,16.17 12,16.17Z" />
+</svg>
+              </md-icon>
+              <md-select ng-model="user.department" ng-change="selectDeptService(user.department)" ng-disabled="!disFlag">
+                <md-option value="{{x.srid}}" ng-repeat="x in fetchServicesResponsePojo.pd">{{x.name}}</md-option>
+             </md-select>
+            </md-input-container>
+                <md-input-container flex="50">
+              <label>Services</label>
+              <md-icon>
+              	<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+    <path fill="#7f7f7f" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.67 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" />
+</svg>
+              </md-icon>
+              <md-select name="type" ng-model="user.service" ng-disabled="!deptFlag || !disFlag" >
+                <md-option value="{{y.srid}}" ng-repeat="y in fetchDeptServicesResponsePojo.pd">{{y.name}}</md-option>
+              </md-select>
+            </md-input-container>
+           </div>
+	
+<!--                <md-input-container class="md-block">
+              <label>Query's Mode</label>
+              <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+    <path fill="7f7f7f" d="M19,8L15,12H18A6,6 0 0,1 12,18C11,18 10.03,17.75 9.2,17.3L7.74,18.76C8.97,19.54 10.43,20 12,20A8,8 0 0,0 20,12H23M6,12A6,6 0 0,1 12,6C13,6 13.97,6.25 14.8,6.7L16.26,5.24C15.03,4.46 13.57,4 12,4A8,8 0 0,0 4,12H1L5,16L9,12" />
+</svg></md-icon>
+              <md-select name="level" ng-model="user.lmode" ng-required="true">
+ 
+            <md-option value="chat">Chat</md-option>
+          </md-select>
+          <div ng-messages="createTicketForm.level.$error" role="alert">
+          <div ng-message="required">
+            Mode is required.
+          </div>
+        </div>
+            </md-input-container> -->
+          <!--   </div> -->
+            
+                <md-input-container class="md-block">
+                  <label>Query</label>
+                           <textarea   maxlength="600" name="query" id="query" rows="5" ng-required="true"   ng-model="user.query"></textarea>
+       	<div ng-messages="createTicketForm1.query.$error" role="alert">
+          <div ng-message="required">
+            Query is required.
+          </div>
+        </div>
+                </md-input-container>
+                
+         
+            <div layout="row">
+           <md-input-container flex="50">
+          <label>Query type</label>
+           <md-select name="qtype" ng-model="user.qtype" ng-required="true">
+            <md-option value="General">General</md-option>
+            <md-option value="Bug">Bug</md-option>
+           <md-option value="Feedback">Feedback</md-option>
+            </md-input-container>
+          <md-input-container flex="50">
+          <label>Status</label>
+           <md-select name="status" ng-model="user.status" ng-required="true">
+            <md-option value="close">Close</md-option>
+            <md-option value="assign">Assign</md-option>
+            </md-input-container>
+            </div>       
+                
+            
+       
+        <div class="custom_button_box1" align="center" layout-margin>
+       <!--  ng-disabled="!(user.query && user.subCategory && user.mobNo && user.category)" -->
+            <md-button class="md-raised custom-green" ng-click="wrapUpReq(user)" ng-disabled="!(user.user_mno  && user.category && user.query && user.status )" >Submit</md-button>
+            <md-button class="md-raised md-primary md-hue-2 md-primary" ng-click="reset(user)">Refresh</md-button>
+            <md-button class="md-raised md-primary md-hue-2 md-primary" ng-click="cancel()">Cancel</md-button>
+           </div>
+  
+    </md-card>
+    </div>
+    </md-dialog>
+    </form>
+    </div>
+    </div>
+    </div>
+      
+
+		
+		  				<div style="display: none">
+					<md-card layout-padding>
+					<div class="md-dialog-container" id="commonSuccess11">
+						<md-dialog class="crm-dialog-height">
+						<div class="popup-svg" align="center">
+							<span><svg style="width: 24px; height: 24px"
+									viewBox="0 0 24 24">
+    <path fill="#008000"
+										d="M23,10C23,8.89 22.1,8 21,8H14.68L15.64,3.43C15.66,3.33 15.67,3.22 15.67,3.11C15.67,2.7 15.5,2.32 15.23,2.05L14.17,1L7.59,7.58C7.22,7.95 7,8.45 7,9V19A2,2 0 0,0 9,21H18C18.83,21 19.54,20.5 19.84,19.78L22.86,12.73C22.95,12.5 23,12.26 23,12V10.08L23,10M1,21H5V9H1V21Z" />
+</svg></span>
+							<p>{{successMsg}}</p>
+							<div class="custom_button_box custom-green">
+								<md-button class="md-raised custom-green" ng-click="cancel()">OK</md-button>
+							</div>
+						</div>
+						</md-dialog>
+					</div>
+					 </md-card>
+				</div>
+
+
+
+				<div style="display: none">
+					<md-card layout-padding>
+					<div class="md-dialog-container" id="commonError11">
+						<md-dialog style="overflow:hidden; height:auto !important;">
+						<div class="popup-svg" align="center">
+							<span><svg style="width: 35px; height: 35px"
+									viewBox="0 0 24 24">
+    <path fill="#ff0000"
+										d="M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+</svg></span>
+							<p>{{errorMsg}}</p>
+							<div class="custom_button_box custom-green">
+								<md-button class="md-raised custom-green" ng-click="cancel()">OK</md-button>
+							</div>
+						</div>
+						</md-dialog>
+					</div>
+
+					</md-card>
+				</div>
+
+
+<div style="visibility: hidden">
+    <div class="md-dialog-container crm-ticket" id="wrapups" style="height:auto;z-index:10001">
+    	<md-dialog class="umang-dialog Previous_WrapUps_main crm-tckt-popup" style="min-width:1100px;">
+    	  <md-list role="list">
+              <div class="star-rating"><h4 style="margin:0;">Previous WrapUps</h4></div>
+            </md-list>
+		<div class="" align="left">
+		<md-card class="_md" layout-padding ng-repeat="x in preWrapUpsResponsePojo.pd.calls">
+
+             <div layout="row">
+                <md-input-container  flex="40"  >
+                <label>Reference ID</label>
+        <input type="text"   id="mobNo" value="{{x.referenceId}}" disabled="" />
+         </md-input-container>
+                
+                <md-input-container  flex="30"  >
+                <label>Cceid ID/Name</label>
+                
+        <input type="text"   id="mobNo" value="{{x.cceid}} / {{x.agentName}}" disabled="" />
+         
+                </md-input-container>
+
+                  <md-input-container  flex="15"  >
+                <label>Channel</label>
+                
+        <input type="text"   id="mobNo" value="{{x.channel}}"  disabled="" />
+         			</md-input-container>
+         			                <md-input-container  flex="15">
+                <label>Status</label>
+               <input  type="text" value="{{x.status}}" disabled=""/>
+				</md-input-container>
+                </div>
+                
+                
+                
+                
+                                
+                             <div layout="row">
+                <md-input-container  flex="100">
+                <label>query</label>
+               
+                     <input  type="text" value="{{x.query}}" disabled=""/>
+
+                </md-input-container>
+
+                </div>
+        </md-card>
+       
+        <div class="custom_button_box1" align="center" layout-margin>
+            <md-button class="md-raised md-primary md-hue-2 md-primary" ng-click="cancel()">Cancel</md-button></div>
+        </div>
+		</md-dialog>
+    </div>
+  </div>
+
+
+</div>
+</body>
+
+<script src="resources/js/controllers/loginController11.js"></script>
+<script src="resources/js/factory/loginFactory.js?v=2"></script>
+<script src="resources/js/controllers/fetchTerminalIdController.js"></script>
+<script src="resources/js/factory/fetchTerminalIdFactory.js?v=2"></script>
+<script src="resources/js/factory/sendSmsFactory.js?v=15"></script>
+<script src="resources/js/factory/logoutFactory.js?v=15"></script>
+<script src="resources/js/controllers/crmController.js?v=10"></script>
+<script src="resources/js/factory/crmFactory.js?v=15"></script>
+<script src="resources/js/directives/mobNumbers.js"></script>
+<script src="resources/js/directives/noSpecialDirective.js"></script>
+<script src="resources/js/directives/charactersOnlyDirective.js"></script>
+<script src="resources/js/directives/numbersOnly.js"></script>
+<script src="resources/js/controllers/imageUplaod.js"></script>
+<script src="resources/js/controllers/picUploadController.js?v=10"></script>
+<script src="resources/js/factory/picUploadFactory.js?v=15"></script>
+<script src="resources/js/factory/addAgentFactory.js?v=15"></script>
+<script src="resources/js/controllers/ForgotPasswordController.js?v=10"></script>
+<script src="resources/js/factory/forgotPasswordFactory.js?v=15"></script>
+<script src="resources/js/controllers/ticketHistoryController.js?v=10"></script>
+<script src="resources/js/factory/ticketHistoryFactory.js?v=15"></script>
+<script src="resources/js/controllers/fetchServicesController.js?v=15"></script>
+<script src="resources/js/factory/fetchServicesFactory.js?v=15"></script>
+<script src="resources/js/controllers/createTicketController.js?v=15"></script>
+<script src="resources/js/factory/createTicketFactory.js?v=15"></script>
+<script src="resources/js/controllers/viewCceDetailsController.js?v=15"></script>
+<script src="resources/js/factory/viewCceDetailsFactory.js?v=15"></script>
+<script src="resources/js/controllers/addAgentController.js?v=15"></script>
+<script src="resources/js/factory/addAgentFactory.js?v=15"></script>
+<script src="resources/js/controllers/resetPasswordController.js?v=15"></script>
+<script src="resources/js/factory/resetPasswordFactory.js?v=15"></script>
+<script src="resources/js/controllers/editAgentDetailsController.js?v=15"></script>
+<script src="resources/js/factory/editAgentDetailsFactory.js?v=15"></script>
+<script src="resources/js/controllers/viewDetailsController.js?v=15"></script>
+<script src="resources/js/factory/viewDetailsFactory.js?v=15"></script>
+<script src="resources/js/controllers/userDetailsController.js?v=15"></script>
+<script src="resources/js/factory/userDetailsFactory.js?v=15"></script>
+<script src="resources/js/controllers/viewCcePendingHistoryController.js?v=15"></script>
+<script src="resources/js/factory/viewCcePendingHistoryFactory.js?v=15"></script>
+<script src="resources/js/controllers/manageCategoryController.js?v=15"></script>
+<script src="resources/js/factory/manageCategoryFactory.js?v=15"></script>
+<script src="resources/js/controllers/agentChatHistoryController11.js?v=16"></script>
+<script src="resources/js/factory/agentChatHistoryFactory.js?v=16"></script>
+<script type="text/javascript" src="resources/js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="resources/js/jquery/bootstrap.min.js"></script>
+<script type="text/javascript" src="resources/js/jquery/strophe.js"></script>
+<script type="text/javascript" src="resources/js/jquery/datepicker.js"></script>
+<script src="resources/js/controllers/otherController.js?v=15"></script>
+<script src="resources/js/controllers/feedBackController.js?v=15"></script>
+<script src="resources/js/controllers/wrapUpController.js?v=15"></script>
+<script src="resources/js/factory/wrapUpFactory.js?v=16"></script>
+<script src="resources/js/factory/feedbackFactory.js?v=16"></script>
+<script src="resources/js/controllers/FetchEmailsController.js?v=15"></script>
+<script src="resources/js/factory/fetchEmailsFactory.js?v=16"></script>
+<script src="resources/js/controllers/emailHisController.js?v=15"></script>
+<script src="resources/js/factory/emaiHisFactory.js?v=16"></script>
+<script src="resources/js/controllers/fetchChatRptController.js?v=15"></script>
+<script src="resources/js/factory/fetchChatReportFactory.js?v=16"></script>
+
+<script src="resources/js/controllers/fetchIvrRptController.js?v=15"></script>
+<script src="resources/js/factory/fetchIvrReportFactory.js?v=16"></script>
+<script src="resources/js/factory/table2ExcelFactory.js?v=16"></script>
+<script src="resources/js/controllers/viewLiveAgentsController.js?v=15"></script>
+
+<!-- 	<script type="text/javascript" src="resources/js/jquery/agentChatBot.js"></script> -->
+
+<!--  -->
+<script>
+	crm.controller('myCtrlController', function($scope, $window, $timeout,
+			$mdSidenav, $log, $mdDialog, $location, $rootScope, loginFactory,
+			logoutFactory) {
+		$rootScope.popUpFlag = "false";
+		$rootScope.flagHideDrawer = false;
+		$rootScope.flagCtrlPanel == false;
+		var agentLoginStatus;
+		var loginStatus;
+		var isAgentLogout=true;
+		 $("#listItmID").css("background","white");
+		$scope.toggleLeft = buildDelayedToggler('left');
+		$scope.toggleRight = buildToggler('right');
+		$scope.isOpenRight = function() {
+			return $mdSidenav('right').isOpen();
+		};
+
+		function debounce(func, wait, context) {
+			var timer;
+
+			return function debounced() {
+				var context = $scope, args = Array.prototype.slice
+						.call(arguments);
+				$timeout.cancel(timer);
+				timer = $timeout(function() {
+					timer = undefined;
+					func.apply(context, args);
+				}, wait || 10);
+			};
+		}
+
+		function buildDelayedToggler(navID) {
+			return debounce(function() {
+				$mdSidenav(navID).toggle().then(function() {
+					$log.debug("toggle " + navID + " is done");
+				});
+			}, 200);
+		}
+
+		function buildToggler(navID) {
+			return function() {
+				$mdSidenav(navID).toggle().then(function() {
+					$log.debug("toggle " + navID + " is done");
+				});
+			}
+		}
+
+		$scope.close1 = function() {
+			$mdSidenav('left').close().then(function() {
+				$log.debug("close LEFT is done");
+			});
+
+		};
+
+		$scope.ticketHistory = function() {
+			$scope.close1();
+			$location.path("/ticketHistory");
+		}
+		$scope.fetchServices = function() {
+			$scope.close1();
+			$location.path("/fetchServicess");
+		}
+		$scope.viewTicket = function() {
+			$scope.close1();
+			$location.path("/crm");
+		}
+		$scope.showPrerenderedDialog = function(ev) {
+			$scope.close1();
+			$location.path("/wrapUp");
+			
+		}
+		$scope.createTicket = function(ev) {
+			$scope.close1();
+			$location.path("/createTicket");
+			
+		}
+		$scope.viewAgents = function() {
+			$scope.close1();
+			$location.path("/viewAgents");
+		}
+		$scope.viewDetails = function() {
+			$scope.close1();
+			$location.path("/viewDetails");
+		}
+		$scope.UserDetails = function() {
+			$scope.close1();
+			$location.path("/userDetails");
+		}
+		$scope.viewPendingDtls = function() {
+			$scope.close1();
+			$location.path("/viewPending");
+		}
+		$scope.getChat = function() {
+			$scope.close1();
+			$scope.startChat();
+		}
+		$scope.getViewFeedbacks = function() {
+			$scope.close1();
+			$location.path("/vFeedback");
+		}
+		$scope.getEmails = function() {
+			$scope.close1();
+			$location.path("/fetchMails");
+		}
+		$scope.emailHis = function() {
+			$scope.close1();
+			$location.path("/emailHis");
+		}
+        
+		$scope.viewLiveAgents = function() {
+			$scope.close1();
+			$location.path("/viewLiveAgents");
+		}
+		$scope.startChat=function()
+		{
+		if(localStorage.getItem("conid")!="" && localStorage.getItem("conid")!=undefined){
+		$scope.loginRequest=loginFactory.getLoginReq();
+		$scope.LoginRequestPojo.uname=localStorage.getItem("userid");
+		$scope.LoginRequestPojo.pwd=localStorage.getItem("pwd11");//SHA256(obj.pswd);
+		$scope.LoginRequestPojo.lang="en";
+		$scope.LoginRequestPojo.ip="";
+		$scope.LoginRequestPojo.connectionid=localStorage.getItem("userid").toLowerCase()+"@reporting.umang.gov.in";
+		$scope.LoginRequestPojo.sessionid=localStorage.getItem("conid");
+		//getConnect($scope.LoginRequestPojo.uname,$scope.LoginRequestPojo.pwd);
+		loginFactory.login1($scope.LoginRequestPojo).success(function(data)
+		{
+			console.log(data);
+			$scope.LoginResponsePojo=data;
+			 if($scope.LoginResponsePojo.rs=="S")
+			 {
+				 $scope.loginDetails=$scope.LoginResponsePojo;
+				 $rootScope.btnFlag=true;
+				 $("#listItmID").css("background","green");
+				// getConnect($scope.LoginRequestPojo.uname,$scope.LoginRequestPojo.pwd);
+				 $scope.commomSuccessPopUp("Dear agent, Now you are enable at chat");
+			 }
+			 else
+				 {
+				 console.log("---------------------");
+				 $scope.commomErrorPopUp($scope.LoginResponsePojo.rd);
+				 $rootScope.btnFlag=false;
+					
+				}
+		}).error(function(error){
+			
+		})
+		}
+		else{
+			$scope.commomErrorPopUp("Please Try again later");
+		}
+
+		}
+		if((localStorage.getItem("Cceid")!="null")&&(localStorage.getItem("Cceid")!=""))
+		{
+			
+			$rootScope.logoutStatus();
+		}
+	    	
+	 $(window).bind("beforeunload", function()
+	{ 
+		if(connection!=null)
+		{	logout=true;
+			connection.disconnect();
+		}	
+		return "";
+          
+     }) ; 
+    
+
+	});
+</script>
+<script src="resources/js/angular/agentChatBot11.js"></script>
+</html>

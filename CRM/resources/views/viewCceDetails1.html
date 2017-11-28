@@ -1,0 +1,160 @@
+<div layout="row" layout-padding layout-margin>
+        	<md-input-container flex="80">
+            <label for="testInput">Search Member</label>
+            <input type="text" id="testInput"
+                   ng-model="data" md-autofocus>
+          </md-input-container>
+         
+          <div flex="20" align="right">
+          <md-list-item>
+            <md-button class="md-icon-button" aria-label="More">
+            	<md-icon>
+					<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+						<path fill="#5f5f5f" d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+					</svg>
+                </md-icon> 
+            </md-button><strong>Add Agent</strong>
+            </md-list-item> 
+            </div>
+       </div>
+      <div class="tab_scroll action-btn">
+        <table width="100%" border="0" class="table crm-agent-table" cellspacing="0" cellpadding="0">
+          <tr>
+            <th></th>
+            <th width="70%">Agent</th>
+            <th width="30%" style="text-align:center;">Action</th>
+          </tr>
+         
+          <tr ng-repeat="x in fetchCceDetails">
+            <td></td>
+            <td valign="top">{{x.name}}</td>
+            <td align="right"><section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+              <md-button class="md-icon-button md-primary" aria-label="Settings" ng-click="showRatingDialog()">
+                <md-icon>
+                    <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+                        <path fill="#5f5f5f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />
+                    </svg>
+                </md-icon>
+              </md-button>
+              <md-button class="md-icon-button md-accent" aria-label="Favorite">
+                <md-icon>
+                    <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+                        <path fill="#5f5f5f" d="M22,18V22H18V19H15V16H12L9.74,13.74C9.19,13.91 8.61,14 8,14A6,6 0 0,1 2,8A6,6 0 0,1 8,2A6,6 0 0,1 14,8C14,8.61 13.91,9.19 13.74,9.74L22,18M7,5A2,2 0 0,0 5,7A2,2 0 0,0 7,9A2,2 0 0,0 9,7A2,2 0 0,0 7,5Z" />
+                    </svg>
+                </md-icon>
+              </md-button>
+              <md-button class="md-icon-button" aria-label="More">
+                <md-icon>
+                    <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+                        <path fill="#5f5f5f" d="M12,0A12,12 0 0,1 24,12A12,12 0 0,1 12,24A12,12 0 0,1 0,12A12,12 0 0,1 12,0M12,2A10,10 0 0,0 2,12C2,14.4 2.85,16.6 4.26,18.33L18.33,4.26C16.6,2.85 14.4,2 12,2M12,22A10,10 0 0,0 22,12C22,9.6 21.15,7.4 19.74,5.67L5.67,19.74C7.4,21.15 9.6,22 12,22Z" />
+                    </svg>
+                </md-icon>
+              </md-button>
+              <md-button class="md-icon-button" title="ffflf" aria-label="More">
+                <md-icon>
+                    <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+                        <path fill="#5f5f5f" d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+                    </svg>
+                </md-icon>
+              </md-button>
+              <md-button class="md-icon-button" title="ffflf" aria-label="More">
+                <md-icon>
+                    <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+                        <path fill="#5f5f5f" d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+                    </svg>
+                </md-icon>
+              </md-button>
+            </section>
+            </td>
+          </tr>
+          
+          <tr>
+            <td></td>
+            </tr>
+            </table>
+            </div>
+            
+            
+            
+              <div style="visibility: hidden">
+    <div class="md-dialog-container" id="myDialog1">
+    	<md-dialog class="umang-dialog" style="min-width:320px;">
+		<div class="" align="left">
+        <md-card class="_md rate-icon-mrgn">
+            <md-list-item>
+                <p align="left">Email</p>
+                <div class="rating-star-icon">
+				<svg style="width:20px;height:20px" viewBox="0 0 24 24">
+						<path fill="#ffd800" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path>
+				</svg>
+                <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+						<path fill="#ffd800" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path>
+				</svg>
+                <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+						<path fill="#ffd800" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path>
+				</svg>
+                <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+						<path fill="#ffd800" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path>
+				</svg>
+                <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+					<path fill="#5F5F5F" d="M12,15.39L8.24,17.66L9.23,13.38L5.91,10.5L10.29,10.13L12,6.09L13.71,10.13L18.09,10.5L14.77,13.38L15.76,17.66M22,9.24L14.81,8.63L12,2L9.19,8.63L2,9.24L7.45,13.97L5.82,21L12,17.27L18.18,21L16.54,13.97L22,9.24Z"></path>
+				</svg>
+              </div>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-list-item>
+                <p align="left">Chat</p>
+                <div class="rating-star-icon">
+				<svg style="width:20px;height:20px" viewBox="0 0 24 24">
+						<path fill="#ffd800" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path>
+				</svg>
+                <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+						<path fill="#ffd800" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path>
+				</svg>
+                <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+						<path fill="#ffd800" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path>
+				</svg>
+                <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+						<path fill="#ffd800" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path>
+				</svg>
+                <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+					<path fill="#5F5F5F" d="M12,15.39L8.24,17.66L9.23,13.38L5.91,10.5L10.29,10.13L12,6.09L13.71,10.13L18.09,10.5L14.77,13.38L15.76,17.66M22,9.24L14.81,8.63L12,2L9.19,8.63L2,9.24L7.45,13.97L5.82,21L12,17.27L18.18,21L16.54,13.97L22,9.24Z"></path>
+				</svg>
+              </div>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-list-item>
+                <p align="left">Call</p>
+                <div class="rating-star-icon">
+				<svg style="width:20px;height:20px" viewBox="0 0 24 24">
+						<path fill="#ffd800" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path>
+				</svg>
+                <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+						<path fill="#ffd800" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path>
+				</svg>
+                <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+						<path fill="#ffd800" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path>
+				</svg>
+                <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+						<path fill="#ffd800" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path>
+				</svg>
+                <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+					<path fill="#5F5F5F" d="M12,15.39L8.24,17.66L9.23,13.38L5.91,10.5L10.29,10.13L12,6.09L13.71,10.13L18.09,10.5L14.77,13.38L15.76,17.66M22,9.24L14.81,8.63L12,2L9.19,8.63L2,9.24L7.45,13.97L5.82,21L12,17.27L18.18,21L16.54,13.97L22,9.24Z"></path>
+				</svg>
+              </div>
+            </md-list-item>
+      	</md-card>
+        <md-card>
+        	 <md-input-container class="md-block">
+                  <label>Remarks</label>
+                  <textarea ng-model="vb" md-maxlength="150" rows="3" md-select-on-focus></textarea>
+                </md-input-container>
+        </md-card>
+        <div align="center">
+ 		    <md-button class="md-primary custom-green md-raised" ng-click="vm.cancel()">Submit</md-button>
+        </div>
+    </div>
+		</md-dialog>  	
+    </div>
+  </div>
+            

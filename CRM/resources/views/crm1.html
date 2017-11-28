@@ -1,0 +1,646 @@
+
+					
+<style>
+
+.pagination {
+	margin: 20px 0;
+}
+
+.pagination ul {
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+	margin-left: 0;
+	margin-bottom: 0;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.pagination ul>li {
+	display: inline;
+}
+
+.pagination ul>li>a,.pagination ul>li>span {
+	float: left;
+	padding: 4px 12px;
+	line-height: 20px;
+	text-decoration: none;
+	background-color: #ffffff;
+	border: 1px solid #dddddd;
+	border-left-width: 0;
+}
+
+.pagination ul>li>a:hover,.pagination ul>li>a:focus,.pagination ul>.active>a,.pagination ul>.active>span
+	{
+	background-color: #f5f5f5;
+}
+
+.pagination ul>.active>a,.pagination ul>.active>span {
+	color: #999999;
+	cursor: default;
+}
+
+.pagination ul>.disabled>span,.pagination ul>.disabled>a,.pagination ul>.disabled>a:hover,.pagination ul>.disabled>a:focus
+	{
+	color: #999999;
+	background-color: transparent;
+	cursor: default;
+}
+
+.pagination ul>li:first-child>a,.pagination ul>li:first-child>span {
+	border-left-width: 1px;
+	-webkit-border-top-left-radius: 4px;
+	-moz-border-radius-topleft: 4px;
+	border-top-left-radius: 4px;
+	-webkit-border-bottom-left-radius: 4px;
+	-moz-border-radius-bottomleft: 4px;
+	border-bottom-left-radius: 4px;
+}
+
+.pagination ul>li:last-child>a,.pagination ul>li:last-child>span {
+	-webkit-border-top-right-radius: 4px;
+	-moz-border-radius-topright: 4px;
+	border-top-right-radius: 4px;
+	-webkit-border-bottom-right-radius: 4px;
+	-moz-border-radius-bottomright: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+.pagination-centered {
+	text-align: center;
+}
+
+.pagination-right {
+	text-align: right;
+}
+
+.pagination-large ul>li>a,.pagination-large ul>li>span {
+	padding: 11px 19px;
+	font-size: 17.5px;
+}
+
+.pagination-large ul>li:first-child>a,.pagination-large ul>li:first-child>span
+	{
+	-webkit-border-top-left-radius: 6px;
+	-moz-border-radius-topleft: 6px;
+	border-top-left-radius: 6px;
+	-webkit-border-bottom-left-radius: 6px;
+	-moz-border-radius-bottomleft: 6px;
+	border-bottom-left-radius: 6px;
+}
+
+.pagination-large ul>li:last-child>a,.pagination-large ul>li:last-child>span
+	{
+	-webkit-border-top-right-radius: 6px;
+	-moz-border-radius-topright: 6px;
+	border-top-right-radius: 6px;
+	-webkit-border-bottom-right-radius: 6px;
+	-moz-border-radius-bottomright: 6px;
+	border-bottom-right-radius: 6px;
+}
+
+.pagination-mini ul>li:first-child>a,.pagination-small ul>li:first-child>a,.pagination-mini ul>li:first-child>span,.pagination-small ul>li:first-child>span
+	{
+	-webkit-border-top-left-radius: 3px;
+	-moz-border-radius-topleft: 3px;
+	border-top-left-radius: 3px;
+	-webkit-border-bottom-left-radius: 3px;
+	-moz-border-radius-bottomleft: 3px;
+	border-bottom-left-radius: 3px;
+}
+
+.pagination-mini ul>li:last-child>a,.pagination-small ul>li:last-child>a,.pagination-mini ul>li:last-child>span,.pagination-small ul>li:last-child>span
+	{
+	-webkit-border-top-right-radius: 3px;
+	-moz-border-radius-topright: 3px;
+	border-top-right-radius: 3px;
+	-webkit-border-bottom-right-radius: 3px;
+	-moz-border-radius-bottomright: 3px;
+	border-bottom-right-radius: 3px;
+}
+
+.pagination-small ul>li>a,.pagination-small ul>li>span {
+	padding: 2px 10px;
+	font-size: 11.9px;
+}
+
+.pagination-mini ul>li>a,.pagination-mini ul>li>span {
+	padding: 0 6px;
+	font-size: 10.5px;
+}
+
+.pager {
+	margin: 20px 0;
+	list-style: none;
+	text-align: center;
+	*zoom: 1;
+}
+
+.pager:before,.pager:after {
+	display: table;
+	content: "";
+	line-height: 0;
+}
+
+.pager:after {
+	clear: both;
+}
+
+.pager li {
+	display: inline;
+}
+
+.pager li>a,.pager li>span {
+	display: inline-block;
+	padding: 5px 14px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+
+.pager li>a:hover,.pager li>a:focus {
+	text-decoration: none;
+	background-color: #f5f5f5;
+}
+
+.pager .next>a,.pager .next>span {
+	float: right;
+}
+
+.pager .previous>a,.pager .previous>span {
+	float: left;
+}
+
+.pager .disabled>a,.pager .disabled>a:hover,.pager .disabled>a:focus,.pager .disabled>span
+	{
+	color: #999999;
+	background-color: #fff;
+	cursor: default;
+}
+.right_box {
+position:absolute;
+top:59px;
+width:calc(100% -374px);
+right:0;
+margin:20px 40px;
+}
+</style>
+   
+<div ng-cloak flex >
+         <md-card>
+                 	<md-input-container flex="50"  flex-xs="100" layout="column">
+            <label for="testInput">Search Ticket</label>
+            <input type="text" id="searchedValue"
+                   ng-model="searchedValue" no-special-directive  maxlength="100"> 
+                   
+          </md-input-container>
+	 <div class="tab_scroll " >
+<table width="100%" border="0" class="table crm_table  crm-table-scroll" cellspacing="0" cellpadding="0" ng-hide="viewTicketResponsePojo.rs=='F'">
+  <tr>
+<!--     <th width="50">Select</th>  -->
+    <th>Query</th>
+    <th></th>
+    <th width="100" align="center" style="text-align:center">Status</th>
+    <th width="150" style="text-align:center">Action</th>
+  </tr>
+
+ <tr ng-repeat="y in ticketDetails | offset: currentPage*itemsPerPage | limitTo: itemsPerPage |filter:searchedValue">
+
+   <span ng-if="viewTicketResponsePojo.rs=='S'">Total Records Found :<strong>{{(viewTicketResponsePojo.pd | filter:searchedValue).length}}</strong></span>
+        <div ng-switch="(viewTicketResponsePojo.pd | filter:searchedValue).length">
+            <span ng-switch-when="0" style="color:red;">NO MATCH FOUND</span> 
+ 
+ </div>
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+<!--   <td><md-checkbox  ng-change="assignAgent(y,$index,chBox); updateTicketStatus(y,$index,chBox)" id="chkId" ng-model="chBox" ng-true-value="1" ng-false-value="0">
+ </md-checkbox></td>  -->
+    <td valign="top"><a href="" style="cursor:pointer" class="custom-cl_blue crm-query-name" ng-click="ticketHistory(y)"><b class="agent-info">{{y.query}} </b><span>#{{y.ticketID}}</span></a>
+    <div class="crm-from"><strong>From</strong> : {{y.father_name}}</div>
+<!--     <div><strong>Assign to :</strong> Mohit</div> -->
+    <div class="crm-from"><strong>Ticket Creation Date :</strong>{{y.ldate}}</div>
+    <div class="crm-from" ng-hide="y.assign_name==undefined"><strong>Assigned Cce: </strong>{{y.assign_name}}</div>
+      <!-- <div><strong>ticket ID:</strong>{{y.ticketID}}</div> -->
+     <!--  <div ng-show="chBox=='1'">Remarks: <input type="text" ng-model="x.remarks" ></div> -->
+     </td>
+     
+     <td width="50px" style="box-shadow: 2px 0px 10px #f6f6f6;" align="center">  
+      <md-icon ng-if="y.lmode=='ivr'">
+		<svg style="width:20px;height:20px" viewBox="0 0 24 24">
+		    <path fill="5f5f5f" d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z" />
+		</svg>
+     </md-icon>
+     
+     <md-icon ng-if="y.lmode=='email'">
+     <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+    <path fill="#5f5f5f" d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z" />
+</svg>
+     </md-icon>
+     
+     
+          <md-icon ng-if="y.lmode=='sms'">
+<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+    <path fill="#5f5f5f" d="M18,8H6V6H18V8M18,11H6V9H18V11M18,14H6V12H18V14M22,4A2,2 0 0,0 20,2H4A2,2 0 0,0 2,4V16A2,2 0 0,0 4,18H18L22,22V4Z" />
+</svg>
+     </md-icon>
+     
+     
+          <md-icon ng-if="y.lmode=='chat'">
+<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+    <path fill="#5f5f5f" d="M9.5,4C5.36,4 2,6.69 2,10C2,11.89 3.08,13.56 4.78,14.66L4,17L6.5,15.5C7.39,15.81 8.37,16 9.41,16C9.15,15.37 9,14.7 9,14C9,10.69 12.13,8 16,8C16.19,8 16.38,8 16.56,8.03C15.54,5.69 12.78,4 9.5,4M6.5,6.5A1,1 0 0,1 7.5,7.5A1,1 0 0,1 6.5,8.5A1,1 0 0,1 5.5,7.5A1,1 0 0,1 6.5,6.5M11.5,6.5A1,1 0 0,1 12.5,7.5A1,1 0 0,1 11.5,8.5A1,1 0 0,1 10.5,7.5A1,1 0 0,1 11.5,6.5M16,9C12.69,9 10,11.24 10,14C10,16.76 12.69,19 16,19C16.67,19 17.31,18.92 17.91,18.75L20,20L19.38,18.13C20.95,17.22 22,15.71 22,14C22,11.24 19.31,9 16,9M14,11.5A1,1 0 0,1 15,12.5A1,1 0 0,1 14,13.5A1,1 0 0,1 13,12.5A1,1 0 0,1 14,11.5M18,11.5A1,1 0 0,1 19,12.5A1,1 0 0,1 18,13.5A1,1 0 0,1 17,12.5A1,1 0 0,1 18,11.5Z" />
+</svg>
+     </md-icon>
+     
+     
+     
+     </td>
+     
+     <td align="center">
+	<span class="pending" style="background: #900;
+    color: #fff;
+    padding: 2px 10px;
+    border-radius: 8px;
+    font-size: 12px;">Pending</span></td>
+<!--     <td><div>Agent : <strong ng-if="x.cceid==1">Aashish</strong><strong ng-if="x.cceid==2">Ashish</strong><strong ng-if="x.cceid==3">Bhupinder</strong><strong ng-if="x.cceid==4">Aalok</strong><strong ng-if="x.cceid==5">Satinder</strong></div>
+ -->    
+ <td>
+ <md-button class="md-icon-button crm-action-btn" ng-click="shareContactpopUp(y)">
+ <md-tooltip md-direction="bottom"> Share contact Card </md-tooltip>
+ 	<md-icon>
+ 		<svg style="width:20px;height:20px" viewBox="0 0 24 24">
+		    <path fill="#5f5f5f" d="M18,16.08C17.24,16.08 16.56,16.38 16.04,16.85L8.91,12.7C8.96,12.47 9,12.24 9,12C9,11.76 8.96,11.53 8.91,11.3L15.96,7.19C16.5,7.69 17.21,8 18,8A3,3 0 0,0 21,5A3,3 0 0,0 18,2A3,3 0 0,0 15,5C15,5.24 15.04,5.47 15.09,5.7L8.04,9.81C7.5,9.31 6.79,9 6,9A3,3 0 0,0 3,12A3,3 0 0,0 6,15C6.79,15 7.5,14.69 8.04,14.19L15.16,18.34C15.11,18.55 15.08,18.77 15.08,19C15.08,20.61 16.39,21.91 18,21.91C19.61,21.91 20.92,20.61 20.92,19A2.92,2.92 0 0,0 18,16.08Z" />
+		</svg>
+	</md-icon>
+</md-button>
+
+
+
+ <md-button class="md-icon-button crm-action-btn" ng-click="frwdToDeptpopUp(y)">
+  <md-tooltip md-direction="bottom">Forward to department</md-tooltip>
+ 	<md-icon>
+		<svg style="width:20px;height:20px" viewBox="0 0 24 24">
+		    <path fill="#5f5f5f" d="M7,5H10V19H7V5M12,5L23,12L12,19V5M2,5H5V19H2V5Z" />
+		</svg>
+	</md-icon>
+</md-button>
+
+ <md-button ng-click="ResponseDialog(y)" class="md-icon-button crm-action-btn" >
+  <md-tooltip md-direction="bottom"> Response </md-tooltip>
+ 	<md-icon>
+		<svg style="width:20px;height:20px" viewBox="0 0 24 24">
+		    <path fill="#5f5f5f" d="M10,9V5L3,12L10,19V14.9C15,14.9 18.5,16.5 21,20C20,15 17,10 10,9Z" />
+		</svg>
+	</md-icon>
+</md-button>
+</td>
+      </tr>
+             <tfoot>
+						<td colspan="10" style="text-align:center;">
+							<div class="pagination" align="center">
+								<ul>
+									<li ng-class="prevPageDisabled()"><a href
+										ng-click="prevPage()">Prev</a></li>
+									<li ng-repeat="n in range()"
+										ng-class="{active: n == currentPage}" ng-click="setPage(n)">
+										<a style="cursor: pointer;">{{n+1}}</a>
+									</li>
+									<li ng-class="nextPageDisabled()"><a href
+										ng-click="nextPage()">Next</a></li>
+								</ul>
+							</div>
+						</td>
+					</tfoot>
+</table>
+ </div>
+
+	</md-card>
+    </div>
+
+
+  
+
+  
+      <div style="display: none">
+ 	<md-card layout-padding>
+    <div class="md-dialog-container" id="myDialogFont5">
+      <md-dialog>
+		<div class="popup-svg" align="center">
+		<span><svg style="width:35px;height:35px" viewBox="0 0 24 24">
+    <path fill="#ff0000" d="M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+</svg></span>
+<ul>
+<li ng-repeat="x in allocateAgentResponse track by $index">{{x}}</li>
+</ul>
+<div class="custom_button_box custom-green"><md-button class="md-raised custom-green" ng-click="cancel5()">OK</md-button></div>
+</div>
+		</md-dialog>
+  </div>
+  </md-card>
+</div> 
+
+
+
+
+
+
+
+     <div style="display: none">
+ 	<md-card layout-padding>
+    <div class="md-dialog-container" id="myDialog15">
+      <md-dialog>
+		<div class="popup-svg" align="center">
+		<span><svg style="width:35px;height:35px" viewBox="0 0 24 24">
+    <path fill="#ff0000" d="M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+</svg></span>
+<ul>
+<li ng-repeat="x in abc track by $index">{{x.rd}}</li>
+</ul>
+<div class="custom_button_box custom-green"><md-button class="md-primary md-raised" ng-click="close()">OK</md-button></div>
+</div>
+		</md-dialog>
+  </div>
+  </md-card>
+</div> 
+
+
+
+
+ 
+ 
+ 
+   <div style="visibility: hidden">
+    <div class="md-dialog-container crm-ticket" id="ResponseDialog" style="height:auto;">
+    <form name="createTicketForm">
+    	<md-dialog class="umang-dialog crm-tckt-popup" style="min-width:600px;">
+		<div class="" align="left">
+		<md-card class="_md" layout-padding>
+            <md-list role="list">
+              <div class="star-rating"><h4 style="margin:0;">Response</h4></div>
+            </md-list>
+            
+             <div layout="row">
+                <md-input-container  flex="50" class="plus_91" >
+                <label>Mobile Number</label>
+                <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                            <path fill="#7f7f7f" d="M17.25,18H6.75V4H17.25M14,21H10V20H14M16,1H8A3,3 0 0,0 5,4V20A3,3 0 0,0 8,23H16A3,3 0 0,0 19,20V4A3,3 0 0,0 16,1Z" />
+                        </svg></md-icon>
+        <input type="tel" name="mobNo" autocomplete="off"  id="mobNo" value="{{userObj.msisdn}}" ng-model="userObj.msisdn" mobile-length-directive maxlength="10" ng-required="true" no-special-directive ng-pattern="/^[7-9][0-9]{9}$/"/>
+        <div ng-messages="createTicketForm.mobNo.$error" role="alert">
+          <div ng-message="required">
+            Mobile Number is required.
+          </div>
+          <div ng-message="pattern">
+            Mobile Number must be 10 digit number and start with 7,8 or 9 only.
+          </div>
+        </div>
+                </md-input-container>
+                <md-input-container  flex="50">
+                <label>User Name</label>
+                <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="#7f7f7f" d="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M10.5,7H13.5A2,2 0 0,1 15.5,9V14.5H14V22H10V14.5H8.5V9A2,2 0 0,1 10.5,7Z" />
+                </svg></md-icon>
+                     <input ng-required="true" type="text" name="fatherName"  id="fatherName" ng-model="userObj.father_name" maxlength="50" characters-only-directive no-special-directive/>
+        <div ng-messages="createTicketForm.fatherName.$error" role="alert">
+          <div ng-message="required">
+            Name is required.
+          </div>
+        </div>
+                </md-input-container>
+            </div>
+            
+            <div layout="row">
+                <md-input-container flex="50">
+              <label>Category</label>
+              <md-icon>
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+				<path fill="#5f5f5f" d="M4,2C2.89,2 2,2.89 2,4V14H4V4H14V2H4M8,6C6.89,6 6,6.89 6,8V18H8V8H18V6H8M12,10C10.89,10 10,10.89 10,12V20C10,21.11 10.89,22 12,22H20C21.11,22 22,21.11 22,20V12C22,10.89 21.11,10 20,10H12Z" />
+			</svg>
+			</md-icon>
+                  <md-select name="category" ng-model="userObj.category" ng-required="true" ng-change="fetchSubCategories(userObj.category)">
+            <md-option ng-repeat="a in fetchCategoriesResponsePojo.pd" value="{{a.catid}}">{{a.catnam}}</md-option>
+            
+          </md-select>
+           <div ng-messages="createTicketForm.category.$error" role="alert">
+          <div ng-message="required">
+            Category is required.
+          </div>
+        </div>
+            </md-input-container>
+                <md-input-container flex="50">
+              <label>Sub Category</label>
+              <md-icon>
+              	<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+    <path fill="#5f5f5f" d="M3,3H9V7H3V3M15,10H21V14H15V10M15,17H21V21H15V17M13,13H7V18H13V20H7L5,20V9H7V11H13V13Z" />
+</svg>
+              </md-icon>
+             <md-select name="subCategory" id="subCatId" ng-model="userObj.subcategory_name" ng-required="true">
+            <md-option value="{{z.subcid}}" ng-repeat="z in fetchSubCategoriesResponsePojo.pd">{{z.subcnam}}</md-option>
+</md-select>
+          <div ng-messages="createTicketForm.subCategory.$error" role="alert">
+          <div ng-message="required">
+            Sub Category is required.
+          </div>
+        </div>
+            </md-input-container>
+            </div>
+          <div layout="row">
+                <md-input-container flex="50">
+              <label>Department Name </label>
+              <md-icon>
+              	<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+    <path fill="#5f5f5f" d="M12.6,2.86C15.27,4.1 18,5.39 20.66,6.63C20.81,6.7 21,6.75 21,6.95C21,7.15 20.81,7.19 20.66,7.26C18,8.5 15.3,9.77 12.62,11C12.21,11.21 11.79,11.21 11.38,11C8.69,9.76 6,8.5 3.32,7.25C3.18,7.19 3,7.14 3,6.94C3,6.76 3.18,6.71 3.31,6.65C6,5.39 8.74,4.1 11.44,2.85C11.73,2.72 12.3,2.73 12.6,2.86M12,21.15C11.8,21.15 11.66,21.07 11.38,20.97C8.69,19.73 6,18.47 3.33,17.22C3.19,17.15 3,17.11 3,16.9C3,16.7 3.19,16.66 3.34,16.59C3.78,16.38 4.23,16.17 4.67,15.96C5.12,15.76 5.56,15.76 6,15.97C7.79,16.8 9.57,17.63 11.35,18.46C11.79,18.67 12.23,18.66 12.67,18.46C14.45,17.62 16.23,16.79 18,15.96C18.44,15.76 18.87,15.75 19.29,15.95C19.77,16.16 20.24,16.39 20.71,16.61C20.78,16.64 20.85,16.68 20.91,16.73C21.04,16.83 21.04,17 20.91,17.08C20.83,17.14 20.74,17.19 20.65,17.23C18,18.5 15.33,19.72 12.66,20.95C12.46,21.05 12.19,21.15 12,21.15M12,16.17C11.9,16.17 11.55,16.07 11.36,16C8.68,14.74 6,13.5 3.34,12.24C3.2,12.18 3,12.13 3,11.93C3,11.72 3.2,11.68 3.35,11.61C3.8,11.39 4.25,11.18 4.7,10.97C5.13,10.78 5.56,10.78 6,11C7.78,11.82 9.58,12.66 11.38,13.5C11.79,13.69 12.21,13.69 12.63,13.5C14.43,12.65 16.23,11.81 18.04,10.97C18.45,10.78 18.87,10.78 19.29,10.97C19.76,11.19 20.24,11.41 20.71,11.63C20.77,11.66 20.84,11.69 20.9,11.74C21.04,11.85 21.04,12 20.89,12.12C20.84,12.16 20.77,12.19 20.71,12.22C18,13.5 15.31,14.75 12.61,16C12.42,16.09 12.08,16.17 12,16.17Z" />
+</svg>
+              </md-icon>
+              <md-select   ng-model="userObj.departmentid" ng-change="selectDeptService(userObj.departmentid)">
+                <md-option value="{{x.srid}}" ng-repeat="x in fetchServicesResponsePojo.pd">{{x.name}}</md-option>
+             </md-select>
+            </md-input-container>
+                <md-input-container flex="50">
+              <label>Services</label>
+              <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+    <path fill="#7f7f7f" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.67 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" />
+</svg></md-icon>
+              <md-select name="type" ng-model="userObj.service" >
+                <md-option value="{{y.srid}}" ng-repeat="y in fetchDeptServicesResponsePojo.pd">{{y.name}}</md-option>
+              </md-select>
+            </md-input-container>
+           </div>
+
+          
+                <md-input-container class="md-block">
+              <label>Query</label>
+              <md-icon>
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+    <path fill="#7f7f7f" d="M15.07,11.25L14.17,12.17C13.45,12.89 13,13.5 13,15H11V14.5C11,13.39 11.45,12.39 12.17,11.67L13.41,10.41C13.78,10.05 14,9.55 14,9C14,7.89 13.1,7 12,7A2,2 0 0,0 10,9H8A4,4 0 0,1 12,5A4,4 0 0,1 16,9C16,9.88 15.64,10.67 15.07,11.25M13,19H11V17H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z" />
+</svg>
+			</md-icon>
+              <input type="text" ng-model="userObj.query" maxlength="200"  value="{{userObj.query}}" />
+            </md-input-container>
+            
+            
+            <md-input-container flex="100">
+              <label>Status</label>
+              <md-icon><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+    <path fill="#7f7f7f" d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z" />
+</svg></md-icon>
+              <md-select  ng-model="userObj.ticketSts"  >
+                <md-option value="{{m.id}}" ng-repeat="m in ticketStatus1" ng-selected="{{userObj.ticketSts==m.id}}" >{{m.status}}</md-option>
+      
+              </md-select>
+            </md-input-container>
+          
+
+            
+                            <md-input-container class="md-block">
+              <label>Response</label>
+              <md-icon>
+              	<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+    <path fill="#7f7f7f" d="M19,15L13,21L11.58,19.58L15.17,16H4V4H6V14H15.17L11.58,10.42L13,9L19,15Z" />
+</svg>
+              </md-icon>
+              <textarea ng-model="userObj.response" maxlength="200" rows="1" value="{{userObj.response}}" md-select-on-focus ></textarea>
+            </md-input-container>
+                         
+            	  <div layout="row">
+                       		<a href="">
+        			<md-icon>
+        				<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+    <path fill="#5f5f5f" d="M7.5,18A5.5,5.5 0 0,1 2,12.5A5.5,5.5 0 0,1 7.5,7H18A4,4 0 0,1 22,11A4,4 0 0,1 18,15H9.5A2.5,2.5 0 0,1 7,12.5A2.5,2.5 0 0,1 9.5,10H17V11.5H9.5A1,1 0 0,0 8.5,12.5A1,1 0 0,0 9.5,13.5H18A2.5,2.5 0 0,0 20.5,11A2.5,2.5 0 0,0 18,8.5H7.5A4,4 0 0,0 3.5,12.5A4,4 0 0,0 7.5,16.5H17V18H7.5Z" />
+</svg>
+        			</md-icon>
+        		 View attachment</a></div>
+        </md-card>
+       
+        <div class="custom_button_box1" align="center" layout-margin>
+            <md-button class="md-raised custom-green"  ng-disabled="!(userObj.response)" ng-click="updateTicketResponse(userObj)">Submit</md-button>
+            <md-button class="md-raised md-primary md-hue-2 md-primary" ng-click="close()">Cancel</md-button></div>
+        </div>
+		</md-dialog>
+		</form>  	
+    </div>
+  </div>
+  
+  
+
+            
+        
+  
+  
+  
+   <div style="visibility: hidden">
+    <div class="md-dialog-container" id="ticketHisPopUp">
+    	<md-dialog class="umang-dialog crm-dialog-height" layout-margin>
+    	<div class="close_popup">
+    	              <md-icon ng-click="close();" role="button" tabindex="0" class="material-icons"><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+          <path fill="#7f7f7f" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"></path>
+      </svg></md-icon>
+      </div>
+        	<div class="row crm-history-table">
+				<table width="100%" border="0" cellpadding="0" cellspacing="0" class="table crm_table" style="text-align:center">
+
+        	<tbody><tr>
+            	<th style="text-align:center">Ticket ID</th>
+                <th style="text-align:center">Mobile No</th>
+                <th style="text-align:center">Query</th>
+                <th style="text-align:center">Severity Level</th>
+                <th style="text-align:center">Status</th>
+                <th style="text-align:center">Department</th>
+                <th style="text-align:center">Remarks</th>
+            </tr>
+            <tr>
+            	<tr ng-repeat="x in ticketHistoryResponsePojo.pd"><td>{{x.ticketId}}</td><td>{{x.userMno}}</td><td>{{x.query}}</td><td>{{x.severityLevel}}</td><td>{{x.status}}</td><td>{{x.deptname}}</td><td>{{x.remarks}}</td></tr>
+            	
+            </tr>
+ 
+        </tbody></table>
+        	</div>
+		</md-dialog>  	
+    </div>
+  </div>
+</div>
+
+
+
+
+
+         <div style="display: none">
+ 	<md-card layout-padding>
+    <div class="md-dialog-container" id="frwdToAgentPopUp">
+      <md-dialog>
+		<div class="popup-svg" align="center">
+		<span><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+    <path fill="#008000" d="M23,10C23,8.89 22.1,8 21,8H14.68L15.64,3.43C15.66,3.33 15.67,3.22 15.67,3.11C15.67,2.7 15.5,2.32 15.23,2.05L14.17,1L7.59,7.58C7.22,7.95 7,8.45 7,9V19A2,2 0 0,0 9,21H18C18.83,21 19.54,20.5 19.84,19.78L22.86,12.73C22.95,12.5 23,12.26 23,12V10.08L23,10M1,21H5V9H1V21Z" />
+</svg></span>
+<p>{{forwardtoAgentResponsePojo.rd}}</p>
+<div class="custom_button_box custom-green"><md-button class="md-primary md-raised" ng-click="close()">OK</md-button></div>
+</div>
+		</md-dialog>
+  </div>
+  </md-card>
+</div> 
+
+
+
+
+    <div style="visibility: hidden">
+    <div class="md-dialog-container" id="frwdToDeptId">
+    	<md-dialog class="umang-dialog crm-dialog-height" layout-margin style="min-width:320px;">
+		<div class="" align="left">
+        <div class="_md rate-icon-mrgn">
+            <md-list-item>
+                <p align="center" style="padding:25px 0;" layout-padding>Are you sure, you want to forward this query to {{deptName1}} department.</p>
+            </md-list-item>
+            
+      	</div>
+      	       <div align="center">
+      	    	<md-button class="md-primary md-raised" ng-click="close()">Cancel</md-button>
+ 		    <md-button  class="md-primary custom-green md-raised" ng-click="updateTicketToForward()">Confirm</md-button>
+
+        </div>
+    </div>
+		</md-dialog>  	
+    </div>
+  </div>
+  
+  
+  
+  
+      <div style="visibility: hidden">
+    <div class="md-dialog-container" id="shareCntctId">
+    	<md-dialog class="umang-dialog crm-dialog-height" layout-margin style="min-width:320px;">
+		<div class="" align="left">
+        <div class="_md rate-icon-mrgn">
+            <md-list-item>
+                <p align="center" style="padding:25px 0;" layout-padding>Are you sure, you want to share contact card of {{department_name1}} with user.</p>
+            </md-list-item>
+        </div>
+      	       <div align="center">
+      	    	<md-button class="md-primary md-raised" ng-click="close()">Cancel</md-button>
+ 		    <md-button  class="md-primary custom-green md-raised" ng-click="shareContactCard()">Confirm</md-button>
+
+        </div>
+    </div>
+		</md-dialog>  	
+    </div>
+  </div>
+  
+  
+    
+
+  
+  
+ 

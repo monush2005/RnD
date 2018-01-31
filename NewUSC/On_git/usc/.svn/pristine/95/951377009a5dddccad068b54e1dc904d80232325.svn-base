@@ -1,0 +1,15 @@
+<md-content layout-padding layout-wrap>
+    <md-card>
+        <md-card-title>
+            <div class="md-title">UMANG FAQ</div>
+        </md-card-title>
+        <md-card-content>
+           <!--  <p>To request change in UMANG FAQ, an email is required to be sent to concerened UMANG team. Click the button below to invoke email client.</p> -->
+            <p style="color: red; text-align: center;" class="small-grey-text">Requests for change of FAQ are temporarily disabled.</p>
+
+          <!--   <div align="center">
+                <a class="md-button md-primary md-raised" href="{{::vm.mailTo}}"><md-icon>email</md-icon>  Open Email Client</a>
+            </div> -->
+        </md-card-content>
+    </md-card>
+</md-content>

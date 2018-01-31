@@ -1,0 +1,58 @@
+<md-content layout-padding layout-wrap>
+    <form name="vm.forgotPasswordForm" layout="column">
+        <div align="center">
+            <h3 class="md-headline">Forgot Password</h3>
+        </div>
+        <md-input-container>
+            <label>User Id</label>
+            <md-icon>account_circle</md-icon>
+            <input ng-model="vm.userId" type="text" required name="userId">
+            <div ng-messages="vm.forgotPasswordForm.userId.$error">
+                <div ng-message="required">
+                    User Id is required.
+                </div>
+            </div>
+        </md-input-container>
+        <div layout="column" ng-if="vm.userId" layout-align="space-around">
+            <div align="center">
+                <md-button ng-init="vm.canRequestOTP=true; vm.otpPromise=null" ng-disabled="!vm.canRequestOTP" is-busy="vm.otpPromise" ng-click="vm.requestOTP()" class="md-primary margin-bottom-20">{{vm.otpPromise==null?'Request':'Resend'}} OTP</md-button>
+            </div>
+            <div align="center" ng-if="!vm.canRequestOTP">
+                <span class="small-grey-text">Didn't get OTP? You can re-request in {{vm.timeLeft}} seconds.</span>
+            </div>
+            <md-input-container promise-hider="vm.otpPromise">
+                <label>OTP</label>
+                <md-icon>phonelink_lock</md-icon>
+                <input ng-model="vm.otp" type="text"  restrict="reject" mask-validate="false" mask="999999" name="otp" ng-required="true" autocomplete="off">
+                <div ng-messages="vm.forgotPasswordForm.otp.$error">
+                    <div ng-message="required">
+                        OTP is required.
+                    </div>
+                </div>
+            </md-input-container>
+        </div>
+        <div ng-if="vm.otp">
+            <md-input-container>
+                <label>New Password</label>
+                <md-icon>lock</md-icon>
+                <input ng-model="vm.password" type="password" required name="password" maxlength="16" minlength="8">
+                <div ng-messages="vm.forgotPasswordForm.password.$error">
+                    <div ng-message-exp="['required','minlength']">New password should be atleast 8 characters long.</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>Confirm Password</label>
+                <md-icon>lock</md-icon>
+                <input ng-model="vm.confirmPassword" type="password" maxlength="16"  required name="confirmPassword" equals="vm.password">
+                <div ng-messages="vm.forgotPasswordForm.confirmPassword.$error">
+                    <div ng-message="required">Please confirm password.</div>
+                    <div ng-message="equals">Password doesn't match.</div>
+                </div>
+            </md-input-container>
+        </div>
+        <div align="center">
+            <md-button ng-click="vm.cancel()" class="md-raised">Cancel</md-button>
+            <md-button type="submit" is-busy="vm.changePwdPromise" ng-click="vm.changePassword()" ng-disabled="!vm.forgotPasswordForm.$valid" class="md-raised md-primary">Save</md-button>
+        </div>
+    </form>
+</md-content>

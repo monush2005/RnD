@@ -1,0 +1,15 @@
+<md-content layout-padding layout-wrap>
+    <div layout="column">
+        <p>Mobile No:      {{vm.profile.userinfo[0].mno}}</p>
+        <p>Name:    {{vm.profile.userinfo[0].name}}</p>
+        <p>Email:   {{vm.profile.userinfo[0].email}}</p>       
+          <md-button style="width:100px;margin:0px;" class="md-raised md-primary" ng-click="showDiv = !showDiv" ng-hide="showDiv" >More Info</md-button>
+		<div ng-show="showDiv" >
+		     <p>Address:  {{vm.profile.userinfo[0].addr}}</p>
+        	 <p>State:    {{vm.profile.userinfo[0].state}}</p> 
+		    <md-button style="width:100px;margin:0px;" class="md-raised md-primary"  ng-click="showDiv = !showDiv">less</md-button>
+		    
+		     
+		</div>
+    </div>
+</md-content>

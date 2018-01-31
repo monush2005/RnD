@@ -1,0 +1,66 @@
+<md-content layout-padding>
+    <md-card>
+        <md-card-title>
+            <div class="md-title">Create New User</div>
+        </md-card-title>
+        <md-card-content>
+            <form name="vm.createUserForm" layout="row" layout-wrap layout-align="space-around center">
+                <md-radio-group ng-change="vm.filterAndLoadApps()" ng-show="vm.isSuperAdmin" flex="100" layout-align="center center" ng-model="vm.stateRadio" layout="row">
+                    <md-radio-button ng-click="vm.userData.state='99'" class="md-primary">Central</md-radio-button>
+                    <md-radio-button ng-click="vm.userData.state=''" value="state" class="md-primary">State</md-radio-button>
+                </md-radio-group>
+                <md-input-container flex="95" ng-show="vm.isSuperAdmin" ng-if="vm.stateRadio=='state'">
+                    <label>State</label>
+                    <md-icon>pin_drop</md-icon>
+                    <md-select ng-required="true" placeholder="State" name="state" ng-change="vm.filterAndLoadApps()" ng-model="vm.userData.state" md-select-search="vm.allStates.length>5">
+                        <md-option ng-value="state.stateid" ng-repeat="state in vm.allStates">{{::state.statename}}</md-option>
+                    </md-select>
+                    <div ng-messages="vm.onboardForm.state.$error">
+                        <div ng-message="required">State is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100" flex-gt-sm="45">
+                    <label>User Role</label>
+                    <md-icon>security</md-icon>
+                    <md-select ng-required="true" placeholder="User Role" name="role" ng-model="vm.userData.role" md-on-open="vm.getRoles()">
+                        <md-option ng-value="role" ng-repeat="role in vm.roles">{{::role.roleName}}</md-option>
+                    </md-select>
+                    <div ng-messages="vm.createUserForm.role.$error">
+                        <div ng-message="required">Role is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100" flex-gt-sm="45">
+                    <label>Apps to be Assigned ({{vm.userData.selectedApps.length}} Selected)</label>
+                    <md-icon>dashboard</md-icon>
+                    <md-select ng-required="true" md-on-open="vm.onAppDropdownOpen()" placeholder="Apps to be Assigned" name="apps" ng-model="vm.userData.selectedApps" multiple md-select-search="vm.allApps.length>5">
+                        <md-option ng-value="app" ng-repeat="app in vm.allApps">{{::app.appname}}</md-option>
+                    </md-select>
+                    <div ng-messages="vm.createUserForm.apps.$error">
+                        <div ng-message="required">Please select atleast one app.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100" flex-gt-sm="45" class="md-icon-float md-block">
+                    <label>Email</label>
+                    <md-icon>email</md-icon>
+                    <input required ng-model="vm.userData.email" name="email" type="text" minlength="5" maxlength="60" ng-pattern="vm.emailPattern">
+                    <div ng-messages="vm.createUserForm.email.$error">
+                        <div ng-message="required">Email is required.</div>
+                        <div ng-message-exp="['minlength', 'maxlength', 'pattern']">Please enter a valid email.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100" flex-gt-sm="45" class="md-icon-float md-block">
+                    <label>Mobile Number</label>
+                    <md-icon>phone</md-icon>
+                    <input prefix91 required ng-model="vm.userData.mobile" name="mobile" type="text" ng-maxlength="10" maxlength="10" ng-pattern="vm.mobilePattern">
+                    <div ng-messages="vm.createUserForm.mobile.$error">
+                        <div ng-message="required">Mobile number is required.</div>
+                        <div ng-message="pattern">Please enter a valid mobile number.</div>
+                    </div>
+                </md-input-container>
+                <div align="center" layout-margin>
+                    <md-button type="submit" is-busy="vm.createUserPromise" ng-click="vm.createUser()" class="md-raised md-primary" ng-disabled="!vm.createUserForm.$valid">Create</md-button>
+                </div>
+            </form>
+        </md-card-content>
+    </md-card>
+</md-content>

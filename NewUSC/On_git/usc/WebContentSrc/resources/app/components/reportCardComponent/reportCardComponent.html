@@ -1,0 +1,88 @@
+<md-content layout-padding>
+    <md-card class="no-padding">
+        <md-card-content style="z-index: 1" class="report-card">
+            <div promise-loader="vm.reportCardPromise" text="Loading Report Card... "></div>
+            <div promise-hider="vm.reportCardPromise" align="center" class="margin-10" ng-show="::vm.forDashboard">
+                <h4 class="no-margin">Report Card</h4>
+            </div>
+            <div promise-hider="vm.reportCardPromise" layout="row" layout-wrap>
+                <div flex="100" ng-hide="vm.forDashboard" class="margin-10">
+                    <quick-date-range-component on-custom="vm.dateSelectorInstance.openSelector" start-date="vm.startDate" end-date="vm.endDate" date-range="vm.dateRange" on-range-change="vm.setDateRange"></quick-date-range-component>
+                </div>
+                <div flex="100" flex-gt-sm="{{vm.forDashboard?'100':'40'}}" layout="column">
+                    <md-card md-whiteframe="{{vm.shadow.rating}}" class="pos-rel cursor-pointer hoverable" flex ng-click="vm.changeGraph('rating')">
+                        <div health-value="vm.rating.avgRating" rating class="card-ltr-shade"></div>
+                        <md-card-content style="z-index: 1" layout="row">
+                            <div flex>
+                                <h4 class="no-margin">Rating : {{::vm.rating.avgRating}} 
+                               
+                        <md-icon class="cursor-pointer info-icon"> <md-tooltip md-direction="bottom">Shows average rating given to the app on UMANG and the number of users who rated it.</md-tooltip>info</md-icon></h4>
+                                <span>{{::vm.rating.users|number}} Ratings</span>
+                                <br>
+                                <star-rating-component rating="vm.rating.avgRating"></star-rating-component>
+                            </div>
+                            <div flex>
+                                <highchart-component no-export="true" height="80" json="vm.rating.sparkline"></highchart-component>
+                            </div>
+                        </md-card-content>
+                    </md-card>
+                    <md-card md-whiteframe="{{vm.shadow.art}}" class="pos-rel cursor-pointer hoverable" flex ng-click="vm.changeGraph('art')">
+                        <div health-value="vm.responseTime.responseTime" response-time class="card-ltr-shade"></div>
+                        <md-card-content style="z-index: 1" layout="row">
+                            <div flex="60">
+                                <h4 class="no-margin">API Response Time  
+                        <md-icon class="cursor-pointer info-icon"><md-tooltip md-direction="bottom">Average response time in milliseconds for all requests within date range.</md-tooltip>info</md-icon> </h4>
+                                <span>{{vm.responseTime.responseTime}} ms (average)</span>
+                                <br><span>{{vm.responseTime.users|number}} Hits</span>
+                            </div>
+                            <div flex>
+                                <highchart-component no-export="true" height="80" json="vm.responseTime.sparkline"></highchart-component>
+                            </div>
+                        </md-card-content>
+                    </md-card>
+                    <md-card md-whiteframe="{{vm.shadow.asp}}" class="pos-rel cursor-pointer hoverable" flex ng-click="vm.changeGraph('asp')">
+                        <div class="card-ltr-shade" health-value="vm.averageSuccessPercenatge.successPercentage" percent></div>
+                        <md-card-content style="z-index: 1" layout="row">
+                            <div flex="55">
+                                <h4 class="no-margin">Request Success Rate  
+                        <md-icon class="cursor-pointer info-icon"><md-tooltip md-direction="bottom">Success rate (Response to API hit)  of all requests within date range.</md-tooltip>info</md-icon> </h4>
+                                <span>{{vm.averageSuccessPercenatge.successPercentage}}%</span>
+                                <br><span>{{vm.averageSuccessPercenatge.totalUsers|number}} Requests</span>
+                            </div>
+                            <div flex>
+                                <highchart-component no-export="true" height="80" json="vm.averageSuccessPercenatge.sparkline"></highchart-component>
+                            </div>
+                        </md-card-content>
+                    </md-card>
+                    <md-card md-whiteframe="{{vm.shadow.tuv}}" class="pos-rel cursor-pointer hoverable" flex ng-click="vm.changeGraph('tuv')">
+                        <div class="card-ltr-shade" health-value="100" percent></div>
+                        <md-card-content style="z-index: 1" layout="row">
+                            <div flex>
+                                <h4 class="no-margin">Total API Hits  
+                        <md-icon class="cursor-pointer info-icon"><md-tooltip md-direction="bottom">Number of users who visited the app within date range.</md-tooltip>info</md-icon> </h4>
+                                <br> <span>{{vm.users.users|number}}</span>
+                            </div>
+                            <div flex>
+                                <highchart-component no-export="true" height="80" json="vm.users.sparkline"></highchart-component>
+                            </div>
+                        </md-card-content>
+                    </md-card>
+                    <md-card flex hide>
+                        <md-card-content style="z-index: 1" layout="row">
+                            <div flex>
+                                <h4 class="no-margin">Transactions per Second</h4>
+                                <br>
+                            </div>
+                            <div flex>
+                                <highchart-component no-export="true" height="80" json="vm.tpsJSON"></highchart-component>
+                            </div>
+                        </md-card-content>
+                    </md-card>
+                </div>
+                <div flex="100" flex-gt-sm="60" ng-if="!vm.forDashboard" layout="column" layout-align="center center">
+                    <highchart-component json="vm.currentGraphJSON"></highchart-component>
+                </div>
+            </div>
+        </md-card-content>
+    </md-card>
+</md-content>

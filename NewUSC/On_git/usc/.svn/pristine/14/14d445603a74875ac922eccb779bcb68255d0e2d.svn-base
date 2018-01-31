@@ -1,0 +1,15 @@
+<md-content layout="row" layout-wrap>
+    <div flex-gt-sm="20" flex="50" ng-repeat="tile in vm.tiles" ng-hide="::tile.hide" usc-right="{{::tile.right}}" ui-sref="{{::tile.state}}" class="cursor-pointer">
+        <md-card style="padding: 20px 0px" class="hoverable">
+            <div align="center">
+                <img class="md-card-image" style="height: 128px; width: 128px" ng-src="{{::tile.imageUrl}}">
+            </div>
+            <md-card-footer layout="row" layout-align="center center">
+                <span md-truncate>{{::tile.text}}</span>
+            </md-card-footer>
+        </md-card>
+    </div>
+    <div flex="100" ui-sref="selfcare.dashboard.services" align="center" layout-margin>
+        <md-button class="md-raised custom-blue">Back</md-button>
+    </div>
+</md-content>

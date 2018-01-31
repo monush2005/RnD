@@ -1,0 +1,21 @@
+(function(app) {
+    'use strict';
+    app.component('userProfileComponent', {
+        templateUrl: 'resources/app/components/ratingAndFeebacksComponent/userProfileComponent/userProfileComponent.html',
+        controller: userProfileComponentController,
+        controllerAs: 'vm',
+        bindings: {
+        	profile: '<'
+        }        
+    })
+
+    userProfileComponentController.$inject = ['$localStorage'];
+
+    function userProfileComponentController($localStorage) {
+        var vm = this;
+
+        vm.$onInit = function(){
+        
+        }
+    }
+})(angular.module('selfcare'));

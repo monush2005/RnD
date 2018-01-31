@@ -1,0 +1,114 @@
+<md-content>
+    <div layout-align="center center" ng-show="vm.isSuperAdmin" layout="row" layout-wrap flex-gt-sm="100">
+        <md-radio-group flex="100" class="margin-10" ng-change="vm.getAllBanners()" flex ng-model="vm.stateRadio" layout="row" layout-align="center center">
+            <md-radio-button ng-click="vm.state='99'" value="central" class="md-primary">Central</md-radio-button>
+            <md-radio-button ng-click="vm.state=''" value="state" class="md-primary">State</md-radio-button>
+        </md-radio-group>
+        <md-input-container flex="nogrow" ng-if="vm.stateRadio=='state'">
+            <label>State</label>
+            <md-icon>pin_drop</md-icon>
+            <md-select md-on-open="vm.fetchStates()" ng-change="vm.getAllBanners()" placeholder="State" ng-required="vm.stateRadio=='state'" name="state" ng-model="vm.state" md-select-search="vm.allStates.length>5">
+                <md-option ng-value="state.stateid" ng-repeat="state in vm.allStates">{{::state.statename}}</md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+    <div promise-loader="vm.getAllBannersPromise" text="Loading Banners.."></div>
+    <div layout="row" layout-wrap>
+        <div promise-hider="vm.getAllBannersPromise" layout-gt-sm="row" flex="100" layout="column">
+            <md-card flex-gt-sm="100" layout-padding>
+                <div>
+                    <div>Active Banners
+                        <md-icon class="cursor-pointer info-icon">
+                            <md-tooltip md-direction="bottom">Maximum 5 can be a active at a time.</md-tooltip>info</md-icon>
+                    </div>
+                    <br>
+                    <md-divider></md-divider>
+                </div>
+                <md-card-content class="no-padding">
+                    <div ng-hide="vm.activeBanners.length" align="center" class="small-grey-text">No Active Banners!</div>
+                    <md-card ng-repeat="banner in vm.activeBanners">
+                        <img image-loader="25" ng-src="{{banner.bannerURL}}" preview-image width="100%" class="">
+                        <md-card-content layout="row" layout-align="center center">
+                            <md-button is-busy="banner.moveUpPromise" ng-click="vm.changePriority($index, $index-1)" ng-disabled="$first" class="md-fab md-mini md-primary">
+                                <md-tooltip md-direction="bottom">Move Up</md-tooltip>
+                                <md-icon>keyboard_arrow_up</md-icon>
+                            </md-button>
+                            <md-button is-busy="banner.moveDownPromise" ng-click="vm.changePriority($index, $index+1)" ng-disabled="$last" class="md-fab md-mini md-primary">
+                                <md-tooltip md-direction="bottom">Move Down</md-tooltip>
+                                <md-icon>keyboard_arrow_down</md-icon>
+                            </md-button>
+                            <md-button is-busy="banner.removePromise" ng-click="vm.removeFromActive(banner)" class="md-fab md-mini md-warn">
+                                <md-tooltip md-direction="bottom">Remove from Active</md-tooltip>
+                                <md-icon>remove</md-icon>
+                            </md-button>
+                            <md-button is-busy="banner.viewDetailsPromise" ng-click="vm.viewDetails(banner)" class="md-fab md-mini md-primary">
+                                <md-tooltip md-direction="bottom">View Details</md-tooltip>
+                                <md-icon>list</md-icon>
+                            </md-button>
+                        </md-card-content>
+                    </md-card>
+                </md-card-content>
+            </md-card>
+            <md-card flex-gt-sm="100" layout-padding>
+                <div>
+                    <div>Inactive Banners
+                        <md-icon class="cursor-pointer info-icon">
+                            <md-tooltip md-direction="bottom">These banners were active in past. Can be moved to active if less than 5 are active.</md-tooltip>info</md-icon>
+                    </div>
+                    <br>
+                    <md-divider></md-divider>
+                </div>
+                <md-card-content>
+                    <div ng-hide="vm.inactiveBanners.length" align="center" class="small-grey-text">No Inactive Banners!</div>
+                    <md-card ng-repeat="banner in vm.inactiveBanners">
+                        <img image-loader="25" ng-src="{{banner.bannerURL}}" preview-image width="100%" class="">
+                        <md-card-content layout="row" layout-align="center center">
+                            <md-button is-busy="banner.addingPromise" ng-click="vm.addToActive(banner)" ng-disabled="vm.activeBanners.length>4" class="md-fab md-mini custom-green">
+                                <md-tooltip md-direction="bottom">Add to Active</md-tooltip>
+                                <md-icon>add</md-icon>
+                            </md-button>
+                            <md-button is-busy="banner.viewDetailsPromise" ng-click="vm.viewDetails(banner)" class="md-fab md-mini md-primary">
+                                <md-tooltip md-direction="bottom">View Details</md-tooltip>
+                                <md-icon>list</md-icon>
+                            </md-button>
+                        </md-card-content>
+                    </md-card>
+                </md-card-content>
+            </md-card>
+            <md-card flex-gt-sm="100" layout-padding>
+                <div>
+                    <div>Requested Banners
+                        <md-icon class="cursor-pointer info-icon">
+                            <md-tooltip md-direction="bottom">These banners are requested by users. Can be moved to active if less than 5 are active.</md-tooltip>info</md-icon>
+                    </div>
+                    <br>
+                    <md-divider></md-divider>
+                </div>
+                <md-card-content>
+                    <div ng-hide="vm.requestedBanners.length" align="center" class="small-grey-text">No Requested Banners!</div>
+                    <md-card ng-repeat="banner in vm.requestedBanners">
+                        <img image-loader="25" ng-src="{{banner.bannerURL}}" preview-image width="100%" class="">
+                        <md-card-content layout="row" layout-align="center center">
+                            <md-button is-busy="banner.addingPromise" ng-disabled="vm.activeBanners.length>4" ng-click="vm.addToActive(banner)" class="md-fab md-mini custom-green">
+                                <md-tooltip md-direction="bottom">Add to Active</md-tooltip>
+                                <md-icon>add</md-icon>
+                            </md-button>
+                            <md-button ng-click="vm.viewUploaderComment(banner)" class="md-fab md-mini md-primary">
+                                <md-tooltip md-direction="bottom">View Uploader's Comment</md-tooltip>
+                                <md-icon>comment</md-icon>
+                            </md-button>
+                            <md-button ng-click="vm.rejectBanner(banner)" class="md-fab md-mini md-warn">
+                                <md-tooltip md-direction="bottom">Reject Banner</md-tooltip>
+                                <md-icon>close</md-icon>
+                            </md-button>
+                            <md-button is-busy="banner.viewDetailsPromise" ng-click="vm.viewDetails(banner)" class="md-fab md-mini md-primary">
+                                <md-tooltip md-direction="bottom">View Details</md-tooltip>
+                                <md-icon>list</md-icon>
+                            </md-button>
+                        </md-card-content>
+                    </md-card>
+                </md-card-content>
+            </md-card>
+        </div>
+    </div>
+</md-content>

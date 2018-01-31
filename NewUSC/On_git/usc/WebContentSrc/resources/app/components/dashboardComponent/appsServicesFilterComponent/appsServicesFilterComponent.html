@@ -1,0 +1,71 @@
+<md-content layout-padding layout-wrap>
+    <div align="center">
+        <p ng-show="vm.forService" class="no-margin-top md-title">Filter Services</p>
+        <p ng-hide="vm.forService" class="no-margin-top md-title">Filter Apps</p>
+    </div>
+    <form layout="row" layout-wrap name="vm.filterForm" layout-align="space-around center">
+        <md-radio-group flex="100" style="padding-left: 18px; padding-bottom: 10px" ng-model="vm.filters.stateRadio" layout="row" layout-align="center" ng-change="vm.stateCentralChange()">
+            <md-radio-button value="all" class="md-primary">All</md-radio-button>
+            <md-radio-button value="central" class="md-primary">Central</md-radio-button>
+            <md-radio-button value="state" class="md-primary">State</md-radio-button>
+        </md-radio-group>
+        <md-input-container flex="100" flex-gt-sm="95" ng-if="vm.filters.stateRadio=='state'">
+            <label>State</label>
+            <md-icon>pin_drop</md-icon>
+            <md-select ng-required="true" ng-change="vm.stateChange()" placeholder="State" name="state" ng-model-options="{trackBy: '$value.stateid'}" ng-model="vm.filters.state" md-select-search="vm.allStates.length>5">
+                <md-option ng-value="state" ng-repeat="state in vm.allStates">{{::state.statename}}</md-option>
+            </md-select>
+            <div ng-messages="vm.filterForm.state.$error">
+                <div ng-message="required">Please select a state.</div>
+            </div>
+        </md-input-container>
+        <md-input-container flex="100" ng-if="vm.showMinistries" flex-gt-sm="{{::vm.dropDownFlex}}" class=" md-icon-float md-block">
+            <label>Ministry</label>
+            <md-icon class="grey-icon">business_center</md-icon>
+            <md-select md-on-open="vm.fetchMinistries()" ng-model="vm.filters.selectedMinistry">
+                <md-option ng-value="ministry" ng-repeat="ministry in vm.filters.allMinistries">{{::ministry.ministryName}}</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="45" class=" md-icon-float md-block Category_question_answer">
+            <label>Category</label>
+            <md-icon class="grey-icon">question_answer</md-icon>
+            <md-select md-on-open="vm.fetchCategories()" ng-model="vm.filters.selectedCategory" md-select-search="vm.filters.allCategories.length>5">
+                <md-option ng-value="category" ng-repeat="category in vm.filters.allCategories">{{::category.categoryName}}</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="50" class="Category_question_answer">
+            <label>Status</label>
+            <md-icon>power_settings_new</md-icon>
+            <md-select placeholder="Status" name="status" ng-init="vm.filters.status=vm.filters.status||'all'" ng-model="vm.filters.status">
+                <md-option value="all">All</md-option>
+                <md-option value="active">Activated</md-option>
+                <md-option value="deactive">Deactivated</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="50">
+            <label>Onboarding Start Date</label>
+            <md-datepicker date-picker-clear md-open-on-focus md-max-date="vm.dateToday" ng-model="vm.filters.startDate"></md-datepicker>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="50">
+            <label>Onboarding End Date</label>
+            <md-datepicker date-picker-clear md-open-on-focus md-min-date="vm.filters.startDate" ng-model="vm.filters.endDate"></md-datepicker>
+        </md-input-container>
+        <md-slider-container flex="100" flex-gt-sm="50" style="padding-left: 18px" layout="row">
+            <span flex="30" class="md-body-1">Rating Start</span>
+            <md-slider class="md-primary" md-discrete ng-model="vm.filters.startRating" step="1" min="1" max="5">
+            </md-slider>
+            <span>{{vm.filters.startRating}}</span>
+        </md-slider-container>
+        <md-slider-container flex="100" flex-gt-sm="50" style="padding-left: 18px" layout="row">
+            <span flex="30" class="md-body-1">Rating End</span>
+            <md-slider class="md-primary" ng-disabled="!vm.filters.startRating" md-discrete ng-model="vm.filters.endRating" step="1" min="{{vm.filters.startRating}}" max="5">
+            </md-slider>
+            <span>{{vm.filters.endRating}}</span>
+        </md-slider-container>
+        <div align="center">
+            <md-button ng-click="vm.cancel()" class="md-raised">Cancel</md-button>
+            <md-button ng-click="vm.reset()" class="md-raised md-warn">Reset</md-button>
+            <md-button type="submit" ng-disabled="vm.filterForm.$invalid" ng-click="vm.submit()" class="md-raised md-primary">Submit</md-button>
+        </div>
+    </form>
+</md-content>

@@ -1,0 +1,50 @@
+<md-content layout-padding>
+    <div layout="row" layout-xs="column" layout-align="space-between" layout-padding>
+        <h4>
+            Reference ID: {{vm.queryData.ticket_id}}
+        </h4>
+        <h4>
+            Date Logged: {{vm.queryData.log_time|uscDate}}
+        </h4>
+    </div>
+    <div layout-wrap layout="row">
+        <md-input-container flex="50" class="padding-b-10">
+            <label>User Name</label>
+            <md-icon class="grey-icon">account_circle</md-icon>
+            <input type="text" ng-model="vm.queryData.user_name" readonly="true" />
+        </md-input-container>
+        <md-input-container flex="50" class="padding-b-10">
+            <label>Mobile Number</label>
+            <md-icon class="grey-icon">phone</md-icon>
+            <input type="text" ng-model="vm.queryData.user_mno" readonly="true" />
+        </md-input-container>
+        <md-input-container flex class="padding-b-10">
+            <label>Query</label>
+            <md-icon class="grey-icon">announcement</md-icon>
+            <textarea type="text" ng-model="vm.queryData.query" readonly="true"></textarea>
+        </md-input-container>
+        <form layout="row" flex="100" name="vm.statusForm" layout-align="space-around" layout-wrap>
+            <md-input-container flex="30" class=" md-icon-float md-block">
+                <label>Status</label>
+                <md-icon>done_all</md-icon>
+                <md-select ng-model="vm.selectedStatus">
+                    <md-option ng-value="option" ng-repeat="option in vm.statusOptions">{{::option.displayName}}</md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="80" class="padding-b-10">
+                <label>Comment</label>
+                <md-icon>question_answer</md-icon>
+                <textarea type="text" name="comment" required ng-model="vm.queryData.remarks" placeholder="Add any comment.." rows="2"></textarea>
+                <div ng-messages="vm.statusForm.comment.$error">
+                    <div ng-message="required">
+                        Comment is required.
+                    </div>
+                </div>
+            </md-input-container>
+            <div flex="100" align="center">
+                <md-button class="md-raised" ng-click="vm.$mdDialog.cancel()">Cancel</md-button>
+                <md-button usc-right="takeQueryAction" ng-disabled="vm.statusForm.$invalid" type="submit" is-busy="vm.saveQueryPromise" class="md-raised md-primary" ng-click="vm.saveQueryStatus()">Save</md-button>
+            </div>
+        </form>
+    </div>
+</md-content>

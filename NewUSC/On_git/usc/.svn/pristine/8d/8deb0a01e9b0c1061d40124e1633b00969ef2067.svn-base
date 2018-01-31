@@ -1,0 +1,20 @@
+<md-sidenav layout="column" flex class="md-sidenav-left" md-component-id="mainSidenav" md-is-locked-open="vm.$mdSidenav.uscSidebarLocked&&vm.$mdMedia('gt-sm')" md-whiteframe="2">
+    <md-content class="left-nav-content">
+        <span hide-gt-sm ui-sref="selfcare.dashboard.apps" class="md-toolbar-tools logo-bg cursor-pointer margin-top-bottom-10">
+     <img src="resources/assets/images/logo-umang.png" width="152" height="47" alt=""/>
+     </span>
+        <div usc-right="{{navigation.right}}" ng-repeat="navigation in ::vm.navigations track by navigation.state">
+            <md-list-item style="padding:0" ui-sref-active="{{!navigation.children?'parent-active':''}}" ui-sref="{{::navigation.state}}" class="accordion parent secondary-button-padding" ng-click="::vm.toggleAccordion(navigation)">
+                <md-icon ng-bind="::navigation.icon" style="margin-right: 8px" class="no-margin color-white"></md-icon>
+                <span class="padding-10">{{::navigation.name}}</span>
+                <md-icon ng-if="::navigation.children" ng-class="{'open':((navigation.state | includedByState)||navigation.override)}" ui-sref="{{::navigation.state}}" ng-click="::vm.toggleAccordion(navigation)" class="color-white arrow">chevron_right</md-icon>
+            </md-list-item>
+            <div usc-right="{{childNav.right}}" ng-repeat="childNav in ::navigation.children track by childNav.state" class="animate-show-hide" ng-show="(navigation.state | includedByState)||navigation.override">
+                <md-list-item ui-sref-active="active" ng-click="::vm.$mdSidenav('mainSidenav').toggle()" ui-sref="{{::childNav.state}}">
+                    <md-icon ng-bind="::childNav.icon" style="margin-right: -15px;margin-left: 18px;margin-top: 8px;margin-bottom: 8px;" class=" color-white"></md-icon>
+                    <span style="margin-left: 28px;">{{::childNav.name}}</span>
+                </md-list-item>
+            </div>
+        </div>
+    </md-content>
+</md-sidenav>

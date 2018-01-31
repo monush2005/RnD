@@ -1,0 +1,295 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta name="theme-color" content="#00599d">
+    <meta name="apple-mobile-web-app-title" content="UMANG SelfCare">
+    <meta name="application-name" content="UMANG SelfCare">
+    <meta name="description" content="UMANG SelfCare">
+    <title>UMANG SelfCare</title>
+
+    <link rel="apple-touch-icon" sizes="60x60" href="icon.apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="icon.apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="icon.apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="icon.apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icon.apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icon.favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icon.favicon-16x16.png">
+    <link rel="icon" href="icon.favicon.ico">
+    <link rel="mask-icon" href="icon.safari-pinned-tab.svg" color="#00599d">
+
+    <!-- build:replace '<link rel="manifest" href="manifest.json">' -->
+    <!-- /build -->
+
+    <!-- build:replace '<base href="/usc/" />' -->
+    <base href="/" />
+    <!-- /build -->
+
+    <!-- build:replace '<script src="resources/ENV_VARS.js"></script>' -->
+    <script src="resources/ENV_VARS_LOCAL.js"></script>
+    <!-- /build -->
+
+    <style type="text/css">
+    * {
+        box-sizing: border-box!important
+    }
+
+    .usc-initial-loader-logo {
+        background: url(resources/assets/images/digital-india.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: 50%;
+        height: 100px;
+        margin: 30vh 0 50px;
+        animation: usc-initial-animation 1s infinite
+    }
+
+    .usc-initial-loader-text {
+        font-size: 28px
+    }
+
+    @keyframes usc-initial-animation {
+        0% {
+            transform: scale(1)
+        }
+        50% {
+            transform: scale(1.2)
+        }
+        100% {
+            transform: scale(1)
+        }
+    }
+    </style>
+</head>
+
+<body layout="column">
+    <!-- pre-loader for complete selfcare -->
+    <div align="center" class="animate-if" ng-if="::false">
+        <div class="usc-initial-loader-logo"></div>
+        <div align="center" class="usc-initial-loader-text">Loading UMANG SelfCare</div>
+    </div>
+
+    <ui-view id="selfcare-main-view" layout="column" class="fade-right" layout-fill></ui-view>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- build:css resources/css/main.min.css -->
+    <link rel="stylesheet" type="text/css" href="resources/assets/css/angular-material.css">
+    <link rel="stylesheet" type="text/css" href="resources/assets/css/md-expansion-panel.css">
+    <link rel="stylesheet" type="text/css" href="resources/assets/css/ngProgress.css">
+    <link rel="stylesheet" type="text/css" href="resources/assets/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="resources/assets/css/survey/angular-csp.css">
+    <link rel="stylesheet" type="text/css" href="resources/assets/css/survey/form-builder-material.min.css">
+    <link rel="stylesheet" type="text/css" href="resources/assets/css/survey/form-viewer-material.min.css">
+    <link rel="stylesheet" type="text/css" href="resources/assets/css/material-table.css">
+    <link rel="stylesheet" type="text/css" href="resources/app/css/custom.css">
+    <!-- endbuild -->
+    <!-- build:js resources/assets/js/libs.min.js --> 
+    <script src="resources/assets/js/jquery.min.js"></script>
+    <script src="resources/assets/js/angular.js"></script>
+    <script src="resources/assets/js/angular-locale_en-in.js"></script>
+    <script src="resources/assets/js/angular-ui-router.js"></script>
+    <script src="resources/assets/js/angular-messages.js"></script>
+    <script src="resources/assets/js/angular-aria.js"></script>
+    <script src="resources/assets/js/angular-animate.js"></script>
+    <script src="resources/assets/js/angular-sanitize.js"></script>
+    <script src="resources/assets/js/md-expansion-panel.js"></script>
+    <script src="resources/assets/js/ngStorage.js"></script>
+    <script src="resources/assets/js/ngMask.js"></script>
+    <script src="resources/assets/js/angular-material.js"></script>
+    <script src="resources/assets/js/angular-scroll.js"></script>
+    <script src="resources/assets/js/ngProgress.js"></script>
+    <script src="resources/assets/js/lodash.js"></script>
+    <script src="resources/assets/js/moment.js"></script>
+    <script src="resources/assets/js/highcharts.js"></script>
+    <script src="resources/assets/js/highchart-exporting.js"></script>
+    <script src="resources/assets/js/highchartsCustomEvents.js"></script>
+    <script src="resources/assets/js/highchart-export-csv.js"></script>
+    <script src="resources/assets/js/sha256.js"></script>
+    <script src="resources/assets/js/FileSaver.js"></script>
+    <script src="resources/assets/js/survey/elastic.js"></script>
+    <script src="resources/assets/js/survey/Sortable.js"></script>
+    <script src="resources/assets/js/survey/angular-legacy-sortable.js"></script>
+    <script src="resources/assets/js/survey/form-utils.js"></script>
+    <script src="resources/assets/js/survey/form-builder.js"></script>
+    <script src="resources/assets/js/survey/form-builder-material-tpls.min.js"></script>
+    <script src="resources/assets/js/survey/form-viewer.js"></script>
+    <script src="resources/assets/js/survey/form-viewer-material-tpls.min.js"></script>
+    <script src="resources/assets/js/survey/ui-bootstrap.js"></script>
+    <script src="resources/assets/js/survey/ui-bootstrap-tpls.min.js"></script>
+    <script src="resources/assets/js/survey/angular-translate.js"></script>
+    <script src="resources/assets/js/survey/angular-translate-loader-static-files.js"></script>
+    <script src="resources/assets/js/survey/jspdf.js"></script>
+    <!-- endbuild -->
+    
+    <!-- build:js resources/assets/js/app.min.js -->
+    <script src="resources/app/config/app.js"></script>
+    <script src="resources/app/config/app.config.js"></script>
+    <script src="resources/app/config/app.config.route.js"></script>
+    <script src="resources/app/config/app.config.interceptor.js"></script>
+    <script src="resources/app/config/app.config.transitions.js"></script>
+    <script src="resources/app/config/app.run.js"></script>
+    <script src="resources/app/config/app.run.templates.js"></script>
+    <script src="resources/app/config/lodash.mixins.js"></script>
+    <!-- custom services -->
+    <script src="resources/app/services/httpService.js"></script>
+    <script src="resources/app/services/ngProgressService.js"></script>
+    <script src="resources/app/services/breadCrumbService.js"></script>
+    <script src="resources/app/services/customToastsService.js"></script>
+    <script src="resources/app/services/customDialogService.js"></script>
+    <script src="resources/app/services/loginService.js"></script>
+    <script src="resources/app/services/commonDataService.js"></script>
+    <script src="resources/app/services/campaignsService.js"></script>
+    <script src="resources/app/services/keywordsService.js"></script>
+    <script src="resources/app/services/userQueryService.js"></script>
+    <script src="resources/app/services/highchartJSONService.js"></script>
+    <script src="resources/app/services/reportingService.js"></script>
+    <script src="resources/app/services/dataProcessingService.js"></script>
+    <script src="resources/app/services/categoriesService.js"></script>
+    <script src="resources/app/services/ratingService.js"></script>
+    <script src="resources/app/services/rolesRightsService.js"></script>
+    <script src="resources/app/services/usersService.js"></script>
+    <script src="resources/app/services/bannerService.js"></script>
+    <script src="resources/app/services/dateRangeSelectorService.js"></script>
+    <script src="resources/app/services/onboardService.js"></script>
+    <script src="resources/app/services/userTreeService.js"></script>
+    <script src="resources/app/services/appServiceProfileService.js"></script>
+    <script src="resources/app/services/questionnaireService.js"></script>
+    <script src="resources/app/services/helperService.js"></script>
+    <script src="resources/app/services/messagingService.js"></script>
+    <script src="resources/app/services/attentionScreenService.js"></script>
+    <script src="resources/app/services/directoryService.js"></script>
+    <script src="resources/app/services/loggerService.js"></script>
+
+    <!-- Analtyics Services -->
+    <script src="resources/app/services/analyticsServices/analyticsUserService.js"></script>
+    <script src="resources/app/services/analyticsServices/analyticsDataProcService.js"></script>
+    <script src="resources/app/services/analyticsServices/gaHttpService.js"></script>
+    <script src="resources/app/services/analyticsServices/googleAnalyticsDataService.js"></script>
+    <script src="resources/app/services/analyticsServices/googleAnalyticsDataProcService.js"></script>
+
+    <!-- custom directives -->
+    <script src="resources/app/directives/isBusy.js"></script>
+    <script src="resources/app/directives/scrollHorizontal.js"></script>
+    <script src="resources/app/directives/fileModel.js"></script>
+    <script src="resources/app/directives/equals.js"></script>
+    <script src="resources/app/directives/datePickerClear.js"></script>
+    <script src="resources/app/directives/highlightBind.js"></script>
+    <script src="resources/app/directives/selectSearch.js"></script>
+    <script src="resources/app/directives/mdSelectSearch.js"></script>
+    <script src="resources/app/directives/promiseLoader.js"></script>
+    <script src="resources/app/directives/imageFileDirective/imageFile.js"></script>
+    <script src="resources/app/directives/previewImage.js"></script>
+    <script src="resources/app/directives/uscRight.js"></script>
+    <script src="resources/app/directives/promiseHider.js"></script>
+    <script src="resources/app/directives/healthValue.js"></script>
+    <script src="resources/app/directives/clearOnDestroy.js"></script>
+    <script src="resources/app/directives/focusOnInit.js"></script>
+    <script src="resources/app/directives/imageLoader.js"></script>
+    <script src="resources/app/directives/userTreeDirective/userTreeDirective.js"></script>
+    <script src="resources/app/directives/prefix91.js"></script>
+    <script src="resources/app/directives/passwordAutofillFix.js"></script>
+
+    <!-- custom filters -->
+    <script src="resources/app/filters/uscDateFilter.js"></script>
+    <!-- custom common components -->
+    <script src="resources/app/components/_commonComponents/highchartComponent/highchartComponent.js"></script>
+    <script src="resources/app/components/_commonComponents/keywordAccordionComponent/keywordAccordionComponent.js"></script>
+    <script src="resources/app/components/_commonComponents/paginationComponent/paginationComponent.js"></script>
+    <script src="resources/app/components/_commonComponents/starRatingComponent/starRatingComponent.js"></script>
+    <script src="resources/app/components/_commonComponents/dateRangeSelectorComponent/dateRangeSelectorComponent.js"></script>
+    <script src="resources/app/components/_commonComponents/changePasswordComponent/changePasswordComponent.js"></script>
+    <script src="resources/app/components/_commonComponents/promptComponent/promptComponent.js"></script>
+    <script src="resources/app/components/_commonComponents/requestComponent/requestComponent.js"></script>
+    <script src="resources/app/components/_commonComponents/quickDateRangeComponent/quickDateRangeComponent.js"></script>
+    <script src="resources/app/components/_commonComponents/roleChangedDialogComponent/roleChangedDialogComponent.js"></script>
+    <!-- custom components -->
+    <script src="resources/app/components/selfCareComponent/selfCareComponent.js"></script>
+    <script src="resources/app/components/headerComponent/headerComponent.js"></script>
+    
+    <script src="resources/app/components/headerComponent/userinfoshowComponent.js"></script>
+    
+    
+    <script src="resources/app/components/sidenavComponent/sidenavComponent.js"></script>
+    <script src="resources/app/components/loginComponent/loginComponent.js"></script>
+    <script src="resources/app/components/loginComponent/forgotPasswordComponent/forgotPasswordComponent.js"></script>
+    <script src="resources/app/components/dashboardComponent/dashboardAppsComponent/dashboardAppsComponent.js"></script>
+    <script src="resources/app/components/dashboardComponent/dashboardServicesComponent/dashboardServicesComponent.js"></script>
+    <script src="resources/app/components/dashboardComponent/appsServicesFilterComponent/appsServicesFilterComponent.js"></script>
+    <script src="resources/app/components/appHomeComponent/appHomeComponent.js"></script>
+    <script src="resources/app/components/serviceHomeComponent/serviceHomeComponent.js"></script>
+    <script src="resources/app/components/campaignComponents/viewCampaignsComponent/viewCampaignsComponent.js"></script>
+    <script src="resources/app/components/campaignComponents/scheduleCampaignComponent/scheduleCampaignComponent.js"></script>
+    <script src="resources/app/components/campaignComponents/campaignEditorComponent/campaignEditorComponent.js"></script>
+    <script src="resources/app/components/appKeywordComponent/appKeywordComponent.js"></script>
+    <script src="resources/app/components/serviceKeywordComponent/serviceKeywordComponent.js"></script>
+    <script src="resources/app/components/userQueryComponent/userQueryComponent.js"></script>
+    <script src="resources/app/components/reportingComponent/reportingComponent.js"></script>
+    <script src="resources/app/components/appCategoryComponent/appCategoryComponent.js"></script>
+    <script src="resources/app/components/ratingsComponent/ratingsComponent.js"></script>
+    <script src="resources/app/components/reportCardComponent/reportCardComponent.js"></script>
+    <script src="resources/app/components/appProfileComponent/appProfileComponent.js"></script>
+    <script src="resources/app/components/appServiceOnOffComponent/appServiceOnOffComponent.js"></script>
+    <script src="resources/app/components/appProfileComponent/workingHoursComponent/workingHoursComponent.js"></script>
+    <script src="resources/app/components/appProfileComponent/logoChangeComponent/logoChangeComponent.js"></script>
+    <script src="resources/app/components/appProfileComponent/latLongComponent/latLongComponent.js"></script>
+    <script src="resources/app/components/serviceProfileComponent/serviceProfileComponent.js"></script>
+    <script src="resources/app/components/profileDetailsComponent/profileDetailsComponent.js"></script>
+    <script src="resources/app/components/roleComponents/createRoleComponent/createRoleComponent.js"></script>
+   <script src="resources/app/components/roleComponents/createRoleComponentSaveAs.js"></script>   
+    
+    <script src="resources/app/components/roleComponents/editRoleComponent/editRoleComponent.js"></script>
+    <script src="resources/app/components/userComponents/createUserComponent/createUserComponent.js"></script>
+    <script src="resources/app/components/userComponents/editUsersComponent/editUsersComponent.js"></script>
+    <script src="resources/app/components/userComponents/userTreeComponent/userTreeComponent.js"></script>
+    <script src="resources/app/components/userComponents/viewAndEditUserComponent/viewAndEditUserComponent.js"></script>
+    <script src="resources/app/components/userComponents/filterUsersComponent/filterUsersComponent.js"></script>
+    <script src="resources/app/components/bannerComponents/approveBannersComponent/approveBannersComponent.js"></script>
+    <script src="resources/app/components/bannerComponents/uploadBannerComponent/uploadBannerComponent.js"></script>
+    <script src="resources/app/components/bannerComponents/viewMyBannersComponent/viewMyBannersComponent.js"></script>
+    <script src="resources/app/components/bannerComponents/viewAllLangBannersComponent/viewAllLangBannersComponent.js"></script>
+    <script src="resources/app/components/createCategoryComponent/createCategoryComponent.js"></script>
+    <script src="resources/app/components/createCategoryComponent/viewEditCategoryComponent/viewEditCategoryComponent.js"></script>
+    <script src="resources/app/components/userQueryComponent/queryViewComponent/queryViewComponent.js"></script>
+    <script src="resources/app/components/userQueryComponent/emailViewComponent/emailViewComponent.js"></script>
+    <script src="resources/app/components/userQueryComponent/emailViewComponent/viewattachmentcomponent.js"></script>
+    
+    <script src="resources/app/components/profileDetailsComponent/mobEmailEditComponent/mobEmailEditComponent.js"></script>
+    <script src="resources/app/components/manageRequestsComponent/manageRequestsComponent.js"></script>
+    <script src="resources/app/components/manageRequestsComponent/viewOnboardingRequestComponent/viewOnboardingRequestComponent.js"></script>
+    <script src="resources/app/components/questionnaireComponents/buildQuestionnaireComponent/buildQuestionnaireComponent.js"></script>
+    <script src="resources/app/components/questionnaireComponents/fillQuestionnaireComponent/fillQuestionnaireComponent.js"></script>
+    <script src="resources/app/components/questionnaireComponents/previewQuestionnaireComponent/previewQuestionnaireComponent.js"></script>
+    <script src="resources/app/components/questionnaireComponents/viewQsnrSubmissionsComponent/viewQsnrSubmissionsComponent.js"></script>
+    <script src="resources/app/components/messagingComponents/broadcastComponent/broadcastComponent.js"></script>
+    <script src="resources/app/components/messagingComponents/composeBroadcastComponent/composeBroadcastComponent.js"></script>
+    <script src="resources/app/components/messagingComponents/directMessageComponent/directMessageComponent.js"></script>
+    <script src="resources/app/components/messagingComponents/composeDirectMsgComponent/composeDirectMsgComponent.js"></script>
+    <script src="resources/app/components/attentionScreenComponents/attScreenComponent/attScreenComponent.js"></script>
+    <script src="resources/app/components/attentionScreenComponents/viewAttScreensComponent/viewAttScreensComponent.js"></script>
+    <script src="resources/app/components/attentionScreenComponents/uploadAttScreenComponent/uploadAttScreenComponent.js"></script>
+    <script src="resources/app/components/directoryComponents/viewDirectoryComponent/viewDirectoryComponent.js"></script>
+    <script src="resources/app/components/directoryComponents/deptEditorComponent/deptEditorComponent.js"></script>
+    <script src="resources/app/components/designApiComponent/designApiComponent.js"></script>
+    <script src="resources/app/components/umangFaqComponent/umangFaqComponent.js"></script>
+    <script src="resources/app/components/ratingAndFeebacksComponent/ratingAndFeebacksComponent.js"></script>
+    <script src="resources/app/components/ratingAndFeebacksComponent/appFeedbacksComponent/appFeedbacksComponent.js"></script>
+    <script src="resources/app/components/ratingAndFeebacksComponent/deptFeedbackComponent/deptFeedbackComponent.js"></script>
+    <script src="resources/app/components/ratingAndFeebacksComponent/userProfileComponent/userProfileComponent.js"></script>
+    
+    <!-- Analtyics Components -->
+    <script src="resources/app/components/analyticsComponents/analyticsParentComponent/analyticsParentComponent.js"></script>
+    <script src="resources/app/components/analyticsComponents/analyticsDashboardComponent/analyticsDashboardComponent.js"></script>
+    <script src="resources/app/components/analyticsComponents/analyticsTemporalComponent/analyticsTemporalComponent.js"></script>
+    <script src="resources/app/components/analyticsComponents/analyticsDeptsComponent/analyticsDeptsComponent.js"></script>
+    <script src="resources/app/components/analyticsComponents/analyticsDemogComponent/analyticsDemogComponent.js"></script>
+    <script src="resources/app/components/analyticsComponents/analyticsfilterAppsComponent/analyticsfilterAppsComponent.js"></script>
+    <script src="resources/app/components/analyticsComponents/gAnalyticsComponent/gAnalyticsComponent.js"></script>
+    <script src="resources/app/components/analyticsComponents/analyticsTableComponent/analyticsTableComponent.js"></script>
+    <!-- endbuild -->
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<md-content layout-padding layout-wrap>
+    <form name="vm.onboardForm">
+        <div layout-padding layout="row" layout-wrap>
+            <md-radio-group flex="100" ng-model="vm.request.stateCentral" layout="row" ng-if="vm.request.stateCentral=='99'">
+                <md-radio-button ng-disabled="true" value="99" class="md-primary">Central</md-radio-button>
+                <md-radio-button ng-disabled="true" value="" class="md-primary">State</md-radio-button>
+            </md-radio-group>
+            <md-input-container flex="100" class="no-margin-bottom" ng-if="vm.request.stateCentral!='99'">
+                <label>State</label>
+                <md-icon class="grey-icon">pin_drop</md-icon>
+                <input ng-readonly="true" ng-model="vm.request.stateName" type="text" name="orgName">
+            </md-input-container>
+            <md-input-container flex="100" class="no-margin-bottom">
+                <label>Request Date</label>
+                <md-icon class="grey-icon">date_range</md-icon>
+                <input ng-readonly="true" type="text" ng-init="vm.request.cdate = (vm.request.cdate|uscDate)" ng-model="vm.request.cdate">
+            </md-input-container>
+            <md-input-container flex="100" class="no-margin-bottom">
+                <label>Name of Organization</label>
+                <md-icon class="grey-icon">business</md-icon>
+                <input ng-readonly="true" ng-model="vm.request.organization" type="text" name="orgName">
+            </md-input-container>
+            <md-input-container flex="100" class="no-margin-bottom">
+                <label>Name of Requestor</label>
+                <md-icon class="grey-icon">account_circle</md-icon>
+                <input ng-readonly="true" ng-model="vm.request.name" type="text" name="reqName">
+            </md-input-container>
+            <md-input-container flex="100" flex-gt-sm="50" class="no-margin-bottom">
+                <label>Email</label>
+                <md-icon class="grey-icon">email</md-icon>
+                <input ng-readonly="true" ng-model="vm.request.emailId" type="text" name="email">
+            </md-input-container>
+            <md-input-container flex="100" flex-gt-sm="50" class="no-margin-bottom">
+                <label>Mobile Number</label>
+                <md-icon class="grey-icon">phone</md-icon>
+                <input ng-readonly="true" ng-model="vm.request.mno" type="text" name="mno">
+            </md-input-container>
+        </div>
+    </form>
+    <div layout="row" layout-wrap layout-align="center">
+        <md-input-container flex="100">
+            <label>Comment (Optional)</label>
+            <md-icon>comment</md-icon>
+            <input ng-readonly="::vm.readOnly" ng-model="vm.request.comments" type="text">
+        </md-input-container>
+        <md-button ng-click="vm.cancel()" class="md-raised">Cancel</md-button>
+        <md-button ng-hide="::vm.readOnly" is-busy="vm.rejectPromise" ng-click="vm.reject()" class="md-raised md-warn">Reject</md-button>
+        <md-button ng-hide="::vm.readOnly" is-busy="vm.approvePromise" ng-click="vm.approve()" md-theme="selfcare" class="md-raised md-primary">Approve</md-button>
+    </div>
+</md-content>

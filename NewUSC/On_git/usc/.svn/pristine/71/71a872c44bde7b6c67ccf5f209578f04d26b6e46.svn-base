@@ -1,0 +1,42 @@
+<md-content layout-padding>
+    <md-card>
+        <md-card-content>
+            <div promise-loader="vm.getSubUsersPromise" text="Loading users.."></div>
+            <div promise-hider="vm.getSubUsersPromise" layout="row" ng-show="vm.filters.payload || vm.subUsers.length" layout-wrap>
+                <md-input-container flex>
+                    <label>Search Users..</label>
+                    <md-icon>search</md-icon>
+                    <input type="text" ng-model="vm.searchFilter">
+                </md-input-container>
+                <md-button class="md-fab md-mini md-primary" ng-click="vm.filterUsers()">
+                    <md-tooltip md-direction="bottom">Modify Filters</md-tooltip>
+                    <md-icon md-menu-origin>filter_list</md-icon>
+                </md-button>
+                <md-button ng-show="vm.filters.payload" class="md-fab md-mini md-warn" ng-click="vm.clearFilters()">
+                    <md-tooltip md-direction="bottom">Clear Filters</md-tooltip>
+                    <md-icon md-menu-origin>close</md-icon>
+                </md-button>
+                <md-list flex="100" layout-margin>
+                    <md-list-item ng-repeat="user in vm.subUsers|filter:vm.searchFilter">
+                        <md-icon style="font-size: 35px" class="md-avatar">account_circle</md-icon>
+                        <p md-truncate highlight-bind="user.userId | vm.searchFilter"></p>
+                        <md-button ng-hide="::vm.forTree" is-busy="user.getUserPromise" ng-click="vm.editUser(user)" class="md-raised">
+                            View / Edit
+                        </md-button>
+                        <md-button ng-show="::vm.forTree" is-busy="user.getTreePromise" ng-click="vm.viewTree(user)" class="md-raised">
+                            View Tree
+                        </md-button>
+                    </md-list-item>
+                </md-list>
+            </div>
+            <div promise-hider="vm.getSubUsersPromise" ng-hide="vm.filters.payload || vm.subUsers.length" align="center">
+                <h4>You have no users under you!</h4>
+                <md-button ui-sref="selfcare.users.create" class="md-raised md-primary">
+                    <md-icon>person_add</md-icon> Create New User </md-button>
+            </div>
+            <div promise-hider="vm.getSubUsersPromise" ng-show="vm.filters.payload && !vm.subUsers.length" align="center">
+                <h4>No results found!</h4>
+            </div>
+        </md-card-content>
+    </md-card>
+</md-content>

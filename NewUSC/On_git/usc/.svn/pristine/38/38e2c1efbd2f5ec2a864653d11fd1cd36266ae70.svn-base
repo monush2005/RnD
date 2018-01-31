@@ -1,0 +1,162 @@
+(function(app) {
+    'use strict';
+    app.component('deptFeedbackComponent', {
+        templateUrl: 'resources/app/components/ratingAndFeebacksComponent/deptFeedbackComponent/deptFeedbackComponent.html',
+        controller: deptFeedbackComponentController,
+        controllerAs: 'vm',
+        bindings: {
+            startDate: '<',
+            endDate: '<'
+        }
+    })
+
+    deptFeedbackComponentController.$inject = ['$localStorage', 'commonDataService', 'customDialogService', 'ratingsService'];
+
+    function deptFeedbackComponentController($localStorage, commonDataService, customDialogService, ratingsService) {
+        var vm = this;
+        vm.clearFilters = clearFilters;
+        vm.hasFilters = hasFilters;
+        vm.refreshResults = refreshResults;
+        vm.getResults = getResults;
+        vm.filterDepartments = filterDepartments;
+        vm.clearDepartmentsFilter = clearDepartmentsFilter;
+        vm.showProfileInfo = showProfileInfo;
+        vm.deptFeedbacksFilters = {};
+
+        vm.filterByList = [{
+            name: 'Five Star',
+            value: '5',
+        }, {
+            name: 'Four Star',
+            value: '4',
+        }, {
+            name: 'Three Star',
+            value: '3',
+        }, {
+            name: 'Two Star',
+            value: '2',
+        }, {
+            name: 'One Star',
+            value: '1',
+        }, {
+            name: 'Feedback without Rating',
+            value: 'fwr',
+        }, {
+            name: 'Rating Without Feedback',
+            value: 'rwf',
+        }]
+
+        vm.opSystemsList = [{
+            name: 'Android',
+            value: 'android'
+        }, {
+            name: 'iOS',
+            value: 'ios'
+        }, {
+            name: 'Windows Phone',
+            value: 'wp'
+        }, {
+            name: 'Website',
+            value: 'web'
+        }, {
+            name: 'Mobile Web',
+            value: 'mobileweb'
+        }]
+
+        vm.$onInit = function() {
+            getLanguges();
+            sortAndSetApps($localStorage.userApps);
+        }
+
+        vm.$onChanges = function() {
+            refreshResults();
+        }
+
+        function getResults(page, size){
+            let filters = _.cloneDeep(vm.deptFeedbacksFilters);
+            filters.startDate = vm.startDate;
+            filters.endDate = vm.endDate;
+            filters.page = page;
+            filters.size = size;
+
+            vm.getResultsPromise = ratingsService.getDeptServFeedbacks(filters).then((results) => {
+                vm.feedbacks = _.map(results.feedbacks, (feedback) => {
+                    let deptName = feedback.deptId && $localStorage.userApps[feedback.deptId].appname;
+                    let serviceName = '';
+                    if(feedback.serviceId){
+                        let service = $localStorage.userServices[feedback.serviceId]
+                        serviceName = service.app.appname + ' - ' + service.servicename;
+                    }
+
+                    feedback.appServiceName = deptName || serviceName;
+                    return feedback;
+                });
+
+                return results.totalCount;
+            })
+
+            return vm.getResultsPromise;
+        }
+
+        function refreshResults() {
+            if(vm.paginator)
+               vm.paginator.goToPage(1);
+        }
+
+        function clearFilters() {
+            vm.deptFeedbacksFilters = {};
+            clearDepartmentsFilter();
+            refreshResults();
+        }
+
+        function hasFilters() {
+            return _.flatMap(vm.deptFeedbacksFilters, i => i.toString()).join('') != '';
+        }
+
+        function getLanguges() {
+            commonDataService.fetchLanguages().then((langs) => {
+                vm.langsList = langs;
+            })
+        }
+
+        function filterDepartments() {
+            customDialogService.showComponent({
+                component: 'appsServicesFilterComponent',
+                bindings:{
+                    filters: _.cloneDeep(vm.filters)
+                }
+            }).then((obj) => {
+                delete vm.deptFeedbacksFilters.apps;
+                delete vm.deptFeedbacksFilters.services;
+                vm.filters = obj.filters;
+                vm.hasDeptFilters = obj.hasFilters;
+                sortAndSetApps(obj.apps);
+                refreshResults();
+            });
+        }
+
+        function clearDepartmentsFilter() {
+            sortAndSetApps($localStorage.userApps);
+            delete vm.filters;
+            delete vm.hasDeptFilters;
+        }
+
+        function sortAndSetApps(apps) {
+            vm.allApps = _(apps).orderBy((app)=>_.toLower(app.appname), ['asc']).map(_.trimAppDetails).value();
+            vm.allServices = _($localStorage.userServices).filter((service) => {
+                return _.existsBy(apps, service.appid, 'appid');
+            }).map(_.trimServiceDetails).value();
+        }
+
+        function showProfileInfo(feedback) {
+            feedback.showProfilePromise = ratingsService.getProfileInfo(feedback.profileId).then((profile) => {
+                customDialogService.showComponent({
+                    component: 'userProfileComponent',
+                    bindings: {
+                        profile: profile,
+                    }
+                });
+            })
+        }
+    }
+})(angular.module('selfcare'));

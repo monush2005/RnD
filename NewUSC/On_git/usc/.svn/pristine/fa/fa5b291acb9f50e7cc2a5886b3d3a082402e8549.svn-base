@@ -1,0 +1,23 @@
+<md-content layout-padding>
+    <md-card>
+        <md-card-title>
+            <div class="md-title">Roles Created by you</div>
+        </md-card-title>
+        <md-card-content>
+            <div promise-loader="vm.rolesPromise" text="Loading roles.."></div>
+            <md-list>
+                <md-list-item ng-repeat="role in vm.allRoles">
+                    <md-icon class="md-avatar">security</md-icon>
+                    <p md-truncate> {{ role.roleName }} </p>
+                    <md-button is-busy="role.getRolePromise" ng-click="vm.getAndEditRole(role)" class="md-raised">
+                        Edit
+                    </md-button>
+                </md-list-item>
+            </md-list>
+            <div align="center" ng-if="vm.allRoles && !vm.allRoles.length">
+                <h4>You have not created any roles yet!</h4>
+                <md-button ui-sref="selfcare.roles.create" class="md-raised md-primary"> <md-icon>group_add</md-icon> Create New Role </md-button>
+            </div>
+        </md-card-content>
+    </md-card>
+</md-content>

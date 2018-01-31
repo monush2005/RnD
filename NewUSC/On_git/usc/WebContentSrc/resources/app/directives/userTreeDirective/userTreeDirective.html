@@ -1,0 +1,44 @@
+<li>
+ <a ng-class="{'light-blue-back': user.selected,'light-blue-back': userSearch(user.userid,searchuser) }" ><span>{{user.userid}} </span><md-menu ng-if="::user.apps.length"><md-button class="md-icon-button" ng-click="getUserDetails(user.userid,$mdOpenMenu,$event)"">
+       <md-icon>info</md-icon>
+     </md-button>
+     <md-menu-content width="4" >
+     
+<div layout="row" layout-align="space-around center"  flex="100" class="treemenu_maintop" >
+<label flex="100">Mobile Number</label>
+<big flex="100">{{userdetail.mno}}</big>
+</div>
+<div layout="row" layout-align="space-around center"  flex="100" class="treemenu_maintop" >
+<label flex="100">Email ID</label>
+<big flex="100">{{userdetail.email}}</big>
+</div>
+<div layout="row" layout-align="space-around center"  flex="100" class="treemenu_maintop" >
+<label flex="100">User Status</label> 
+<big flex="100">{{userdetail.status}}</big>
+</div>
+<!-- <div layout="row" layout-align="space-around center"  flex="100" class="treemenu_maintop" >	
+<label flex="100">Nature</label> 
+<big flex="100">{{stateRadio}}</big>
+</div> -->
+<!-- <div layout="row" layout-align="space-around center"  flex="100" class="treemenu_maintop" >
+<label flex="100">Category</label> 
+<big flex="100">{{userdetail.catagories}}</big>
+</div> -->
+</div>
+<div layout="row" layout-align="space-around center"  flex="100" class="treemenu_maintop" >
+<label flex="100">Creation Date/Time</label> 
+<big flex="100">{{userdetail.cdate}}</big>
+</div>
+       <md-menu-item class="tree-li" ng-repeat="app in user.apps">
+       <div layout="column" flex="100">
+             <p><big>{{::app.appname}}</big> <br/>
+             {{::app.services}}</p>
+         </div>
+       </md-menu-item>
+     </md-menu-content></md-menu>
+   </a>
+   <ul class="no-padding-bottom" ng-if="user.children.length" >
+       <user-tree-directive searchuser='searchuser' user="child" ng-repeat="child in user.children"></user-tree-directive>
+   </ul>
+</li>
+

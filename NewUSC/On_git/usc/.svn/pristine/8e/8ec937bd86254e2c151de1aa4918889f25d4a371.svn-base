@@ -1,0 +1,51 @@
+<div class="expand-apps animate-show-hide" ng-click="vm.showApps()" ng-show="('selfcare.dashboard.apps.performance' | isState) && !vm.areAppsVisible" layout="row" layout-align="center center">
+    <md-icon style="color:white">keyboard_arrow_down</md-icon> <span>Show all Apps</span>
+    <md-icon style="color:white">keyboard_arrow_down</md-icon>
+</div>
+<md-content id="appsContent" class="md-padding">
+    <div ng-if="('selfcare.dashboard.apps' | isState) || vm.areAppsVisible" class="animate-if">
+        <div ng-init="vm.$onInit()" class="no-padding" layout="row" style="margin-top: -10px;margin-bottom: -10px;">
+            <md-input-container flex="100" style="margin-top: 14px;">
+                <input type="text" placeholder="Search Apps.." ng-model="vm.appFilter">
+            </md-input-container>
+            <md-input-container flex="noshrink">
+                <label>Sort By</label>
+                <md-select ng-model="vm.sortType" ng-change="vm.sortApps()">
+                    <md-option value="latestFirst">Newly added</md-option>
+                    <md-option value="oldestFirst">Oldest</md-option>
+                    <md-option value="aToZ">A to Z</md-option>
+                    <md-option value="zToA">Z to A</md-option>
+                </md-select>
+            </md-input-container>
+            <div layout="row" flex="noshrink">
+                <md-button class="md-fab md-mini md-primary" ng-click="vm.openFilterDialog()">
+                    <md-tooltip md-direction="bottom">Filter Apps</md-tooltip>
+                    <md-icon md-menu-origin>filter_list</md-icon>
+                </md-button>
+                <md-button ng-show="vm.hasFilters" class="md-fab md-mini md-warn" ng-click="vm.clearFilters()">
+                    <md-tooltip md-direction="bottom">Clear Filters</md-tooltip>
+                    <md-icon md-menu-origin>close</md-icon>
+                </md-button>
+            </div>
+        </div>
+        <div class="dashboard-app-cards" scroll-horizontal="apps" layout="row" layout-align="start center" ng-if="vm.allApps.length>0">
+            <md-card class="cursor-pointer hoverable" ui-sref-opts="{notify:false}" ng-click="vm.areAppsVisible=false" ui-sref="selfcare.dashboard.apps.performance({appid:app.appid})" ng-repeat="app in vm.allApps|filter:vm.appFilter">
+                <div align="center">
+                <img class="md-card-image" ng-src="{{::app.image}}">
+            </div>
+                <md-card-footer align="center">
+                <div title="{{::app.appname}}" class="app-name" md-truncate>{{::app.appname}}</div>
+                </md-card-footer>
+               <div class="visit-app" ui-sref="selfcare.dashboard.app.home({appid:app.appid})" ng-click="$event.stopPropagation()">Visit Settings</div>
+            </md-card>
+        </div>
+        <div align="center" ng-if="!vm.allApps.length">
+            <h4>No apps found in selected criteria.</h4>
+        </div>
+    </div>
+    <div align="center" ng-if="('selfcare.dashboard.apps' | isState) && vm.allApps.length">
+        <br>
+        <h4>Please click on any above app to view its performance.</h4>
+    </div>
+    <ui-view class="fade-up"></ui-view>
+</md-content>

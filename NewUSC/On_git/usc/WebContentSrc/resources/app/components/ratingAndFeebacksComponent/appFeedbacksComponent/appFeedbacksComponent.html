@@ -1,0 +1,198 @@
+<br>
+<div>
+   <!-- form layout="row" layout-wrap name="vm.appFeedbacksForm">
+      <md-input-container class="input-margins" flex="100">
+          <label>Filter By</label>
+          <md-icon class="grey-icon">filter_list</md-icon>
+          <md-select multiple md-select-search="true" ng-change="vm.refreshResults()" ng-model="vm.appFeedbacksFilters.filterBy" name="filterBy">
+              <md-option ng-value="filter" ng-repeat="filter in vm.filterByList">{{::filter.name}}</md-option>
+          </md-select>
+      </md-input-container>
+      <md-input-container class="input-margins" flex="auto">
+          <label>Platform</label>
+          <md-icon class="grey-icon">devices</md-icon>
+          <md-select multiple md-select-search="true" ng-change="vm.refreshResults()" ng-model="vm.appFeedbacksFilters.os" name="os">
+              <md-option ng-value="os" ng-repeat="os in vm.opSystemsList">{{::os.name}}</md-option>
+          </md-select>
+      </md-input-container>
+      <md-input-container class="input-margins" flex="auto">
+          <label>Language</label>
+          <md-icon class="grey-icon">translate</md-icon>
+          <md-select multiple md-select-search="true" ng-change="vm.refreshResults()" ng-model="vm.appFeedbacksFilters.langs" name="langs">
+              <md-option ng-value="lang" ng-repeat="lang in vm.langsList">{{::lang.language}}</md-option>
+          </md-select>
+      </md-input-container>
+      <div flex="100" layout="row" layout-align="center center">
+          <md-button class="md-raised md-warn" ng-show="vm.hasFilters()" ng-click="vm.clearFilters()"> <md-icon>clear_all</md-icon> Clear Filters</md-button>
+      </div>
+      </form -->
+   <div promise-loader="vm.getResultsPromise" text="Loading feedbacks..."></div>
+   <div class="ratings-component" promise-hider="vm.getResultsPromise">
+      <div layout-align="center center" layout-wrap layout="row">
+         <div flex="100" flex-gt-sm="100" align="left" layout="row" layout-align="center center">
+         <div flex="50" flex-gt-sm="50" align="left">
+            <h2>
+               Ratings: 
+               <star-rating-component style="color:gold" rating="vm.results.avgRating"></star-rating-component>
+               <span>{{vm.results.avgRating}}</span>
+            </h2>
+            </div>
+            <div flex="50" flex-gt-sm="50" align="left">
+             <md-input-container class="input-margins" flex="auto" style="width:97%;">
+            <label>Operating system</label>
+            <md-icon class="grey-icon">devices</md-icon>
+            <md-select  md-select-search="true" ng-change="vm.refreshResults()" ng-model="vm.appFeedbacksFilters.osAvgFeedback" name="os">
+                <md-option ng-value="os" ng-repeat="os in vm.opSystemsList">{{::os.name}}</md-option>
+            </md-select>
+        </md-input-container>
+        </div>
+         </div>
+         <div flex="100" flex-gt-sm="100">
+            <md-card class="no-margin" layout-padding>
+               <div flex="100" flex-gt-sm="100" layout="row" layout-align="start start" class="no_padding margin_btm_20">
+                  <div flex-gt-sm="7" layout="row" layout-align="start center">
+                     <md-icon style="font-size: 50px;float: left;margin: 0px;width: 100%;color: #005C9D;line-height: 30px;">person</md-icon>
+                  </div>
+                  <div flex-gt-sm="50" class="Total_Usersmain">
+                     <h4 class="no-margin">Total Users: {{vm.results.totalUsers}}</h4>
+                     <h4 class="no-margin">Feedback Received: {{vm.results.totalFeedbacks}}</h4>
+                  </div>
+               </div>
+               <div layout="row" ng-repeat="count in vm.results.ratingCounts track by $index" layout-align="start center" class="rating-bar rating-bar_newdata layout-row">
+                  <div class="rating-line full_widthstar">
+                     <span>
+                        {{::5-$index}} 
+                        <star-rating-component blank-star="true" style="color:gold" rating="::5-$index"></star-rating-component>
+                     </span>
+                     <span  >
+                        {{count}} 
+                        
+                     </span>
+                  </div>
+                  <!-- div layout="row" layout-align="space-around">
+                     <div class="rat-line">
+                         <div class="color-line" ng-style="{'width':count.percent+'%'}" ng-class="::{'green': $index==0||$index==1, 
+                     'orange': $index==2||$index==3, 'red': $last}"></div>
+                     </div-->
+                  <span style="width: 40px;">{{::count.value}}</span>
+               </div>
+         </div>
+         </md-card>
+      </div>
+      <br>
+      <div layout-align="center center" layout-wrap layout="row">
+      
+      
+      
+        <div flex-gt-sm="100" class="Total_Usersmain_second">
+        <md-card class="no-margin" layout-wrap layout="row"  flex="100" flex-gt-sm="100" flex-gt-sm="100">
+           <md-input-container class="input-margins" flex="100" flex-gt-sm="100" flex-gt-sm="100">
+           <label>Filter By</label>
+           <md-icon class="grey-icon">filter_list</md-icon>
+           <md-select multiple md-select-search="true" ng-change="vm.refreshResults()" ng-model="vm.appFeedbacksFilters.filterBy" name="filterBy">
+              <md-option ng-value="filter" ng-repeat="filter in vm.filterByList">
+                 <span ng-if="::filter.star">
+                    <span>{{::filter.value}}</span>
+                    <star-rating-component blank-star="true" rating="filter.value"></star-rating-component>
+                 </span>
+                 <span ng-if="::!filter.star">{{::filter.name}}</span>
+              </md-option>
+           </md-select>
+        </md-input-container>
+        </div>
+        </md-card>
+        </div>
+        </br>
+
+      
+      
+      
+      
+      
+      
+      <div layout-align="center center" layout-wrap layout="row">
+         <div flex="100" flex-gt-sm="100">
+            <md-card class="no-margin" layout-wrap layout="row"  flex="100" flex-gt-sm="100" flex-gt-sm="100">
+               <div layout="row" layout-align="space-around center" flex="100" flex-gt-sm="100">
+                  <md-input-container class="input-margins" flex="auto">
+                     <label>Platform</label>
+                     <md-icon class="grey-icon">devices</md-icon>
+                     <md-select  md-select-search="true" ng-change="vm.refreshResults()" ng-model="vm.appFeedbacksFilters.os" name="os">
+                        <md-option ng-value="os" ng-repeat="os in vm.opSystemsList">{{::os.name}}</md-option>
+                     </md-select>
+                  </md-input-container>
+                  <md-input-container class="input-margins" flex="auto">
+                     <label>Language</label>
+                     <md-icon class="grey-icon">translate</md-icon>
+                     <md-select multiple md-select-search="true" ng-change="vm.refreshResults()" ng-model="vm.appFeedbacksFilters.langs" name="langs">
+                        <md-option ng-value="lang" ng-repeat="lang in vm.langsList">{{::lang.language}}</md-option>
+                     </md-select>
+                  </md-input-container>
+               </div>
+               <div flex="100" layout="row" layout-align="center center">
+                <md-button class="md-raised md-warn" ng-show="vm.hasFilters()" ng-click="vm.clearFilters()"> <md-icon>clear_all</md-icon> Clear Filters</md-button>
+               </div>
+            </md-card>
+         </div>
+      </div>
+       <br>
+      <!--div layout-align="center center" layout-wrap layout="row">
+         <div flex="100" flex-gt-sm="100">
+            <md-card class="no-margin" layout-wrap layout="row"  flex="100" flex-gt-sm="100" flex-gt-sm="100">
+               <div layout="row" layout-align="space-around center" flex="100" flex-gt-sm="100">
+                  <!-- md-input-container class="input-margins"  flex="33" flex-gt-sm="33" flex-gt-sm="33" >
+                     <label>Filter By</label>
+                     <md-icon class="grey-icon">filter_list</md-icon>
+                     <md-select multiple md-select-search="true" ng-change="vm.refreshResults()" ng-model="vm.appFeedbacksFilters.filterBy" name="filterBy">
+                        <md-option ng-value="filter" ng-repeat="filter in vm.filterByList">
+                           <span ng-if="::filter.star">
+                              <span>{{::filter.value}}</span>
+                              <star-rating-component blank-star="true" rating="filter.value"></star-rating-component>
+                           </span>
+                           <span ng-if="::!filter.star">{{::filter.name}}</span>
+                        </md-option>
+                     </md-select>
+                  </md-input-container
+                  <md-input-container class="input-margins" flex="50" flex-gt-sm="50" flex-gt-sm="50">
+                     <label>Start Date</label>
+                     <md-datepicker date-picker-clear md-open-on-focus ng-model="vm.startDate"></md-datepicker>
+                  </md-input-container>
+                  <md-input-container class="input-margins" flex="50" flex-gt-sm="50" flex-gt-sm="50">
+                     <label>End Date</label>
+                     <md-datepicker date-picker-clear md-open-on-focus ng-model="vm.endDate"></md-datepicker>
+                  </md-input-container>
+               </div>
+            </md-card>
+         </div>
+      </div-->     
+      <br>
+      
+      <md-input-container flex="noshrink">
+                <label>Sort By</label>
+                <md-select ng-model="vm.sortType" ng-change="vm.sortApps()">
+                    <md-option value="latestFirst">Latest</md-option>
+                    <md-option value="oldestFirst">Oldest</md-option>
+                </md-select>
+            </md-input-container>
+      <div class="feedback_main">
+         <md-card ng-repeat="feedback in vm.feedbacks">
+            <md-card-content>
+               <div layout="row" layout-align="space-between">
+                  <star-rating-component style="color:gold" rating="feedback.rating"></star-rating-component>
+                  <h5 class="no-margin">{{feedback.os}}</h5>
+                  <h5 class="no-margin">{{feedback.logdate | uscDate}}</h5>
+               </div>
+               <div layout="row" layout-align="space-between">
+                  <p>{{feedback.feedback}}</p>                  
+               </div>
+               <div ng-show="feedback.mno" layout="column" layout-align="start start">
+                     <md-button is-busy="feedback.showProfilePromise" ng-click="vm.showProfileInfo(feedback)" class="md-primary Profile_Info_feedback">Profile Info</md-button>
+                  </div>
+            </md-card-content>
+         </md-card>
+         <div>
+         <pagination-component api="vm.paginator" on-fetch="vm.getResults" fetch-on-init="true" ng-show="vm.feedbacks.length"></pagination-component>
+      </div>
+      </div>
+   </div>
+</div>

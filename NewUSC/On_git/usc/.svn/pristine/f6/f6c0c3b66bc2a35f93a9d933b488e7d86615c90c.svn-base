@@ -1,0 +1,4 @@
+<section layout="row" layout-align="center center">
+  <md-button  style="font-size:14px;padding: 0 8px" flex ng-click="vm.dateRangeChange(dr.rangeId)" class="no-margin button-group" ng-show="dr.showOnMobile||vm.$mdMedia('gt-sm')" ng-class="{'selected': vm.dateRange==dr.rangeId }"  ng-repeat="dr in ::vm.dateRanges"><md-tooltip md-direction="bottom">{{(dr.startDate|date) + ' to ' + (dr.endDate|date)}}</md-tooltip>{{::dr.rangeText}}</md-button>
+   <md-button  style="font-size:14px;padding: 0 8px" ng-click="vm.onCustom()()" class="button-group no-margin"  ng-class="{'selected': vm.dateRange=='custom'}"><md-tooltip md-direction="bottom">{{vm.dateRange=='custom'?((vm.startDate|date) + ' to ' + (vm.endDate|date)):'Select Custom Date Range'}}</md-tooltip>Custom</md-button>
+</section>

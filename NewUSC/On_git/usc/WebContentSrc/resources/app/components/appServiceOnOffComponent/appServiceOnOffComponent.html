@@ -1,0 +1,23 @@
+<md-content layout-padding layout-wrap>
+    <md-card>
+        <md-card-title>
+            <div class="md-title">Activate/Deactivate {{vm.appid?'App':'Service'}}</div>
+        </md-card-title>
+        <md-card-content>
+        <div>
+        	 <p ng-show="vm.app && vm.app.status=='active'">Deactivating <b>{{::vm.app.appname}}</b> will remove the application and all the services of <b>{{::vm.app.appname}}</b> from UMANG.</p>
+            <p ng-show="vm.app && vm.app.status=='deactive'">Activating <b>{{::vm.app.appname}}</b> will bring back the application and all the services of <b>{{::vm.app.appname}}</b> on UMANG.</p>
+            <p ng-show="vm.service && vm.service.status=='active'">Deactivating <b>{{::vm.service.servicename}}</b> will remove the service from UMANG.</p>
+            <p ng-show="vm.service && vm.service.status=='deactive'">Activating <b>{{::vm.service.servicename}}</b> will bring back the service on UMANG.</p>
+        </div>
+           
+            <div align="center">
+               <md-button is-busy="vm.promise" ng-show="vm.app && vm.app.status=='active'" class="md-raised md-primary" ng-click="vm.activeDeactivate()">Deactivate</md-button>
+               <md-button is-busy="vm.promise" ng-show="vm.app && vm.app.status=='deactive'" class="md-raised md-primary" ng-click="vm.activeDeactivate()">Activate</md-button>
+               <md-button is-busy="vm.promise" ng-show="vm.service && vm.service.status=='active'" class="md-raised md-primary" ng-click="vm.activeDeactivate()">Deactivate</md-button>
+               <md-button ng-disabled="vm.service.app.status=='deactive'" is-busy="vm.promise" ng-show="vm.service && vm.service.status=='deactive'" class="md-raised md-primary" ng-click="vm.activeDeactivate()">Activate</md-button>
+               <div ng-show="vm.service.app.status=='deactive'" class="small-grey-text">{{vm.service.app.appname}} is deactivated. Please activate the app first to enable service.</div>
+            </div>
+        </md-card-content>
+    </md-card>
+</md-content>

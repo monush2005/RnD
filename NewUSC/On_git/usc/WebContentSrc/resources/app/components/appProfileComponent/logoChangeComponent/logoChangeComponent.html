@@ -1,0 +1,26 @@
+<md-content layout-padding layout-wrap>
+    <form name="vm.logoChangeForm" layout="column" layout-align="center">
+        <div ng-hide="vm.showUploader" align="center" class="margin-10">
+            <div style="margin: 15px" class="md-headline">Change {{vm.app.appname}} Logo</div>
+            <p class="small-grey-text">Before changing the logo, we recommend you to download the current logo if new logo doesn't fit well.</p>
+            <md-button class="md-raised" ng-click="vm.cancelAction()">Cancel</md-button>
+
+            <md-button class="md-button md-raised md-primary" md-theme="selfcare" is-busy="vm.downloadPromise" ng-click="vm.downloadLogo()">Download and Change</md-button>
+        </div>
+        <md-input-container ng-show="vm.showUploader" class="no-margin-top">
+            <image-file align="center" ng-change="vm.validateImage()" no-preview="true" title="Attach New {{vm.app.appname}} Logo" name="logo" ng-required="true" ng-model="vm.logo"></image-file>
+            <div align="center" ng-messages="vm.logoChangeForm.logo.$error" ng-show="vm.logoChangeForm.logo.$dirty">
+                <div ng-message="required">New Logo is required.</div>
+                <div ng-message="notImage">Please select an Image File (Only {{::vm.allowedFileExtns.join(' or ')}}).</div>
+                <div ng-message="dimensions">Image dimensions are not correct.</div>
+                <div ng-message="size">Image file size greater than {{::vm.maxFileSize}} KB.</div>
+            </div>
+        </md-input-container>
+        <div align="center" ng-show="vm.showUploader">
+            <p class="small-grey-text">Required Image Dimensions: <b>{{::vm.imageWidth}} x {{::vm.imageHeight}}</b> pixels. Max Size: <b>{{::vm.maxFileSize}} KB</b></p>
+
+            <md-button class="md-raised" ng-click="vm.cancelAction()">Cancel</md-button>
+            <md-button type="submit" is-busy="vm.submitPromise" ng-disabled="vm.logoChangeForm.$invalid" ng-click="vm.submitAction()" class="md-raised md-primary">Save</md-button>
+        </div>
+    </form>
+</md-content>

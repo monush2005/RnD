@@ -1,0 +1,6 @@
+<md-content layout-padding layout-wrap>
+    <div layout="column">
+        <p>{{vm.profile.name}}</p>
+        <p>{{vm.profile.mobile}}</p>
+    </div>
+</md-content>

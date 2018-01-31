@@ -1,0 +1,109 @@
+<md-content layout-padding layout-wrap>
+    <form name="vm.form" layout="row" layout-wrap>
+        <md-radio-group ng-show="vm.isSuperAdmin" flex="100" flex-gt-sm="{{vm.filters.selected.stateRadio=='state'?'50':'100'}}" style="padding-left: 18px; padding: 10px" ng-model="vm.filters.selected.stateRadio" layout="row" layout-align="center center" ng-change="vm.stateCentralChange()">
+            <md-radio-button value="all" class="md-primary">All</md-radio-button>
+            <md-radio-button value="central" class="md-primary">Central</md-radio-button>
+            <md-radio-button value="state" class="md-primary">State</md-radio-button>
+        </md-radio-group>
+        <md-input-container flex="100" flex-gt-sm="50" ng-if="vm.filters.selected.stateRadio=='state'">
+            <label>State</label>
+            <md-icon>pin_drop</md-icon>
+            <md-select ng-required="true" placeholder="State" name="state" ng-model-options="{trackBy: '$value.stateid'}" ng-model="vm.filters.selected.state" md-select-search="vm.allStates.length>5">
+                <md-option ng-value="state" ng-repeat="state in vm.allStates">{{::state.statename}}</md-option>
+            </md-select>
+            <div ng-messages="vm.form.state.$error">
+                <div ng-message="required">Please select a state.</div>
+            </div>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="50">
+            <label>Apps ({{vm.filters.selected.apps.length}} Selected)</label>
+            <md-icon>dashboard</md-icon>
+            <md-select placeholder="Apps" name="selectedApps" ng-model="vm.filters.selected.apps" multiple md-select-search="vm.filters.master.allApps.length>5">
+                <md-option ng-value="app" ng-repeat="app in vm.filters.master.allApps">{{::app.appname}}</md-option>
+            </md-select>
+            <div ng-messages="vm.form.selectedApps.$error">
+                <div ng-message="required">Please select at least one app.</div>
+            </div>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="50">
+            <label>Roles ({{vm.filters.selected.roles.length}} Selected)</label>
+            <md-icon>security</md-icon>
+            <md-select placeholder="Roles" name="selectedRoles" md-on-open="vm.getRoles()" ng-model="vm.filters.selected.roles" multiple>
+                <md-option ng-value="role" ng-repeat="role in vm.filters.master.allRoles">{{::role.roleName}}</md-option>
+            </md-select>
+            <div ng-messages="vm.form.selectedRoles.$error">
+                <div ng-message="required">Please select at least one app.</div>
+            </div>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="50">
+            <label>categories ({{vm.filters.selected.categories.length}} Selected)</label>
+            <md-icon>bubble_chart</md-icon>
+            <md-select placeholder="categories" name="selectedCategories" md-on-open="vm.getCategories()" ng-model="vm.filters.selected.categories" multiple md-select-search="vm.filters.master.allCategories.length>5">
+                <md-option ng-value="category" ng-repeat="category in vm.filters.master.allCategories">{{::category.categoryName}}</md-option>
+            </md-select>
+            <div ng-messages="vm.form.selectedCategories.$error">
+                <div ng-message="required">Please select at least one app.</div>
+            </div>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="50">
+            <label>Status</label>
+            <md-icon ng-show="vm.filters.selected.status=='active' || !vm.filters.selected.status">done_all</md-icon>
+            <md-icon ng-show="vm.filters.selected.status=='deactive'">pause</md-icon>
+            <md-icon ng-show="vm.filters.selected.status=='pending'">report</md-icon>
+            <md-icon ng-show="vm.filters.selected.status=='blocked'">block</md-icon>
+            <md-select placeholder="User Status" name="status" ng-model="vm.filters.selected.status">
+                <md-option value="active">Activated</md-option>
+                <md-option value="deactive">Deactivated</md-option>
+                <md-option value="blocked">Blocked</md-option>
+                <md-option value="pending">Pending</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="50">
+            <label>Creation Start Date</label>
+           <md-datepicker required md-open-on-focus name="startDate" md-max-date="vm.endDate || vm.maxEndDate" md-min-date="vm.minStartDate" flex="100" ng-model="vm.startDate"></md-datepicker>
+            <!-- <div ng-messages="vm.form.startDate.$error"> -->
+               <!--  <div ng-message="valid">Please select a valid Date.</div> -->
+                <div ng-messages="vm.dateRangeForm.startDate.$error">
+                <div ng-message="required">
+                    Start Date is Required.
+                </div>
+                <div ng-message="valid">
+                    Please enter a valid date.
+                </div>
+                <div ng-message="mindate">
+                    Start date cannot be less than {{::vm.minStartDate|date}}
+                </div>
+                <div ng-message="maxdate">
+                    Start date cannot be greater than end Date.
+                </div>
+            </div>
+<!--             </div> -->
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="50">
+            <label>Creation End Date</label>
+           <md-datepicker required md-open-on-focus name="endDate" flex="100"  md-max-date="vm.maxEndDate" md-min-date="vm.startDate || vm.minStartDate" ng-model="vm.endDate"></md-datepicker>
+           <!--  <div ng-messages="vm.form.endDate.$error">
+                <div ng-message="valid">Please select a valid Date.</div>
+            </div> -->
+                <div ng-messages="vm.dateRangeForm.endDate.$error">
+                <div ng-message="required">
+                    End Date is Required.
+                </div>
+                <div ng-message="valid">
+                    Please enter a valid date.
+                </div>
+                <div ng-message="mindate">
+                    End date cannot be less than end Date.
+                </div>
+                <div ng-message="maxdate">
+                    End date cannot be greater than {{::vm.maxEndDate|date}}
+                </div>
+            </div>
+        </md-input-container>
+        <div align="center" flex="100">
+            <md-button ng-click="vm.cancel()" hide show-gt-sm class="md-raised">Cancel</md-button>
+           <!--  <md-button ng-show="vm.isFormFilled()" ng-click="vm.reset()" class="md-raised md-warn">Reset</md-button> -->
+            <md-button type="submit" ng-disabled="vm.form.$invalid" ng-click="vm.submit()" class="md-raised md-primary">Submit</md-button>
+        </div>
+    </form>
+</md-content>

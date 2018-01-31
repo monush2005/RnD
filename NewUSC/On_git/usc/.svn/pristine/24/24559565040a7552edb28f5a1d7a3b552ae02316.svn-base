@@ -1,0 +1,41 @@
+<md-content layout-padding layout-wrap>
+    <form name="vm.resetPasswordForm" layout="column">
+        <div align="center">
+            <h3 class="md-headline">Change Password</h3>
+            <h5 ng-if="vm.forFirsTime">You need to change password when logging in for the first time.</h5>
+            <h5 ng-if="vm.forExpired">Your password is expired.</h5>
+        </div>
+        <md-input-container ng-if="!vm.forFirsTime && !vm.forExpired">
+            <label>Old Password</label>
+            <md-icon>lock</md-icon>
+            <input ng-model="vm.oldPassword" type="password" required name="oldPassword">
+            <div ng-messages="vm.resetPasswordForm.oldPassword.$error">
+                <div ng-message="required">Old Password is required.</div>
+            </div>
+        </md-input-container>
+        <md-input-container>
+            <label>New Password</label>
+            <md-icon>lock</md-icon>
+            <input ng-model="vm.password" maxlength="16" type="password" required name="password" minlength="8">
+            <div ng-messages="vm.resetPasswordForm.password.$error">
+                <div ng-message-exp="['required','minlength']">New password should be atleast 8 characters long.</div>
+            </div>
+        </md-input-container>
+        <md-input-container>
+            <label>Confirm Password</label>
+            <md-icon>lock</md-icon>
+            <input ng-model="vm.confirmPassword" maxlength="16" type="password" required name="confirmPassword" equals="vm.password">
+            <div ng-messages="vm.resetPasswordForm.confirmPassword.$error">
+                <div ng-message="required">Please confirm password.</div>
+                <div ng-message="equals">Password doesn't match.</div>
+            </div>
+        </md-input-container>
+        <div align="center" class="padding-10" ng-if="vm.forFirsTime || vm.forExpired">
+            <span class="small-grey-text">This Screen will close in {{vm.timeLeft}} seconds.</span>
+        </div>
+        <div align="center">
+            <md-button ng-hide="vm.forFirsTime || vm.forExpired" ng-click="vm.cancel()" class="md-raised">Cancel</md-button>
+            <md-button type="submit" is-busy="vm.changePwdPromise" ng-click="vm.changePassword()" ng-disabled="!vm.resetPasswordForm.$valid" class="md-raised md-primary">Save</md-button>
+        </div>
+    </form>
+</md-content>

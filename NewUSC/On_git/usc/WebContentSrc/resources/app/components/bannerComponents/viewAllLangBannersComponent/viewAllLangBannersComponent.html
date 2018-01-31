@@ -1,0 +1,10 @@
+<md-content layout-padding layout-wrap>
+    <md-card ng-repeat="banner in vm.banners" class="no-padding" layout-wrap layout="column">
+        <img image-loader="25" ng-src="{{banner.bannerURL}}" preview-image>
+        <md-card-content>
+            <div align="center">
+                <span>{{::banner.langaugeObj.language}}</span>
+            </div>
+        </md-card-content>
+    </md-card>
+</md-content>

@@ -1,0 +1,20 @@
+<md-content>
+    <md-card layout-padding>
+   
+            <form layout="row" name="vm.createRoleForm" layout-wrap="" class="ng-pristine ng-valid layout-wrap layout-row ng-valid-required ng-valid-maxlength" style="">
+            
+                <md-input-container flex="100" class="md-icon-float md-block md-icon-left flex-100 md-input-has-value">
+                    <label class="md-required" for="input_17">Role Name</label>
+                    <md-icon class="material-icons" role="img" aria-label="security">security</md-icon>
+                    <input required="" ng-model="vm.roleName" name="roleName" type="text" maxlength="50" class="ng-pristine ng-untouched ng-valid md-input ng-not-empty ng-valid-required ng-valid-maxlength" id="input_17" aria-invalid="false" style=""><div class="md-errors-spacer"></div>
+                    <div ng-messages="vm.createRoleForm.roleName.$error" class="md-input-messages-animation md-auto-hide ng-inactive" aria-live="assertive">
+                        <!-- ngMessage: required -->
+                    </div>
+                </md-input-container>
+                 <div flex="100" align="center" layout-margin="" class="layout-margin flex-100">
+                   <button class="md-raised md-button ng-scope md-ink-ripple" type="button"  ng-click="vm.saveAs()" style="background-color:rgb(63,81,181)"><span class="md-raised md-primary">Save</span></button>
+                 </div>
+            </form>
+        
+    </md-card>
+</md-content>

@@ -1,0 +1,19 @@
+<md-content layout-padding layout-wrap>
+    <md-card>
+        <md-card-content>
+            <div promise-loader="vm.masterFormPromise" text="Loading Questionnaire.."></div>
+            <div align="center" ng-show="vm.isSubmitted">
+                <h4>You have already submitted the Questionnaire. You can view it in read-only mode.</h4>
+            </div>
+            <div promise-hider="vm.masterFormPromise">
+                <mw-form-viewer read-only="vm.isSubmitted" ng-if="vm.isForm" options="vm.previewOptions" form-data="vm.masterForm" response-data="vm.responseData" on-submit="vm.saveDraft(1)"></mw-form-viewer>
+            </div>
+            <div align="center" ng-if="vm.isForm && !vm.isSubmitted">
+                <md-button is-busy="vm.saveDraftPromise" ng-click="vm.saveDraft()" class="md-raised md-primary">Save Draft</md-button>
+            </div>
+            <div promise-hider="vm.masterFormPromise" align="center" ng-hide="vm.isForm">
+                <h4>Admin has not created Questionnaire yet. Please come back later!</h4>
+            </div>
+        </md-card-content>
+    </md-card>
+</md-content>

@@ -1,0 +1,141 @@
+<md-content layout-padding layout-wrap>
+    <md-card>
+        <md-card-title>
+            <div class="md-title">{{::vm.title}}</div>
+        </md-card-title>
+        <md-card-content>
+            <form name="vm.form" layout="row" layout-wrap>
+                <md-input-container flex="100">
+                    <label>Department Name</label>
+                    <md-icon>short_text</md-icon>
+                    <input type="text" ng-model="vm.deptModel.deptName" name="deptName" required>
+                    <div ng-messages="vm.form.deptName.$error">
+                        <div ng-message="required">Department name is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100">
+                    <label>Department Description</label>
+                    <md-icon>description</md-icon>
+                    <textarea md-maxlength="250" type="text" ng-model="vm.deptModel.deptDescription" name="deptDescription" rows="1" required></textarea>
+                    <div ng-messages="vm.form.deptDescription.$error">
+                        <div ng-message="required">Department description is required.</div>
+                        <div ng-message="md-maxlength">Department description can not be more than 250 characters.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100">
+                    <label>Address</label>
+                    <md-icon>location_city</md-icon>
+                    <textarea md-maxlength="250" type="text" ng-model="vm.deptModel.address" name="address" rows="1" required></textarea>
+                    <div ng-messages="vm.form.address.$error">
+                        <div ng-message="required">Department address is required.</div>
+                        <div ng-message="md-maxlength">Department address can not be more than 250 characters.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100" flex-gt-sm="50">
+                    <label>Latitude</label>
+                    <md-icon>explore</md-icon>
+                    <input type="text" ng-model="vm.deptModel.latitude" name="latitude" ng-required="vm.deptModel.longitude">
+                    <div ng-messages="vm.form.latitude.$error">
+                        <div ng-message="required">Latitude is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100" flex-gt-sm="50">
+                    <label>Longitude</label>
+                    <md-icon style="transform: scaleX(-1)">explore</md-icon>
+                    <input type="text" ng-model="vm.deptModel.longitude" name="longitude" ng-required="vm.deptModel.latitude">
+                    <div ng-messages="vm.form.longitude.$error">
+                        <div ng-message="required">Longitude is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100" flex-gt-sm="50">
+                    <label>Website</label>
+                    <md-icon>link</md-icon>
+                    <input type="text" ng-model="vm.deptModel.website" name="website" ng-required="false" ng-pattern=" vm.urlPattern">
+                    <div ng-messages="vm.form.website.$error">
+                        <div ng-message="required">Website is required.</div>
+                        <div ng-message="pattern">Please enter a valid website.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100" flex-gt-sm="50">
+                    <label>Email</label>
+                    <md-icon>mail</md-icon>
+                    <input type="text" ng-pattern="vm.emailPattern" ng-model="vm.deptModel.email" name="email" ng-required="false">
+                    <div ng-messages="vm.form.email.$error">
+                        <div ng-message="required">Email is required.</div>
+                        <div ng-message="pattern">Please enter a valid email address.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100">
+                    <label>Helpdesk Number</label>
+                    <md-icon>phone</md-icon>
+                    <input type="text" ng-pattern="vm.mutipleHelplinePattern" ng-model="vm.deptModel.helpline" name="helpline" ng-required="false">
+                    <div ng-messages="vm.form.helpline.$error">
+                        <div ng-message="required">Helpline is required.</div>
+                        <div ng-message="pattern">Please enter a valid number.</div>
+                    </div>
+                    <div style="padding-top: 10px;font-size: 14px;color: grey;">You can enter comma separated numbers</div>
+                </md-input-container>
+                <md-input-container flex="100">
+                    <label>Working Hours</label>
+                    <md-icon>timelapse</md-icon>
+                    <input type="text" readonly="true" class="cursor-pointer" ng-click="vm.editWorkingHours()" ng-model="vm.deptModel.workingHours" name="workingHours" ng-required="false">
+                    <div ng-messages="vm.form.workingHours.$error">
+                        <div ng-message="required">Working Hours are required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100" flex-gt-sm="40">
+                    <label>Android App Name</label>
+                    <md-icon>short_text</md-icon>
+                    <input type="text" ng-model="vm.deptModel.androidAppName" name="androidAppName" ng-required="vm.deptModel.androidAppUrl">
+                    <div ng-messages="vm.form.androidAppName.$error">
+                        <div ng-message="required">Android App Name is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100" flex-gt-sm="60">
+                    <label>Android App URL</label>
+                    <md-icon class="fa fa-android"></md-icon>
+                    <input type="text" ng-model="vm.deptModel.androidAppUrl" name="androidAppUrl" ng-required="vm.deptModel.androidAppName">
+                    <div ng-messages="vm.form.androidAppUrl.$error">
+                        <div ng-message="required">Android App URL is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100" flex-gt-sm="40">
+                    <label>iOS App Name</label>
+                    <md-icon>short_text</md-icon>
+                    <input type="text" ng-model="vm.deptModel.iOSAppName" name="iOSAppName" ng-required="vm.deptModel.iOSAppUrl">
+                    <div ng-messages="vm.form.iOSAppName.$error">
+                        <div ng-message="required">iOS App Name is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100" flex-gt-sm="60">
+                    <label>iOS App URL</label>
+                    <md-icon class="fa fa-apple"></md-icon>
+                    <input type="text" ng-model="vm.deptModel.iOSAppUrl" name="iOSAppUrl" ng-required="vm.deptModel.iOSAppName">
+                    <div ng-messages="vm.form.iOSAppUrl.$error">
+                        <div ng-message="required">iOS App URL is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100" flex-gt-sm="40">
+                    <label>Windows App Name</label>
+                    <md-icon>short_text</md-icon>
+                    <input type="text" ng-model="vm.deptModel.wpAppName" name="wpAppName" ng-required="vm.deptModel.wpAppUrl">
+                    <div ng-messages="vm.form.wpAppName.$error">
+                        <div ng-message="required">Windows App Name is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100" flex-gt-sm="60">
+                    <label>Windows App URL</label>
+                    <md-icon class="fa fa-windows"></md-icon>
+                    <input type="text" ng-model="vm.deptModel.wpAppUrl" name="wpAppUrl" ng-required="vm.deptModel.wpAppName">
+                    <div ng-messages="vm.form.wpAppUrl.$error">
+                        <div ng-message="required">Windows App URL is required.</div>
+                    </div>
+                </md-input-container>
+                <div align="center" flex="100">
+               		<md-button ng-click="vm.cancel()" class="md-raised">Cancel</md-button>
+                	<md-button is-busy="vm.savePromise" ng-disabled="vm.form.$invalid" ng-click="vm.saveDept()" class="md-raised md-primary">Save</md-button>
+                </div>
+            </form>
+        </md-card-content>
+    </md-card>
+</md-content>

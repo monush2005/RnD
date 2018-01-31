@@ -1,0 +1,21 @@
+<div layout="column" class="no-padding" align="{{::vm.align}}">
+    <h4>{{::vm.title}}</h4>
+    <div>
+        <label ng-if="!vm.imageFile" for="{{vm.id}}" md-ink-ripple="true" class="md-fab custom-green md-button md-ink-ripple md-container-ignore md-no-float">
+            <md-tooltip md-direction="bottom" md-visible="tooltipVisible">Attach Image</md-tooltip>
+            <md-icon style="color: white">attach_file</md-icon>
+        </label>
+    </div>
+    <div>
+        <label ng-if="vm.imageFile" ng-click="vm.removeFile()" md-ink-ripple="true" class="md-fab md-warn md-button md-ink-ripple md-container-ignore md-no-float">
+            <md-tooltip md-direction="bottom" md-visible="tooltipVisible">Remove Image</md-tooltip>
+            <md-icon>close</md-icon>
+        </label>
+    </div>
+    <input accept="image/*" type="file" id="{{vm.id}}" file-model ng-model="vm.imageFile" ng-change="vm.imageSelectChange()" class="file-input-fab">
+</div>
+<div ng-if="vm.imageFile" align="{{::vm.align}}">
+    <h5 class="margin-10">Image Preview: {{vm.imageFile.name}} ({{vm.imageFile.size|number}} bytes)</h5>
+    <img ng-if="::vm.noPreview" class="file-upload-preview" ng-src="{{vm.selectedFileDataURL}}">
+    <img ng-if="::!vm.noPreview" preview-image class="file-upload-preview" ng-src="{{vm.selectedFileDataURL}}">
+</div>

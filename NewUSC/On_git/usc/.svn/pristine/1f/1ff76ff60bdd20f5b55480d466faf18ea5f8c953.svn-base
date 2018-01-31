@@ -1,0 +1,25 @@
+<md-content layout-padding layout-wrap>
+    <form name="vm.composeForm" layout="column">
+    	 <md-input-container>
+            <label>User</label>
+            <md-icon>account_circle</md-icon>
+            <md-select ng-required="true" placeholder="User" name="selectedUser"  ng-model="vm.selectedUser" md-select-search="vm.subUsers.length>5">
+                <md-option ng-value="user" ng-repeat="user in vm.subUsers">{{::user.userId + (user.isAdmin?' (Admin)':'')}}</md-option>
+            </md-select>
+            <div ng-messages="vm.composeForm.selectedUser.$error">
+                <div ng-message="required">Please select at least one user.</div>
+            </div>
+        </md-input-container>
+    	<md-input-container>
+            <label>Message</label>
+            <textarea type="text"  maxlength="400" md-maxlength="400" required ng-model="vm.message" name="message" rows="2"></textarea>
+            <div ng-messages="vm.composeForm.message.$error">
+                <div ng-message="required">Message is required.</div>
+            </div>
+        </md-input-container>
+        <div align="center">
+            <md-button class="md-raised" ng-click="vm.cancel()">Cancel</md-button>
+            <md-button ng-disabled="vm.composeForm.$invalid" is-busy="vm.sendPromise" class="md-raised md-primary" ng-click="vm.send()">Send</md-button>
+        </div>
+    </form>
+</md-content>

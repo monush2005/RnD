@@ -1,0 +1,55 @@
+<md-content layout-padding>
+    <div class="ratings-component" layout="column" layout-gt-sm="row">
+        <md-card flex-gt-sm="30">
+            <md-card-header>
+                <md-card-header-text>
+                    <span class="md-title">Ratings</span>
+                </md-card-header-text>
+            </md-card-header>
+            <md-card-content>
+                <div promise-loader="vm.ratingPromise"></div>
+                <div align="center">
+                    <h3><star-rating-component style="color:gold" rating="vm.ratings.avg"></star-rating-component> <span>{{vm.ratings.avg}} ({{vm.ratings.sumOfCounts}})</span></h3>
+                    <br>
+                </div>
+                <div layout="row" ng-repeat="count in vm.ratings.counts track by $index" layout-align="center center" class="rating-bar layout-align-center-center layout-row">
+                    <div class="rating-line">
+                        <span>{{::5-$index}} <md-icon>stars</md-icon></span>
+                    </div>
+                    <div layout="row" layout-align="space-around">
+                        <div class="rat-line">
+                            <div class="color-line" ng-style="{'width':count.percent+'%'}" ng-class="::{'green': $index==0||$index==1, 
+                        'orange': $index==2||$index==3, 'red': $last}"></div>
+                        </div>
+                        <span style="width: 40px;">{{::count.value}}</span>
+                    </div>
+                </div>
+            </md-card-content>
+        </md-card>
+        <md-card flex-gt-sm="70">
+            <md-card-header>
+                <md-card-header-text>
+                    <span class="md-title">Feedbacks</span>
+                </md-card-header-text>
+            </md-card-header>
+            <md-card-content>
+                <md-tabs md-dynamic-height md-border-bottom class="rating-list-item">
+                    <md-tab ng-click="vm.onTabChange(ratingObj)" label="{{::ratingObj.rating}} Star" ng-repeat="ratingObj in ::vm.allRatings">
+                        <div promise-loader="vm.feedbackPromise"></div>
+                        <md-list-item class="md-3-line md-long-text" ng-repeat="feedback in vm.feedbacks">
+                            <md-icon class="md-avatar">comment</md-icon>
+                            <div class="md-list-item-text">
+                                <h4>{{::feedback.date|uscDate}}</h4>
+                                <p>{{::feedback.comments}}</p>
+                            </div>
+                        </md-list-item>
+                        <div align="center" ng-if="!vm.feedbacks.length" promise-hider="vm.feedbackPromise">
+                            <h4 style="margin: 75px 0">No Feedbacks Found!</h4>
+                        </div>
+                        <pagination-component ng-show="vm.feedbacks.length" api="ratingObj.paginator" fetch-on-init="ratingObj.rating==5" on-fetch="vm.app?vm.getAppFeedbacks:vm.getServiceFeedbacks"></pagination-component>
+                    </md-tab>
+                </md-tabs>
+            </md-card-content>
+        </md-card>
+    </div>
+</md-content>

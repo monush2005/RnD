@@ -1,0 +1,9 @@
+<md-content layout-padding layout-wrap>
+    <div promise-loader="vm.masterFormPromise" text="Loading Questionnaire Builder.."></div>
+    <div promise-hider="vm.masterFormPromise">
+        <mw-form-builder ng-if="vm.masterForm" read-only="false" api="vm.formBuilder" form-data="vm.masterForm" options="vm.builderOptions"></mw-form-builder>
+        <div align="center">
+            <md-button class="md-raised md-primary" is-busy="vm.saveFormPromise" ng-click="vm.saveForm()">Save Questionnaire Form</md-button>
+        </div>
+    </div>
+</md-content>

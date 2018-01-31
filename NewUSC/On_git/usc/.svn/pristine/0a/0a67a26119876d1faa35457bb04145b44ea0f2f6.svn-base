@@ -1,0 +1,27 @@
+<md-toolbar class="md-theme-indigo top-head" layout="row" layout-align="center center">
+    <span hide show-gt-sm ui-sref="selfcare.dashboard.apps" class="md-toolbar-tools logo-bg cursor-pointer">
+     <img src="resources/assets/images/logo-umang.png" width="152" height="47" alt=""/>
+     </span>
+    <md-button style="z-index:2" ng-click="vm.$mdSidenav('mainSidenav').toggle()" hide-gt-sm class="md-icon-button white-color">
+        <md-icon>menu</md-icon>
+    </md-button>
+    <div class="hidden-swipe-div" hide-gt-sm md-swipe-right="vm.$mdSidenav('mainSidenav').toggle()">
+    </div>
+    <span class="md-toolbar-tools breadcrumb">
+    <div layout="row" class="breadcrumb-section">
+        <a ui-sref="selfcare.dashboard">
+            <md-icon class="color-white">home</md-icon>
+        </a>
+        <span ng-repeat="crumb in vm.breadCrumbService.breadCrumbs">
+            <md-icon class="color-white">chevron_right</md-icon>
+            <a ui-sref="{{crumb.state}}"><span md-truncate ng-class="{'hover-underline':!$last,'default-cursor':$last}">{{crumb.name}}</span></a>
+    </span>
+    </div>
+    </span>
+    <div layout="row" style="height: 40px" layout-align="center center" class="user-profile">
+        <md-button is-busy="vm.logoutPromise" class="md-primary" layout-fill ng-click="vm.logout()">
+            <span class="color-white">Logout</span>
+            <md-icon class="color-white">exit_to_app</md-icon>
+        </md-button>
+    </div>
+</md-toolbar>

@@ -1,0 +1,19 @@
+<div>
+    <section layout="row" layout-wrap layout-gt-sm="row" layout-align="center center">
+        <md-button  flex flex-gt-sm="15" ng-click="vm.changeCriteria(criteria)" style="padding: 0 10px" class="no-margin middle button-group" ng-class="{'selected': vm.selectedCriteria==criteria }" ng-repeat="criteria in ::vm.criterias"><md-icon style="font-size:22px;margin-right: 3px">{{::criteria.icon}}</md-icon><span hide show-gt-sm style="font-size:14px"> {{::criteria.text}}</span><md-tooltip hide-gt-sm md-direction="bottom">{{::criteria.text}}</md-tooltip></md-button>
+    </section>
+    <br>
+    <div promise-loader="vm.getDataPromise" error-text="No Data Found!" text="Loading Data.."></div>
+    <div promise-hider="vm.getDataPromise">
+        <highchart-component sortable="true" on-series-click="vm.onSeriesClick" fullscreen-button="true" for-analytics="true" json="vm.json"></highchart-component>
+
+    	<div promise-loader="vm.getSubDataPromise" ng-show="vm.getSubDataPromise" error-text="No Data Found!" text="Loading Data.."></div>
+    	<div promise-hider="vm.getSubDataPromise">
+    		<highchart-component sortable="true" fullscreen-button="true" for-analytics="true" ng-show="vm.sub.ageJson" json="vm.sub.ageJson"></highchart-component>
+    		<highchart-component sortable="true" fullscreen-button="true" for-analytics="true" ng-show="vm.sub.genderJson" json="vm.sub.genderJson"></highchart-component>
+    		<highchart-component sortable="true" fullscreen-button="true" for-analytics="true" ng-show="vm.sub.qualJson" json="vm.sub.qualJson"></highchart-component>
+    		<highchart-component sortable="true" fullscreen-button="true" for-analytics="true" ng-show="vm.sub.occupJson" json="vm.sub.occupJson"></highchart-component>
+    		<highchart-component sortable="true" fullscreen-button="true" for-analytics="true" ng-show="vm.sub.districtJson" json="vm.sub.districtJson"></highchart-component>
+    	</div>
+    </div>
+</div>

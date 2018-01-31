@@ -1,0 +1,91 @@
+<md-content layout-padding layout-wrap layout-padding>
+    <md-card>
+        <md-card-title>
+            <div class="md-title">Upload Attention Screen</div>
+        </md-card-title>
+        <md-card-content>
+            <form name="vm.uploadForm" layout="row" layout-wrap>
+                <!-- <md-input-container flex="100">
+                    <label>Screen Name</label>
+                    <md-icon>short_text</md-icon>
+                    <input type="text" ng-model="vm.comment" name="screenName" required>
+                    <div ng-messages="vm.uploadForm.screenName.$error">
+                        <div ng-message="required">Screen name is required.</div>
+                    </div>
+                </md-input-container> -->
+                <md-input-container flex="100" class="no-margin-bottom">
+                    <label>Title</label>
+                    <md-icon>short_text</md-icon>
+                    <input md-maxlength="60" type="text" ng-model="vm.title" name="title" required>
+                    <div ng-messages="vm.uploadForm.title.$error">
+                        <div ng-message="required">Screen title is required.</div>
+                        <div ng-message="md-maxlength">Screen title can not be more than 60 characters.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100" class="no-margin-bottom">
+                    <label>Description</label>
+                    <md-icon>description</md-icon>
+                    <textarea md-maxlength="250" type="text" ng-model="vm.description" name="description" rows="1" required></textarea>
+                    <div ng-messages="vm.uploadForm.description.$error">
+                        <div ng-message="required">Screen description is required.</div>
+                        <div ng-message="md-maxlength">Screen description can not be more than 250 characters.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100" flex-gt-sm="50">
+                    <label>Action on Button Click <md-tooltip md-direction="bottom">This action will be performed when user clicks on Action Button.</md-tooltip></label>
+                    <md-icon>touch_app</md-icon>
+                    <md-select ng-model="vm.actionType" name="actionType" ng-init="vm.actionType='noAction'">
+                        <md-option value="noAction">No Action</md-option>
+                        <md-option value="browser">Open Browser</md-option>
+                        <md-option value="service">Redirect to App</md-option>
+                    </md-select>
+                </md-input-container>
+                 <md-input-container flex="100" flex-gt-sm="50">
+                    <label>Action Button Text</label>
+                    <md-icon>text_fields</md-icon>
+                    <input type="text" ng-model="vm.buttonText" name="buttonText" required>
+                    <div ng-messages="vm.uploadForm.buttonText.$error">
+                        <div ng-message="required">Action button text is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100" ng-if="vm.actionType=='browser'">
+                    <label>Redirect URL</label>
+                    <md-icon>link</md-icon>
+                    <input clear-on-destroy type="url" ng-model="vm.redirectUrl" required name="redirectUrl">
+                    <div ng-messages="vm.uploadForm.redirectUrl.$error">
+                        <div ng-message="required">Redirect URL is required.</div>
+                        <div ng-message="url">Please enter a valid URL.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100" ng-if="vm.actionType=='service'">
+                    <label>Redirect to App</label>
+                    <md-icon>link</md-icon>
+                    <md-select clear-on-destroy required ng-model="vm.redirectApp" md-select-search="vm.allApps.length>5" name="redirectApp">
+                        <md-option ng-value="app" ng-repeat="app in vm.allApps">{{::app.appname}}</md-option>
+                    </md-select>
+                    <div ng-messages="vm.uploadForm.redirectApp.$error">
+                        <div ng-message="required">Redirect App is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100" flex-gt-sm="70" class="no-margin">
+                    <image-file ng-change="vm.validateImage()" title="Attach Attention Screen Image" name="image" ng-required="true" ng-model="vm.image"></image-file>
+                    <p ng-hide="vm.uploadForm.image.$valid" class="small-grey-text">Required Image Dimensions: <b>{{::vm.imageDimensions.minWidth}} x {{::vm.imageDimensions.minHeight}}</b> pixels to <b>{{::vm.imageDimensions.maxWidth}} x {{::vm.imageDimensions.maxHeight}}</b> pixels. Max Size: <b>{{::vm.maxFileSize}} KB</b></p>
+                    <div ng-messages="vm.uploadForm.image.$error" ng-show="vm.uploadForm.image.$dirty">
+                        <div ng-message="required">Image is required.</div>
+                        <div ng-message="notImage">Please select an Image File (Only {{::vm.allowedFileExtns.join(' or ')}}).</div>
+                        <div ng-message="dimensions">Image dimensions are not correct.</div>
+                        <div ng-message="size">Image file size greater than {{::vm.maxFileSize}} KB.</div>
+                    </div>
+                </md-input-container>
+                <div flex="100" flex-gt-sm="30" align="center">
+                    <div class="small-grey-text">Attention Screen Help</div>
+                    <img style="box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2);" src="resources/assets/images/attScreen.jpg" height="200px" preview-image>
+                </div>
+                <div align="center" flex="100">
+                    <md-button is-busy="vm.uploadPromise" type="submit" ng-click="vm.upload()" ng-disabled="vm.uploadForm.$invalid" class="md-raised md-primary">
+                        <md-icon>cloud_upload</md-icon> Upload</md-button>
+                </div>
+            </form>
+        </md-card-content>
+    </md-card>
+</md-content>

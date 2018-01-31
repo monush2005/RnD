@@ -1,0 +1,53 @@
+(function(app) {
+    'use strict';
+    app.component('viewOnboardingRequestComponent', {
+        templateUrl: 'resources/app/components/manageRequestsComponent/viewOnboardingRequestComponent/viewOnboardingRequestComponent.html',
+        controller: viewOnboardingRequestComponentController,
+        controllerAs: 'vm',
+        bindings: {
+            request: '<',
+            forDialog: '<',
+            readOnly: '<'
+        }
+    })
+
+    viewOnboardingRequestComponentController.$inject = ['$localStorage', 'onboardService', 'commonDataService', 'customToastService', '$mdDialog'];
+
+    function viewOnboardingRequestComponentController($localStorage, onboardService, commonDataService, customToastService, $mdDialog) {
+        var vm = this;
+        vm.cancel = cancel;
+        vm.approve = approve;
+        vm.reject = reject;
+
+        vm.$onInit = function() {
+            if (vm.request.stateCentral != '99')
+                getStateName();
+        }
+
+        function getStateName() {
+            commonDataService.fetchStates().then((states) => {
+                vm.request.stateName = _.find(states, { stateid: vm.request.stateCentral }).statename;
+            })
+        }
+
+        function cancel() {
+            $mdDialog.cancel();
+        }
+
+        function approve() {
+            vm.approvePromise = onboardService.approveRequest(vm.request.requestId, vm.request.comments).then(() => {
+                customToastService.freeText('Request has been successfully approved!');
+                $mdDialog.hide();
+            })
+        }
+
+        function reject() {
+            vm.rejectPromise = onboardService.rejectRequest(vm.request.requestId, vm.request.comments).then(() => {
+                customToastService.freeText('Request has been successfully rejected!');
+                $mdDialog.hide();
+            })
+        }
+
+
+    }
+})(angular.module('selfcare'));

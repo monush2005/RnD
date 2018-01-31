@@ -1,0 +1,27 @@
+(function(app) {
+    'use strict';
+    app.component('headerComponent', {
+        templateUrl: 'resources/app/components/headerComponent/headerComponent.html',
+        controllerAs: 'vm',
+        controller: headerComponentController
+    })
+
+    headerComponentController.$inject = ['loginService','ngProgressService', '$state', '$localStorage', '$mdSidenav', 'breadCrumbService']
+
+    function headerComponentController(loginService, ngProgressService, $state, $localStorage, $mdSidenav, breadCrumbService) {
+        var vm = this;
+
+        vm.logout = logout;
+        vm.$mdSidenav = $mdSidenav;
+        vm.breadCrumbService = breadCrumbService;
+
+        function logout() {
+            vm.logoutPromise = loginService.logout()
+                .finally((response) => {
+                    $localStorage.$reset();
+                    $state.go('login');
+                });
+        }
+    }
+
+})(angular.module('selfcare'));

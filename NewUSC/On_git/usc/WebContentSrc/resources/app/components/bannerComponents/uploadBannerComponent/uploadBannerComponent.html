@@ -1,0 +1,105 @@
+<md-content layout-padding>
+    <md-card>
+        <md-card-title>
+            <div class="md-title">Upload Banners</div>
+        </md-card-title>
+        <md-card-content>
+            <form name="vm.uploadForm" layout="column">
+                <md-radio-group ng-show="vm.stateRadio" class="margin-10" flex ng-model="vm.stateRadio" layout="row" layout-align="center center">
+                    <md-radio-button ng-click="vm.state='99'" value="central" class="md-primary">Central</md-radio-button>
+                    <md-radio-button ng-click="vm.state=''" value="state" class="md-primary">State</md-radio-button>
+                </md-radio-group>
+                <md-input-container ng-show="vm.stateRadio" flex ng-if="vm.stateRadio=='state'">
+                    <label>State</label>
+                    <md-icon>pin_drop</md-icon>
+                    <md-select md-on-open="vm.fetchStates()" placeholder="State" ng-required="vm.stateRadio=='state'" name="state" ng-model="vm.state" md-select-search="vm.allStates.length>5">
+                        <md-option ng-value="state.stateid" ng-repeat="state in vm.allStates">{{::state.statename}}</md-option>
+                    </md-select>
+                     <div ng-messages="vm.uploadForm.state.$error">
+                        <div ng-message="required">State is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <label>Banner Name</label>
+                    <md-icon>short_text</md-icon>
+                    <input type="text" ng-model="vm.bannerName" name="bannerName" required>
+                    <div ng-messages="vm.uploadForm.bannerName.$error">
+                        <div ng-message="required">Banner name is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <label>Comment</label>
+                    <md-icon>description</md-icon>
+                    <input type="text" ng-model="vm.comment" name="comment" required>
+                    <div ng-messages="vm.uploadForm.comment.$error">
+                        <div ng-message="required">Banner comment is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <label>Action on Banner Click
+                        <md-tooltip md-direction="bottom">This action will be performed when user clicks on banner.</md-tooltip>
+                    </label>
+                    <md-icon>touch_app</md-icon>
+                    <md-select ng-model="vm.actionType" name="actionType">
+                        <md-option value="noAction">No Action</md-option>
+                        <md-option value="browser">Open Browser</md-option>
+                        <md-option value="service">Redirect to App</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container ng-if="vm.actionType=='browser'">
+                    <label>Redirect URL</label>
+                    <md-icon>link</md-icon>
+                    <input clear-on-destroy type="text" ng-model="vm.redirectUrl" required name="redirectUrl" ng-pattern="vm.urlPattern">
+                    <div ng-messages="vm.uploadForm.redirectUrl.$error">
+                        <div ng-message="required">Redirect URL is required.</div>
+                        <div ng-message="pattern">Please enter a valid URL.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container ng-if="vm.actionType=='service'">
+                    <label>Redirect to App</label>
+                    <md-icon>apps</md-icon>
+                    <md-select clear-on-destroy required ng-model="vm.redirectApp" md-on-close="vm.appFilter=''" name="redirectApp">
+                        <md-select-header ng-if="vm.allApps.length>5" search="vm.appFilter">
+                        </md-select-header>
+                        <md-option ng-value="app" ng-repeat="app in vm.allApps |
+              filter:vm.appFilter">{{::app.appname}}</md-option>
+                    </md-select>
+                    <div ng-messages="vm.uploadForm.redirectApp.$error">
+                        <div ng-message="required">Redirect App is required.</div>
+                    </div>
+                </md-input-container>
+                <div ng-repeat="lang in vm.bannerLanguages">
+                    <md-input-container>
+                        <image-file ng-change="vm.validateImage(lang.langBanner, vm.uploadForm[lang.id])" title="Attach Banner for {{lang.language}}" name="{{lang.id}}" ng-required="true" ng-model="lang.langBanner"></image-file>
+                        <p ng-hide="vm.uploadForm[lang.id].$valid" class="small-grey-text">Required Image Dimensions: <b>{{::vm.imageWidth}} x {{::vm.imageHeight}}</b> pixels. Max Size: <b>{{::vm.maxFileSize}} KB</b></p>
+                        <div ng-messages="vm.uploadForm[lang.id].$error" ng-show="vm.uploadForm[lang.id].$dirty">
+                            <div ng-message="required">Image is required.</div>
+                            <div ng-message="notImage">Please select an Image File (Only {{::vm.allowedFileExtns.join(' or ')}}).</div>
+                            <div ng-message="dimensions">Image dimensions are not correct.</div>
+                            <div ng-message="size">Image file size greater than {{::vm.maxFileSize}} KB.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="column" layout-align-gt-sm="start center" layout-gt-sm="row" layout-wrap ng-show="vm.allLanguages.length">
+                    <md-button  class="md-raised md-primary" ng-click="vm.attachAnotherBanner()" ng-disabled="!vm.selectedLanguage">
+                        <md-icon>add_circle</md-icon> Add another banner in </md-button>
+                    <md-input-container flex="none">
+                        <label>Select Language</label>
+                        <md-select ng-model="vm.selectedLanguage">
+                            <md-option ng-value="lang" ng-repeat="lang in vm.allLanguages">{{ lang.language }}</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div align="center" class="margin-10">
+                    <md-checkbox ng-model="variable" required name="acceptance">
+                        We Approve Banner
+                    </md-checkbox>
+                </div>
+                <div align="center">
+                    <md-button is-busy="vm.uploadPromise" type="submit" ng-click="vm.uploadnRequest()" ng-disabled="vm.uploadForm.$invalid" class="md-raised md-primary">
+                        <md-icon>cloud_upload</md-icon> Upload & Request</md-button>
+                </div>
+            </form>
+        </md-card-content>
+    </md-card>
+</md-content>

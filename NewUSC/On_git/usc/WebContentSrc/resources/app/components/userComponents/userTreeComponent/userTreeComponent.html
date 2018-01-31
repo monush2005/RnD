@@ -1,0 +1,15 @@
+<div flex="100%" class="search-box" layout="row" layout-align="start center">
+ <i class="material-icons" style="padding: 10px 15px;">search</i>
+<input class="treesearch_boxx" type="text" placeholder="Search by User ID "  ng-model="appFilter">
+                      
+                </div>
+
+<!-- input class="treesearch_boxx" type="text" placeholder="Search by User ID "  ng-model="appFilter" -->
+              
+<md-content class="treesearch_main" scroll-horizontal="tree">
+    <div class="tree">
+        <ul>
+            <user-tree-directive searchuser="appFilter" user="vm.tree"></user-tree-directive>
+        </ul>
+    </div>
+</md-content>

@@ -1,0 +1,17 @@
+<li>
+    <a ng-class="::{'light-blue-back': user.selected}"><span>{{user.userid}} </span><md-menu ng-if="::user.apps.length"><md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+        <md-icon>expand_more</md-icon>
+      </md-button>
+      <md-menu-content width="4">
+        <md-menu-item class="tree-li" ng-repeat="app in user.apps">
+        <div layout="column" flex="100">
+              <p><big>{{::app.appname}}</big> <br/>
+              {{::app.services}}</p>
+          </div>
+        </md-menu-item>
+      </md-menu-content></md-menu>
+    </a>
+    <ul class="no-padding-bottom" ng-if="user.children.length">
+        <user-tree-directive user="child" ng-repeat="child in user.children"></user-tree-directive>
+    </ul>
+</li>

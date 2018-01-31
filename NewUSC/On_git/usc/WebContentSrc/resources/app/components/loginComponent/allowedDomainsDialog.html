@@ -1,0 +1,13 @@
+<md-content layout-wrap>
+    <div layout-padding>
+        <div class="md-headline">Allowed Email Domains</div>
+        <md-chips ng-model="vm.allowedDomains" readonly="true">
+            <md-chip-template>
+                <strong>{{$chip}}</strong>
+            </md-chip-template>
+        </md-chips>
+    </div>
+    <div align="right">
+        <md-button class="md-primary" ng-click="vm.$mdDialog.hide()">Okay</md-button>
+    </div>
+</md-content>

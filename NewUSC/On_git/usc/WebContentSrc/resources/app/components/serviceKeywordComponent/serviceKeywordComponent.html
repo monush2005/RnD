@@ -1,0 +1,18 @@
+<md-content class="right-content layout-padding">
+        <div class="no-padding">
+            <md-card flex="100">
+                <div layout="column" layout-align-xs="" layout-xs="column" class="no-padding margin-top-10">
+                    <div layout="column" class="no-padding" layout-margin>
+                        <md-input-container flex="100" class="md-icon-float md-block">
+                            <label>Language</label>
+                            <md-icon class="grey-icon">translate</md-icon>
+                            <md-select ng-model="vm.selectedLanguage" ng-change="vm.fetchKeywords(vm.fetchKeywordRequest)" name="language" md-select-search="true">
+                                <md-option ng-value="languageObj" ng-repeat="languageObj in vm.languages">{{::languageObj.language}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                     <keyword-accordion-component ng-if="vm.showAccordions" class="no-margin" preopen="true" selected-language="vm.selectedLanguage" service="vm.service"></keyword-accordion-component>
+                </div>
+            </md-card>
+        </div>
+</md-content>

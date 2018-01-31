@@ -1,0 +1,53 @@
+<md-content layout-padding>
+    <div layout="row" layout-padding>
+        <div flex layout="row" layout-wrap>
+            <div flex-gt-sm="30" flex="100"><strong style="line-height: 40px;">Reference ID: {{::vm.emailData.reference_id}}</strong></div>
+            <div flex-gt-sm="40" flex="100"><strong style="line-height: 40px;">Date/Time: {{::vm.emailData.in_time|uscDate}}</strong></div>
+            <div flex-gt-sm="15" flex="50" flex-order-gt-sm="0" flex-order="1">
+                <a href="mailto:{{vm.emailData.efrom}}" class="md-button md-primary">
+                    <md-icon class="md-primary">reply</md-icon>
+                    <span>Reply</span>
+                </a>
+            </div>
+            <div flex-gt-sm="15" flex="50" flex-order-gt-sm="0" flex-order="2">
+                <a ng-disabled="true" class="md-button md-primary">
+                    <md-icon class="md-primary">attach_file</md-icon>
+                    <span>Attachment</span>
+                </a>
+            </div>
+            <div style="width: 100%">
+                <p flex="100">
+                    <md-icon>email</md-icon><strong> From:</strong> {{::vm.emailData.efrom}}
+                </p>
+                <div class="divider"></div>
+                <p flex="100"><strong>Subject:</strong> {{::vm.emailData.subject}}</p>
+                <div class="divider"></div>
+                <p flex="100" ng-bind-html="::vm.emailData.body"></p>
+            </div>
+        </div>
+    </div>
+    
+    <form layout="row" flex="100" name="vm.statusForm" layout-align="space-around" layout-wrap>
+            <md-input-container flex="30" class=" md-icon-float md-block">
+                <label>Status</label>
+                <md-icon>done_all</md-icon>
+                <md-select ng-model="vm.selectedStatus">
+                    <md-option ng-value="option" ng-repeat="option in vm.statusOptions">{{::option.displayName}}</md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="80" class="padding-b-10">
+                <label>Comment</label>
+                <md-icon>question_answer</md-icon>
+                <textarea type="text" name="comment" required ng-model="vm.emailData.remarks" placeholder="Add any comment.." rows="2"></textarea>
+                 <div ng-messages="vm.statusForm.comment.$error">
+                    <div ng-message="required">
+                        Comment is required.
+                    </div>
+                </div>
+            </md-input-container>
+            <div flex="100" align="center">
+                <md-button class="md-raised" ng-click="vm.$mdDialog.cancel()">Cancel</md-button>
+                <md-button usc-right="takeQueryAction" ng-disabled="vm.statusForm.$invalid" type="submit" is-busy="vm.saveQueryPromise" class="md-raised md-primary" ng-click="vm.saveQueryStatus()">Save</md-button>
+            </div>
+        </form>
+</md-content>

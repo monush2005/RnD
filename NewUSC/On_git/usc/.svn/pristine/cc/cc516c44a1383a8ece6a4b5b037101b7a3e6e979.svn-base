@@ -1,0 +1,26 @@
+<md-content layout-padding layout-wrap>
+     <md-card>
+        <md-card-content>
+            <div promise-loader="vm.getsubmittedUsersPromise" text="Loading submissions..."></div>
+            <div layout="row" ng-show="vm.submittedUsers.length" promise-hider="vm.getsubmittedUsersPromise" layout-wrap>
+                <md-input-container flex="100">
+                    <label>Search Users..</label>
+                    <md-icon>search</md-icon>
+                    <input type="text" ng-model="vm.searchFilter">
+                </md-input-container>
+                <md-list flex layout-margin>
+                    <md-list-item layout="row" ng-repeat="user in vm.submittedUsers|filter:vm.searchFilter">
+                        <md-icon style="font-size: 35px" class="md-avatar">account_circle</md-icon>
+                        <p md-truncate highlight-bind="user.organizationName + ' (' + user.userId + ')'| vm.searchFilter"></p>
+                        <md-button flex="none" is-busy="user.getUserQuesionnairePromise" ng-click="vm.getUserQuesionnaire(user)" class="md-raised">
+                            View Questionnaire
+                        </md-button>
+                    </md-list-item>
+                </md-list>
+            </div>
+            <div promise-hider="vm.getsubmittedUsersPromise" ng-hide="vm.submittedUsers.length" align="center">
+                <h4>None of the onboarded users have submitted Questionnaire!</h4>
+            </div>
+        </md-card-content>
+    </md-card>
+</md-content>

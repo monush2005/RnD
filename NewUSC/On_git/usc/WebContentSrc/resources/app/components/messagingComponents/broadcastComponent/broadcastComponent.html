@@ -1,0 +1,95 @@
+<md-content layout-padding layout-wrap>
+    <md-card class="no-padding">
+        <md-card-content class="no-padding" layout-gt-sm="row" layout="column">
+            <div flex-gt-sm="50" flex>
+                <md-toolbar layout="row" class="md-hue-3">
+                    <div class="md-toolbar-tools">
+                        <span flex>Inbox</span>
+                        <md-button is-busy="vm.composePromise" ng-click="vm.composeBroadcast()" class="md-raised"><md-icon>add_circle</md-icon> Compose New</md-button>
+                    </div>
+                </md-toolbar>
+                <md-content>
+                    <md-list flex>
+                        <md-subheader class="md-no-sticky">Messages broadcasted by senior users..</md-subheader>
+                        <md-divider></md-divider>
+                        <div promise-loader="vm.inboxPromise"></div>
+                        <div align="center" ng-hide="vm.inboxBroadcasts.length">
+                            <h4 promise-hider="vm.inboxPromise">No broadcasts found!</h4>
+                        </div>
+                        <md-expansion-panel-group md-component-id="inboxBroadcastsGroup">
+                            <md-expansion-panel ng-repeat="item in vm.inboxBroadcasts">
+                                <md-expansion-panel-collapsed layout="row" layout-wrap class="cursor-pointer" md-ink-ripple>
+                                    <div class="md-title" flex="65">{{::item.from}}</div>
+                                    <div class="md-summary" flex style="text-align: right;">{{::item.date}}</div>
+                                    <div flex="100" class="md-summary message-preview-text">{{item.msg}}</div>
+                                </md-expansion-panel-collapsed>
+                                <md-expansion-panel-expanded>
+                                    <md-expansion-panel-header class="cursor-pointer" md-ink-ripple ng-click="::$panel.collapse()" md-no-sticky>
+                                        <div class="md-title" style="max-width: 210px" flex>{{::item.from}}</div>
+                                        <div class="md-summary" style="text-align: right;">{{::item.date}}</div>
+                                    </md-expansion-panel-header>
+                                    <md-expansion-panel-content>
+                                        <p>{{::item.msg}}</p>
+                                    </md-expansion-panel-content>
+                                </md-expansion-panel-expanded>
+                            </md-expansion-panel>
+                        </md-expansion-panel-group>
+                        <pagination-component default-page-size="5" fetch-on-init="true" on-fetch="vm.getBroadcastInbox"></pagination-component>
+                        <md-divider></md-divider>
+                    </md-list>
+                </md-content>
+            </div>
+            <md-divider></md-divider>
+            <div flex-gt-sm="50" flex>
+                <md-toolbar layout="row" class="md-hue-3">
+                    <div layout="row" class="md-toolbar-tools">
+                        <span flex>Outbox</span>
+                        <!--  <md-input-container flex="20" style="margin-top: 22px;">
+                <label>Sort By</label>
+                <md-select ng-model="vm.sortType" ng-change="vm.sortApps()">
+                    <md-option value="latestFirst" selected>Sort by latest</md-option>
+                    <md-option value="oldestFirst">Sort by old</md-option>   
+                </md-select>
+            </md-input-container>  -->
+                    </div>
+                </md-toolbar>
+                <md-content>
+                    <md-list flex>
+                        <md-subheader class="md-no-sticky">Messages broadcasted by you..</md-subheader>
+                        <md-divider></md-divider>
+                        <div promise-loader="vm.outboxPromise"></div>
+                        <div align="center" ng-hide="vm.outboxBroadcasts.length">
+                            <h4 promise-hider="vm.outboxPromise">No broadcasts sent by you!</h4>
+                        </div>
+                        <md-expansion-panel-group md-component-id="outboxBroadcastsGroup">
+                            <md-expansion-panel ng-repeat="item in vm.outboxBroadcasts">
+                                <md-expansion-panel-collapsed layout="row" layout-wrap class="cursor-pointer" md-ink-ripple>
+                                    <div class="md-title" flex="65">{{::item.toSplitted}}</div>
+                                    <div class="md-summary" flex style="text-align: right;">{{::item.date}}</div>
+                                    <div flex="100" class="md-summary message-preview-text">{{item.msg}}</div>
+                                </md-expansion-panel-collapsed>
+                                <md-expansion-panel-expanded>
+                                    <md-expansion-panel-header class="cursor-pointer" md-ink-ripple ng-click="::$panel.collapse()" md-no-sticky>
+                                        <div class="md-title" style="max-width: 230px" flex>{{::item.toSplitted}}</div>
+                                        <div class="md-summary" style="text-align: right;">{{::item.date}}</div>
+                                    </md-expansion-panel-header>
+                                    <md-expansion-panel-content>
+                                        <p>Broadcast sent to:</p>
+                                        <md-chips ng-model="item.to" readonly="true">
+                                            <md-chip-template>
+                                                <strong>{{$chip}}</strong>
+                                            </md-chip-template>
+                                        </md-chips>
+                                        <p>{{::item.msg}}</p>
+                                    </md-expansion-panel-content>
+                                </md-expansion-panel-expanded>
+                            </md-expansion-panel>
+                        </md-expansion-panel-group>
+                        <pagination-component api="vm.outboxPaginator" default-page-size="5" fetch-on-init="true" on-fetch="vm.getBroadcastOutbox"></pagination-component>
+                        <md-divider></md-divider>
+                    </md-list>
+                </md-content>
+            </div>
+        </md-card-content>
+    </md-card>
+</md-content>

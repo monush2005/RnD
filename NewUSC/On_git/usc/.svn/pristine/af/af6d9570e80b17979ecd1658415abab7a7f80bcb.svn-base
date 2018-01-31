@@ -1,0 +1,90 @@
+(function(app) {
+    'use strict';
+    app.component('quickDateRangeComponent', {
+        templateUrl: 'resources/app/components/_commonComponents/quickDateRangeComponent/quickDateRangeComponent.html',
+        controller: quickDateRangeComponentController,
+        controllerAs: 'vm',
+        bindings: {
+            dateRange: '<',
+            startDate: '<',
+            endDate: '<',
+            onRangeChange: '&',
+            onCustom: '&'
+        }
+    })
+
+    quickDateRangeComponentController.$inject = ['$mdMedia'];
+
+    function quickDateRangeComponentController($mdMedia) {
+        var vm = this;
+        vm.$mdMedia = $mdMedia;
+        var initCalled = false;
+        vm.dateRangeChange = dateRangeChange;
+        vm.dMinus1 = moment().subtract(1, 'days').toDate();
+
+        vm.dateRanges = [{
+            rangeId: 'week',
+            startDate: moment().subtract(7, 'days').toDate(),
+            endDate: vm.dMinus1,
+            rangeText: 'Last 7 Days',
+            showOnMobile: true
+        }, {
+            rangeId: '2weeks',
+            startDate: moment().subtract(14, 'days').toDate(),
+            endDate: vm.dMinus1,
+            rangeText: 'Last 14 Days',
+            showOnMobile: true
+        }, {
+            rangeId: 'month',
+            startDate: moment().subtract(1, 'month').toDate(),
+            endDate: vm.dMinus1,
+            rangeText: 'Last 1 Month'
+        }, {
+            rangeId: '3month',
+            startDate: moment().subtract(3, 'month').toDate(),
+            endDate: vm.dMinus1,
+            rangeText: 'Last 3 Month'
+        }, {
+            rangeId: '6month',
+            startDate: moment().subtract(6, 'month').toDate(),
+            endDate: vm.dMinus1,
+            rangeText: 'Last 6 Month'
+        }, {
+            rangeId: 'alltime',
+            startDate: envVars.analyticsStartDate,
+            endDate: vm.dMinus1,
+            rangeText: 'All Time'
+        }];
+
+
+        vm.$onInit = function () {
+            initCalled = true;
+            if(vm.startDate && vm.endDate)
+                vm.$onChanges();
+            dateRangeChange();
+        }
+
+        vm.$onChanges = function(changes) {
+            if(initCalled)
+                vm.dateRange = 'custom';
+            _.each(vm.dateRanges, (item) => {
+                if (moment(vm.startDate).isSame(item.startDate, 'day') && moment(vm.endDate).isSame(item.endDate, 'day')) {
+                    vm.dateRange = item.rangeId;
+                    return false;
+                }
+            });
+        }
+
+
+        function dateRangeChange(drId) {
+            if(drId == vm.dateRange)
+                return;
+            vm.dateRange = drId || vm.dateRange;
+            let dr = _.find(vm.dateRanges, { rangeId: vm.dateRange });
+            if(dr)
+                vm.onRangeChange()(dr.startDate, dr.endDate);
+            else 
+                vm.onRangeChange()(vm.startDate, vm.endDate);
+        }
+    }
+})(angular.module('selfcare'));

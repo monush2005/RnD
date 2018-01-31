@@ -1,0 +1,103 @@
+<br>
+<div>
+    <form layout="row" layout-wrap name="vm.deptFeedbacksForm">
+        <md-radio-group ng-required="true"flex="100" style="padding-left: 18px; padding-bottom: 10px" ng-model="vm.stateRadio" layout="row" layout-align="center" ng-change="vm.stateCentralChange()">
+            <md-radio-button ng-click="vm.all=''" value="all" class="md-primary">All</md-radio-button>
+            <md-radio-button ng-click="vm.state='99'" value="central" class="md-primary">Central</md-radio-button>
+            <md-radio-button ng-click="vm.state=''" value="state" class="md-primary">State</md-radio-button>
+        </md-radio-group>
+        <md-input-container flex="100" flex-gt-sm="100" ng-if="vm.stateRadio=='state'">
+            <label>State</label>
+            <md-icon>pin_drop</md-icon>
+            <md-select ng-required="true" md-on-open="vm.stateChange()" placeholder="State" name="state" ng-model-options="{trackBy: '$value.stateid'}" ng-model="vm.state" multiple md-select-search="true"">
+                <md-option ng-value="state" ng-repeat="state in vm.allStates">{{::state.statename}}</md-option>
+            </md-select>
+            <div ng-messages="vm.filterForm.state.$error">
+                <div ng-message="required">Please select a state.</div>
+            </div>
+        </md-input-container>
+         <div  flex="100" flex-gt-sm="100" layout="row" layout-align="start center">
+         <md-input-container flex="50" flex-gt-sm="50" class="input-margins" flex="auto">
+                     <label>Platform</label>
+                     <md-icon class="grey-icon">devices</md-icon>
+                     <md-select md-select-search="true" ng-change="vm.refreshResults('os')" ng-model="vm.deptFeedbacksFilters.os" name="os">
+                        <md-option ng-value="os" ng-repeat="os in vm.opSystemsList">{{::os.name}}</md-option>
+                     </md-select>
+                  </md-input-container>
+                  <md-input-container flex="50" flex-gt-sm="50" flex-gt-sm="{{::vm.dropDownFlex}}" class=" md-icon-float ">
+            <label>Category</label>
+            <md-icon class="grey-icon">question_answer</md-icon>
+            <md-select multiple  md-on-open="vm.fetchCategories()"  ng-model="vm.category" >
+                <md-option ng-value="category" ng-repeat="category in vm.catagories ">{{::category}}</md-option>
+            </md-select>
+        </md-input-container>
+        </div>
+        <div  flex="100" flex-gt-sm="100" layout="row" layout-align="start center">    
+         <md-input-container class="input-margins" flex="auto" flex="50" flex-gt-sm="50">
+            <label>Departments/Apps</label>
+            <md-icon class="grey-icon">apps</md-icon>
+            <md-select multiple md-select-search="true" ng-change="vm.refreshResults('app')" ng-model="vm.deptFeedbacksFilters.apps" name="apps">
+                <md-option ng-value="app" ng-repeat="app in vm.allApps">{{::app.appname}}</md-option>
+            </md-select>
+        </md-input-container>
+         <md-input-container class="input-margins" flex="50" flex-gt-sm="50">
+            <label>Filter By</label>
+            <md-icon class="grey-icon">filter_list</md-icon>
+            <md-select multiple md-select-search="true" ng-change="vm.refreshResults('rating')" ng-model="vm.deptFeedbacksFilters.filterBy" name="filterBy">
+                <md-option ng-value="filter" ng-repeat="filter in vm.filterByList">{{::filter.name}}</md-option>
+            </md-select>
+        </md-input-container>
+        
+        
+        </div>
+        
+        <!-- div flex="100" layout="row" layout-align="center center">
+            <md-button ng-click="vm.filterDepartments()" class="md-raised md-primary">
+                <md-icon>filter_list</md-icon> Filter Apps</md-button>
+            <md-button ng-show="vm.hasDeptFilters" ng-click="vm.clearDepartmentsFilter()" class="md-raised md-warn">
+                <md-icon>clear_all</md-icon> Clear Apps Filter</md-button>
+        </div -->
+        <div  flex="100" flex-gt-sm="100" layout="row" layout-align="start center">
+        <md-input-container class="input-margins" flex="50" flex-gt-sm="50">
+            <label>Language</label>
+            <md-icon class="grey-icon">translate</md-icon>
+            <md-select multiple md-select-search="true" ng-change="vm.refreshResults('lang')" ng-model="vm.deptFeedbacksFilters.langs" name="langs">
+                <md-option ng-value="lang" ng-repeat="lang in vm.langsList">{{::lang.language}}</md-option>
+            </md-select>
+        </md-input-container> 
+        <md-input-container class="input-margins" flex="auto" flex="50" flex-gt-sm="50">
+            <label>Services</label>
+            <md-icon class="grey-icon">dashboard</md-icon>
+            <md-select multiple md-select-search="true" ng-change="vm.refreshResults('service')" ng-model="vm.deptFeedbacksFilters.services" name="services">
+                <md-option ng-value="service" ng-repeat="service in vm.allServices">{{::service.servicename}}</md-option>
+            </md-select>
+        </md-input-container>
+       
+        
+        </div>
+        <div flex="100" layout="row" layout-align="center center">
+            <md-button ng-show="vm.hasFilters()" class="md-raised md-warn" ng-click="vm.clearFilters()">
+                <md-icon>clear_all</md-icon> Clear All Filters</md-button>
+        </div>
+    </form>
+    <div promise-loader="vm.getResultsPromise" text="Loading feedbacks..."></div>
+    <div promise-hider="vm.getResultsPromise">
+        <md-card ng-repeat="feedback in vm.feedbacks">
+            <md-card-content>
+                <div layout="row" layout-align="space-between">
+                    <star-rating-component style="color:gold" rating="feedback.rating"></star-rating-component>
+                    <h5 class="no-margin">{{feedback.os}}</h5>
+                    <h5 class="no-margin">{{feedback.serviceName}}</h5>
+                    <h5 class="no-margin">{{feedback.dateTime | uscDate}}</h5>
+                </div>
+                <div layout="row" layout-align="space-between">
+                    <p>{{feedback.comments}}</p>
+                    <div ng-show="feedback.profileId" layout="column" layout-align="center center">
+                        <md-button is-busy="feedback.showProfilePromise" ng-click="vm.showProfileInfo(feedback)" class="md-primary">Profile Info</md-button>
+                    </div>
+                </div>
+            </md-card-content>
+        </md-card>
+        <pagination-component api="vm.paginator" on-fetch="vm.getResults" fetch-on-init="true" ng-show="vm.feedbacks.length"></pagination-component>
+    </div>
+</div>

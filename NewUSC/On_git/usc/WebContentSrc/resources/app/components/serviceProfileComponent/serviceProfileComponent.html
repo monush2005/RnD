@@ -1,0 +1,47 @@
+<md-content layout-padding>
+    <md-card>
+        <md-card-content>
+            <div layout="column" class="no-margin" layout-padding layout-wrap>
+                <div align="center">
+                    <img src="{{::vm.service.image}}">
+                </div>
+                 <div layout="row">
+                    <md-input-container flex class="padding-b-10">
+                        <label>Live Since</label>
+                        <input readonly ng-model="vm.service.liveDate" />
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex class="padding-b-10">
+                        <label>Service Name</label>
+                        <input readonly ng-model="vm.service.servicename" />
+                    </md-input-container>
+                    <div  usc-right="editServiceProfile">
+                        <md-button class="md-raised md-primary" ng-click="vm.requestChange('Service Name', vm.service.servicename)">Request Change</md-button>
+                    </div>
+                </div>
+
+                <div layout="row">
+                    <md-input-container flex class="padding-b-10">
+                        <label>Short Description</label>
+                        <textarea readonly ng-model="vm.service.shortdesc"></textarea>
+                    </md-input-container>
+                    <div usc-right="editServiceProfile">
+                        <md-button class="md-raised md-primary" ng-click="vm.requestChange('Short Description', vm.service.shortdesc, 60)">Request Change</md-button>
+                    </div>
+                </div>
+
+                <div layout="row">
+                    <md-input-container flex class="padding-b-10">
+                        <label>Long Description</label>
+                        <textarea readonly ng-model="vm.service.description"></textarea>
+                    </md-input-container>
+                    <div usc-right="editServiceProfile">
+                        <md-button class="md-raised md-primary" ng-click="vm.requestChange('Long Description', vm.service.description, 200)">Request Change</md-button>
+                    </div>
+                </div>
+
+            </div>
+        </md-card-content>
+    </md-card>
+</md-content>

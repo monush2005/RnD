@@ -1,0 +1,55 @@
+<md-card class="no-margin">
+    <div class="accordion" ng-class="{'dark':vm.appId}" style="padding-right: 50px" layout="row" ng-click="vm.openAccordion()" style="">
+        <span class="title" md-truncate>{{::vm.displayName}}</span>
+        <md-icon class="arrow" ng-class="{'open': (vm.openAccordionObj.id == vm.accordionId)}">keyboard_arrow_right</md-icon>
+    </div>
+    <div ng-if="vm.openAccordionObj.id == vm.accordionId" class="animate-if">
+        <div usc-right="{{vm.service?'editServiceKeywords':'editAppKeywords'}}" layout="column" class="no-padding" layout-margin>
+            <form name="vm.keywordForm" id="vm.keywordForm">
+                <div layout="row" flex="100">
+                    <md-input-container flex class="no-margin">
+                        <label for="keyword">Create Keywords</label>
+                        <textarea type="text" id="keyword" rows="2" name="keyword" required ng-init="vm.newKeywords=''" ng-model="vm.newKeywords"></textarea>
+                        <div ng-messages="vm.keywordForm.keyword.$error" role="alert">
+                            <div ng-message="required">
+                                Keyword is Required.
+                            </div>
+                        </div>
+                        <div style="padding-top: 10px;font-size: 14px;color: grey;">You can enter multiple keywords by separating using new line.</div>
+                    </md-input-container>
+                    <div align="right">
+                        <md-button flex class="md-raised custom-green" ng-disabled="!vm.keywordForm.$valid" ng-click="vm.addKeywords()">Add</md-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div layout="column" layout-xs="column" class="no-padding" layout-margin>
+            <div ng-if="vm.keywords.length">
+                <h4>Assigned keywords to {{vm.displayName}}</h4>
+                <md-chips ng-model="vm.keywords" name="linkCategory" readonly="true">
+                    <md-chip-template>
+                        <strong ng-class="{'new-chip-animate':vm.isNewlyAdded($chip)}">{{$chip}}</strong>
+                        <md-icon ng-class="{'spin': (vm.spinning==$chip)}" usc-right="{{vm.service?'editServiceKeywords':'editAppKeywords'}}" class="cursor-pointer" ng-click="vm.deleteConfirm($chip)">close</md-icon>
+                    </md-chip-template>
+                </md-chips>
+            </div>
+                <div align="center" ng-if="!vm.isloadingKeywords && !vm.keywords.length">
+                    <span class="small-grey-text">No keywords assigned to {{::vm.displayName}} in {{vm.selectedLanguage.language}}.</span>
+                </div>
+            <div usc-right="editServiceKeywords">
+                <div ng-show="vm.service && vm.keywordsOfApp.length">
+                    <h4>Available Keywords in {{::vm.service.app.appname}}</h4>
+                    <md-chips ng-model="vm.keywordsOfApp" readonly="true">
+                        <md-chip-template>
+                            <strong>{{$chip}}</strong>
+                            <md-icon ng-class="{'spin': (vm.spinning==$chip)}" class="cursor-pointer" ng-click="vm.addKeywordFromAppKeywords($chip)">add</md-icon>
+                        </md-chip-template>
+                    </md-chips>
+                </div>
+                <div align="center">
+                    <md-progress-circular ng-if="vm.isloadingKeywords" md-mode="indeterminate"></md-progress-circular>
+                </div>
+            </div>
+        </div>
+    </div>
+</md-card>

@@ -1,0 +1,130 @@
+<md-content layout-padding layout-margin>
+    <form name="vm.editUserForm" layout="row" layout-wrap layout-align="start center" id="editUserForm_main">
+        <md-input-container flex="100" flex-gt-sm="30">
+        
+            <label>UserID</label>
+            <md-icon class="grey-icon">account_circle</md-icon>
+            <input ng-readonly="true" type="text" ng-model="vm.user[0].userId">
+        </md-input-container>
+        <!--  <md-input-container flex="100" flex-gt-sm="45">
+            <label>Communication Email</label>
+            <md-icon class="grey-icon">email</md-icon>
+            <input ng-readonly="true" type="text" ng-model="vm.user.email">
+        </md-input-container> -->
+        <md-input-container flex="100" flex-gt-sm="30">
+            <label>Mobile Number</label>
+            <md-icon class="grey-icon">phone</md-icon>
+            <input ng-readonly="true" type="text" ng-model="vm.user[0].mno">
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="30">
+            <label>Creation Date/Time</label>
+            <md-icon class="grey-icon">date_range</md-icon>
+            <input ng-readonly="true" type="text" ng-init="vm.user[0].cdate = (vm.user[0].cdate)" ng-model="vm.user[0].cdate">
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="30">
+            <label>User Status</label>
+            <md-icon ng-show="vm.user.status=='active'">done_all</md-icon>
+            <md-icon ng-show="vm.user.status=='deactive'">pause</md-icon>
+            <md-icon ng-show="vm.user.status=='pending'">report</md-icon>
+            <md-icon ng-show="vm.user.status=='blocked'">block</md-icon>
+            <md-select ng-required="true" placeholder="User Status" name="status" ng-model="vm.user[0].status">
+                <md-option value="active">Activated</md-option>
+                <md-option value="deactive">Deactivated</md-option>
+                <md-option disabled value="blocked">Blocked</md-option>
+                <md-option disabled ng-if="vm.user.status=='pending'" value="pending">Pending</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="30">
+            <label>User Role</label>
+            <md-icon class="grey-icon">security</md-icon>
+           
+               <md-select ng-required="true" onit="" md-on-open="vm.changerole12()" ng-change="vm.RoleChange()" placeholder="User Role" name="role" ng-model="vm.selectedRoles"  md-select-search="vm.roles.length>5">
+                <md-option ng-value="role" ng-repeat="role in vm.roles">{{::role.roleName}}</md-option>
+            </md-select>
+        </md-input-container>
+        <!-- ng-if="vm.isRoleEditable" incase of required if guest user can edit -->
+        <div flex-gt-sm="30">
+             <div layout-align="start center"  layout="row" layout-wrap >
+                   <md-input-container flex="100" flex-gt-sm="100">
+                    <label>Nature</label>
+                <md-icon class="grey-icon">group</md-icon>
+                 <md-select ng-required="true" placeholder="User Status" name="status" ng-model="vm.stateRadio" ng-change="vm.stateChange123()" flex-gt-sm="100" ng-disabled="vm.stateName1=='State'">
+                    <md-option ng-click="vm.state='99'" value="central">Central</md-option>
+                    <md-option ng-click="vm.state=''" value="state">State</md-option>
+                    <md-option ng-click="vm.all=''" value="all">All</md-option>
+                </md-select>
+                   </md-input-container>
+            </div>
+             
+        </div>
+
+        <md-input-container flex="100" flex-gt-sm="30">
+                <label>Category</label>
+                
+                <md-icon>bubble_chart</md-icon>
+                <md-select md-on-open="vm.fetchcatagorynew()" ng-change="vm.catagoryChange()" ng-required="true" placeholder="Select Category" name="catagory" ng-model="vm.catagory" multiple md-select-search="vm.catagories.length>5">
+         
+                    <md-option ng-value="catagory" ng-repeat="catagory in vm.catagories">{{catagory.categoryName}}</md-option>
+                   
+             
+                </md-select>
+                <div ng-messages="vm.editUserForm.catagories.$error">
+                    <div ng-message="required">Please select catagory.</div>
+                </div>
+            </md-input-container>
+            
+          <!--   <md-input-container flex ng-if="vm.stateRadio=='all'" flex="100" flex-gt-sm="30">
+                <label>Select state</label>
+                <md-icon>pin_drop</md-icon>
+                <md-select md-on-open="fetchStatewithcntrl()" ng-change="vm.stateChange()" placeholder="Select State" ng-required="vm.stateRadio=='state'" name="state" ng-model="vm.state" multiple md-select-search="vm.allStates.length>5">
+                    <md-option ng-value="state" ng-repeat="state in vm.allStates">{{::state.statename}}</md-option>
+                </md-select>
+                <div ng-messages="vm.editUserForm.state.$error">
+                    <div ng-message="required">Please select state.</div>
+                </div>
+            </md-input-container> -->
+                   
+             <md-input-container flex ng-if="vm.stateRadio=='state'" flex="100" flex-gt-sm="30">
+                <label>Select state</label>
+                <md-icon>pin_drop</md-icon>
+                <md-select md-on-open="vm.getStates()" ng-change="vm.stateChange()" placeholder="Select State" ng-required="vm.stateRadio=='state'" name="state" ng-model="vm.state" selectedvalue multiple md-select-search="vm.allStates.length>5">
+                    <md-option  ng-value="state" ng-repeat="state in vm.allStates">{{::state.statename}}</md-option>
+                </md-select>
+                <div ng-messages="vm.editUserForm.state.$error">
+                    <div ng-message="required">Please select state.</div>
+                </div>
+            </md-input-container>
+
+             
+        
+        <md-input-container flex="100" flex-gt-sm="30">
+            <label>Select Application</label>
+            <md-icon>apps</md-icon>
+            <md-select ng-required="true" placeholder="Select Application" md-on-open="vm.onAppsDDOpen()" name="apps" ng-model="vm.selectedApps1" multiple md-select-search="vm.Apps.length>5">
+                <md-option ng-value="app"  ng-repeat="app in vm.Apps">{{::app.departmentName}}</md-option>
+            </md-select>
+            <div ng-messages="vm.editUserForm.apps.$error">
+                <div ng-message="required">Please select atleast one app.</div>
+            </div>
+        </md-input-container>
+
+        <md-input-container flex="100" flex-gt-sm="30">
+           <!--  <label>Organisation name</label>
+            <md-icon>dashboard</md-icon>
+            <md-select ng-required="false" placeholder="Spice Digital" name="apps" ng-model="myorgsn" >
+                <md-option value="{{app.departmentId}}"  ng-repeat="app in vm.Apps">{{::app.departmentName}}</md-option>
+            </md-select>
+            <div ng-messages="vm.editUserForm.apps.$error">
+                <div ng-message="required">Please select atleast one app.</div>
+            </div> -->
+  <label>Organization name</label>
+   <md-icon>location_disabled</md-icon>
+  <input type="text" ng-model="organisation" placeholder="{{vm.user.organizationName}}" ng-disabled="true"> 
+        </md-input-container>
+        
+        <div flex="100" align="center">
+            <md-button ng-if="vm.forDialog" ng-click="vm.cancel()" class="md-raised">Cancel</md-button>
+            <md-button ng-disabled="vm.editUserForm.$invalid" is-busy="vm.savingUserPromise" type="submit" ng-click="vm.saveUser()" class="md-raised md-primary">Save</md-button>
+        </div>
+    </form>
+</md-content>

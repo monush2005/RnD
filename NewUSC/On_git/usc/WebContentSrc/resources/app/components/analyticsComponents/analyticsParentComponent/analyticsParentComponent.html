@@ -1,0 +1,23 @@
+<md-content id="analyticsComponent" layout-padding layout-wrap>
+    <md-card>
+        <md-card-content>
+            <quick-date-range-component on-custom="vm.dateSelectorInstance.openSelector" start-date="vm.startDate" end-date="vm.endDate" date-range="vm.dateRange" on-range-change="vm.setDateRange"></quick-date-range-component>
+            <br>
+            <md-tabs style="border-bottom: 1px solid hotpink;" md-center-tabs md-selected="vm.selectedIndex">
+                <md-tab ng-repeat="comp in vm.components" ng-click="vm.changeComponent(comp.name)" id="tab5">
+                    <md-tab-label>
+                        <md-icon style="margin-right: 10px;">{{::comp.icon}}</md-icon>
+                         {{::comp.display}}
+                    </md-tab-label>
+                </md-tab>
+            </md-tabs>
+            <br>
+            <analytics-dashboard-component ng-if="vm.currentComponent == 'dashboard'" start-date="vm.startDate" end-date="vm.endDate"></analytics-dashboard-component>
+            <analytics-temporal-component status="vm.status" ng-if="vm.currentComponent == 'temporal'" start-date="vm.startDate" end-date="vm.endDate">
+            </analytics-temporal-component>
+            <analytics-depts-component ng-if="vm.currentComponent == 'department'" start-date="vm.startDate" end-date="vm.endDate"></analytics-depts-component>
+            <analytics-demog-component ng-if="vm.currentComponent == 'demographic'" start-date="vm.startDate" end-date="vm.endDate"></analytics-demog-component>
+            <g-analytics-component start-date="vm.startDate" end-date="vm.endDate" ng-if="vm.currentComponent == 'gAnalytics'"></g-analytics-component>
+        </md-card-content>
+    </md-card>
+</md-content>

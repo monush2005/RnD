@@ -1,0 +1,41 @@
+<md-content layout-padding layout-wrap>
+    <form name="vm.dateRangeForm" layout="row" layout-wrap layout-align="space-around">
+        <md-input-container flex="100" flex-gt-sm="50">
+            <label>Start Date</label>
+            <md-datepicker required md-open-on-focus name="startDate" md-max-date="vm.endDate || vm.maxEndDate" md-min-date="vm.minStartDate" flex="100" ng-model="vm.startDate"></md-datepicker>
+            <div ng-messages="vm.dateRangeForm.startDate.$error">
+                <div ng-message="required">
+                    Start Date is Required.
+                </div>
+                <div ng-message="valid">
+                    Please enter a valid date.
+                </div>
+                <div ng-message="mindate">
+                    Start date cannot be less than {{::vm.minStartDate|date}}
+                </div>
+                <div ng-message="maxdate">
+                    Start date cannot be greater than end Date.
+                </div>
+            </div>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="50">
+            <label>End Date</label>
+            <md-datepicker required md-open-on-focus name="endDate" flex="100"  md-max-date="vm.maxEndDate" md-min-date="vm.startDate || vm.minStartDate" ng-model="vm.endDate"></md-datepicker>
+            <div ng-messages="vm.dateRangeForm.endDate.$error">
+                <div ng-message="required">
+                    End Date is Required.
+                </div>
+                <div ng-message="valid">
+                    Please enter a valid date.
+                </div>
+                <div ng-message="mindate">
+                    End date cannot be less than end Date.
+                </div>
+                <div ng-message="maxdate">
+                    End date cannot be greater than {{::vm.maxEndDate|date}}
+                </div>
+            </div>
+        </md-input-container>
+        <md-button class="md-raised md-primary" ng-disabled="vm.dateRangeForm.$invalid" ng-click="vm.submit()">Submit</md-button>
+    </form>
+</md-content>

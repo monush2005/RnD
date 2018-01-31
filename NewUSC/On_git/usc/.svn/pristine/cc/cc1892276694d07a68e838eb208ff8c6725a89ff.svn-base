@@ -1,0 +1,19 @@
+<md-content  title="" layout-padding layout-wrap>
+    <div style="margin: 5px 0 -5px 5px" class="md-headline">{{::vm.title}}</div>
+    <form name="vm.promptForm" layout="column">
+    	<md-input-container>
+    		<input ng-if="!vm.multiline" focus-on-init type="{{vm.type}}" name="value" ng-required="vm.required" ng-model="vm.text" ng-pattern="vm.pattern">
+            <textarea  maxlength="{{vm.maxLength}}" md-maxlength="vm.maxLength" ng-if="vm.multiline" focus-on-init type="{{vm.type}}" name="value" ng-required="vm.required" ng-model="vm.text" ng-pattern="vm.pattern"></textarea>
+             <div ng-messages="vm.promptForm.value.$error">
+                <div ng-message="required">{{vm.name}} is required.</div>
+                <div ng-message="url">{{vm.name}} is not valid.</div>
+                <div ng-message="pattern">{{vm.name}} is not valid.</div>
+            </div>
+            <div style="padding-top: 10px;font-size: 14px;color: grey;">{{vm.helpText}}</div>
+    	</md-input-container>
+    	<div align="center">
+    		<md-button class="md-raised" ng-click="vm.cancelAction()">{{::vm.cancel}}</md-button>
+    		<md-button type="submit" is-busy="vm.submitPromise" ng-disabled="vm.promptForm.$invalid || (vm.dontSaveIfSame?vm.initialValue==vm.text:false)" ng-click="vm.submitAction()" class="md-raised md-primary">{{::vm.ok}}</md-button>
+    	</div>
+    </form>
+</md-content>

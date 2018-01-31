@@ -1,0 +1,23 @@
+<md-content layout-padding layout-wrap style="background: white">
+    <!-- <div align="center" class="md-title">{{vm.category.categoryName}}</div> -->
+    <div layout="column" layout-align-xs="" layout-xs="column" class="no-padding" layout-margin>
+        <md-input-container flex="100" flex-xs="100" class="padding-b-10">
+            <h4 class="section-heading">Linked Apps</h4>
+            <md-chips ng-model="vm.linkedApps" readonly="true">
+                <md-chip-template layout>                    
+                    <md-icon flex-order="0" flex-order-gt-sm="1" ng-class="{'spin': $chip.spinning}" class="cursor-pointer" ng-click="vm.unlinkApp($chip)">close</md-icon>
+                    <strong flex-order="1" flex-order-gt-sm="0" ng-class="{'new-chip-animate':vm.newlyAdded==$chip}">{{$chip.appname}}</strong>
+                </md-chip-template>
+            </md-chips>
+        </md-input-container>
+        <md-input-container flex="100" flex-xs="100" class="padding-b-10">
+            <h4 class="section-heading">Unlinked Apps</h4>
+            <md-chips ng-model="vm.unlinkedApps" readonly="true">
+                <md-chip-template layout>
+                    <md-icon flex-order="0" flex-order-gt-sm="1" ng-class="{'spin': $chip.spinning}" class="cursor-pointer" ng-click="vm.linkApp($chip)">add</md-icon>
+                    <strong flex-order="1" flex-order-gt-sm="0" ng-class="{'new-chip-animate':vm.newlyAdded==$chip}">{{$chip.appname}}</strong>
+                </md-chip-template>
+            </md-chips>
+        </md-input-container>
+    </div>
+</md-content>

@@ -1,0 +1,41 @@
+<div class="expand-apps animate-show-hide" ng-click="vm.editor.triggerCancel()" ng-show="vm.editing" layout="row" layout-align="center center">
+    <md-tooltip md-direction="bottom" md-visible="tooltipVisible">Department being edited will be closed</md-tooltip>
+    <md-icon style="color:white">keyboard_arrow_down</md-icon> <span>Show all Departments</span>
+    <md-icon style="color:white">keyboard_arrow_down</md-icon>
+</div>
+<md-content layout-padding layout-wrap id="directoryView">
+    <md-card ng-hide="vm.editing">
+        <md-card-title layout="row" layout-align="space-between center">
+            <div md-truncate class="md-title">Directory Departments</div>
+            <md-button flex="none" class="md-raised md-primary" ui-sref="selfcare.directory.createNew">
+                <md-icon>add_circle</md-icon> Add New</md-button>
+        </md-card-title>
+        <md-card-content>
+            <div promise-loader="vm.fetchDeptPromise" text="Loading directory..."></div>
+            <div promise-hider="vm.fetchDeptPromise">
+                <div ng-if="!vm.depts.length">
+                    <h4 align="center">No results found!</h4>
+                </div>
+                <div ng-if="vm.depts.length" class="search-box">
+                    <md-icon style="margin-right: 9px;">search</md-icon>
+                    <input ng-model="vm.search" type="Search" placeholder="Search...">
+                </div>
+                <md-list>
+                    <md-list-item ng-repeat="dept in vm.depts|filter:{deptName: vm.search} track by dept.deptId">
+                        <md-icon>fiber_manual_record</md-icon>
+                        <p md-truncate highlight-bind="dept.deptName | vm.search"></p>
+                        <md-button flex="none" class="md-icon-button md-primary" is-busy="dept.deletePromise" ng-disabled="::dept.onUmang" ng-click="vm.deleteDept(dept)">
+                            <md-icon>close</md-icon>
+                            <md-tooltip md-direction="bottom" md-visible="tooltipVisible">Delete</md-tooltip>
+                        </md-button>
+                        <md-button  flex="none" class="md-icon-button md-primary" ng-disabled="::dept.onUmang" ng-click="vm.editDept(dept)">
+                            <md-icon>edit</md-icon>
+                            <md-tooltip md-direction="bottom" md-visible="tooltipVisible">Edit</md-tooltip>
+                        </md-button>
+                    </md-list-item>
+                </md-list>
+            </div>
+        </md-card-content>
+    </md-card>
+    <dept-editor-component api="vm.editor" class="no-padding" ng-if="vm.editing" edit-mode="true" on-cancel="vm.onCancelEdit" after-save="vm.afterSaveDept" dept-model="vm.currentlyEditing"></dept-editor-component>
+</md-content>

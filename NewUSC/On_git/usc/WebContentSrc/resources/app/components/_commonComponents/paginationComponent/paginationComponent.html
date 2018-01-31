@@ -1,0 +1,22 @@
+<div layout="row" layout-align="space-between" ng-show="vm.pageNumbers.length">
+    <md-button ng-click="vm.changePage(vm.page-1)" ng-disabled="vm.disableButtons || vm.page<2" class="md-primary">
+        <md-icon>navigate_before</md-icon>
+        <span hide-xs>Previous</span>
+    </md-button>
+    <md-input-container hide show-gt-xs ng-hide="vm.hidePageSize">
+        <label>Page Size</label>
+        <md-select md-selected-text="vm.pageSize +' per Page'" ng-change="vm.pageSizeChange()" ng-model="vm.pageSize">
+            <md-option ng-value="::pageSize" ng-repeat="pageSize in vm.availablePageSizes">{{::pageSize}}</md-option>
+        </md-select>
+    </md-input-container>
+    <md-input-container  ng-hide="vm.hidePageNum">
+        <label>Page No.</label>
+        <md-select md-selected-text="vm.page +' of  '+ vm.pageNumbers[vm.pageNumbers.length-1]" ng-change="vm.changePage()" ng-model="vm.page">
+            <md-option ng-repeat="pagenumber in vm.pageNumbers" ng-value="::pagenumber">{{::pagenumber}}</md-option>
+        </md-select>
+    </md-input-container>
+    <md-button ng-disabled="vm.disableButtons || vm.page==vm.pageNumbers[vm.pageNumbers.length-1]" ng-click="vm.changePage(vm.page+1)" class="md-primary">
+        <span hide-xs>Next </span>
+        <md-icon>navigate_next</md-icon>
+    </md-button>
+</div>

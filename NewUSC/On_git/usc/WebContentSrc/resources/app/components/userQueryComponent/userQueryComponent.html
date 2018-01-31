@@ -1,0 +1,95 @@
+<md-content flex class="right-content" layout-padding>
+    <div layout="row" class="no-padding" layout-xs="column">
+        <div flex="100" flex-xs="100" layout="column">
+            <md-card layout-padding class="no-padding-bottom">
+                <form name="vm.userQueryForm">
+                    <md-card-content layout="row" layout-wrap layout-align="space-around">
+                        <md-input-container ng-hide="vm.forService" flex="100" flex-gt-sm="30" class="md-icon-float md-block">
+                            <label>Service</label>
+                            <md-icon class="grey-icon">question_answer</md-icon>
+                            <md-select ng-model="vm.selectedService" ng-change="vm.serviceFilterChange()">
+                                <md-option ng-value="item.value" ng-repeat="item in ::vm.servicesFilters">{{::item.displayName}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex="100" flex-gt-sm="{{vm.forService?'45':'30'}}" class=" md-icon-float md-block">
+                            <label>Type</label>
+                            <md-icon class="grey-icon">question_answer</md-icon>
+                            <md-select ng-model="vm.selectedFilter" ng-change="vm.paginator.goToPage(1)">
+                                <md-option ng-value="filter" ng-repeat="filter in vm.filterOptions">{{::filter.displayName}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex="100" flex-gt-sm="{{vm.forService?'45':'30'}}" class=" md-icon-float md-block">
+                            <label>Status</label>
+                            <md-icon class="grey-icon">done_all</md-icon>
+                            <md-select ng-model="vm.selectedStatus" ng-change="vm.paginator.goToPage(1)">
+                                <md-option ng-value="option" ng-repeat="option in vm.statusOptions">{{::option.displayName}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex="100" flex-gt-sm="45">
+                            <label>Start Date</label>
+                            <md-datepicker  date-picker-clear md-open-on-focus ng-change="vm.paginator.goToPage(1)" ng-model="vm.startDate"></md-datepicker>
+                        </md-input-container>
+                        <md-input-container flex="100" flex-gt-sm="45">
+                            <label>End Date</label>
+                            <md-datepicker  date-picker-clear md-open-on-focus ng-change="vm.paginator.goToPage(1)" md-max-date="vm.maxEndDate" md-min-date="vm.startDate || vm.minStartDate" ng-model="vm.endDate"></md-datepicker>
+                        </md-input-container>
+                    </md-card-content>
+                </form>
+            </md-card>
+        </div>
+    </div>
+    <div ng-if="vm.queries.length" layout="column" class="no-padding-bottom" >
+        <div layout="row" layout-align="space-around center" style="background: white">
+            <md-input-container flex="100" class="padding-b-10">
+                <label>Search...</label>
+                <md-icon class="grey-icon">search</md-icon>
+                <input type="text" ng-model="vm.searchFilter" />
+            </md-input-container>
+            <md-button  flex="noshrink" class="md-icon-button md-primary rotate-90" ng-click="vm.queries.reverse()">
+                <md-icon class="grey-icon">compare_arrows</md-icon>
+            </md-button>
+        </div>
+        <md-divider></md-divider>
+        <md-list class="inbox-list md-cyan-theme jlist no-padding" role="list">
+       
+            <md-list-item ng-repeat="item in vm.queries|filter:vm.searchFilter">
+                <div ng-click="vm.showExpandedView(item)" class="md-button md-no-style boxbtn">
+                    <div class="md-list-item-inner">
+                        <md-icon style="font-size: 38px" ng-bind="item.icon"></md-icon>
+                        <div class="md-list-item-text layout-column" layout="column">
+                            <h3 class="topLeftElement">
+                            <span class="md-caption status blue">Ref Id__: 
+                            <span highlight-bind="item.ticket_id | vm.searchFilter"></span>
+                            </span>
+                            <span style="margin-top:25px" ng-class="vm.getStatusClass(item.status)" class="md-caption status">
+                            <span highlight-bind="vm.getStatusDisplay(item.status) | vm.searchFilter"></span>
+                            </span>
+                            {{::item.log_time|uscDate}}
+                            <span style="float: right;" highlight-bind="item.servicename | vm.searchFilter" class="remarks" ng-init="vm.getSerivceName(item)"></span></h3>
+                            <h4 highlight-bind="item.user_name | vm.searchFilter"></h4>
+                            <p class="remarks" highlight-bind="item.query | vm.searchFilter"></p>
+                        </div>
+                        <md-divider></md-divider>
+                    </div>
+                </div>
+         
+                <md-button usc-right="takeQueryAction" ng-disabled="vm.statusForm.$invalid" type="submit"  class="btn btn-info btn-sm viewattachment_btn" ng-click="vm.showExpandedView1(item)">View Attachment</md-button>
+            </md-list-item>
+          
+        </md-list>
+    </div>
+    <md-card class="no-padding-top no-margin-top" ng-show="vm.queries.length && !vm.isLoading">
+        <pagination-component fetch-on-init="true" api="vm.paginator" on-fetch="vm.searchQuery"></pagination-component>
+    </md-card>
+    <div align="center" ng-show="!vm.queries.length && !vm.isLoading">
+        <h4>No Results Found.</h4>
+    </div>
+<!--     <div align="center" layout-margin>
+        <a ng-hide="vm.forService" ui-sref="selfcare.dashboard.app.home">
+            <md-button class="md-raised custom-blue">Back</md-button>
+        </a>
+        <a ng-show="vm.forService" ui-sref="selfcare.dashboard.service.home">
+            <md-button class="md-raised custom-blue">Back</md-button>
+        </a>
+    </div> -->
+</md-content>

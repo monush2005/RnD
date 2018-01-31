@@ -1,0 +1,13 @@
+(function(app) {
+    'use strict';
+    app.directive('userTreeDirective', userTreeDirectiveFn);
+    userTreeDirectiveFn.$inject = [];
+    function userTreeDirectiveFn() {
+        return {
+            restrict: 'E',
+            replace: true,
+            templateUrl: 'resources/app/directives/userTreeDirective/userTreeDirective.html',
+            scope: { user: '<' }
+        }
+    }
+})(angular.module('selfcare'));

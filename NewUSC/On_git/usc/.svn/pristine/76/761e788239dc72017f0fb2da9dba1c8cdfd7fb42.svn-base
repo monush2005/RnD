@@ -1,0 +1,66 @@
+<md-content layout-padding>
+    <md-card>
+        <md-card-title>
+            <div class="md-title">My Account</div>
+        </md-card-title>
+        <md-card-content flex class="layout-padding">
+            <div layout="row" layout-xs="column" class="no-padding no-margin" layout-wrap>
+                <div flex-gt-sm="50" flex="100">
+                    <div layout="row">
+                        <md-input-container flex="90" flex-gt-sm="90" class="padding-b-10">
+                            <label>User Id</label>
+                            <md-icon class="material-icons grey-icon">account_circle</md-icon>
+                            <input type="text" name="userId" ng-model="vm.userId" readonly />
+                        </md-input-container>
+                    </div>
+                </div>
+                <div flex-gt-sm="50" flex="100">
+                    <div layout="row">
+                        <md-input-container flex="90" flex-gt-sm="90" class="padding-b-10">
+                            <label>Password</label>
+                            <md-icon class="material-icons grey-icon">lock</md-icon>
+                            <input type="text" name="pwd" ng-init="randomPassword='*********'" ng-model="randomPassword" readonly />
+                        </md-input-container>
+                        <md-button class="md-icon-button margin-top-10" ng-click="vm.changePassword()">
+                            <md-icon>mode_edit</md-icon><md-tooltip md-direction="bottom">Change Password</md-tooltip>
+                        </md-button>
+                    </div>
+                </div>
+                <div flex-gt-sm="50" flex="100">
+                    <div layout="row">
+                        <md-input-container flex="90" flex-gt-sm="90" class="padding-b-10">
+                            <label>Mobile Number</label>
+                            <md-icon class="material-icons grey-icon">phone_iphone</md-icon>
+                            <input type="text" name="mno" ng-model="vm.mno" readonly />
+                        </md-input-container>
+                        <md-button class="md-icon-button margin-top-10" ng-click="vm.editMobileNumber()">
+                            <md-icon>mode_edit</md-icon><md-tooltip md-direction="bottom">{{vm.mno?'Change Mobile Number':'Set Mobile Number'}}</md-tooltip>
+                        </md-button>
+                    </div>
+                </div>
+                <div flex-gt-sm="50" flex="100">
+                    <div layout="row">
+                        <md-input-container flex="90" flex-gt-sm="90" class="padding-b-10">
+                            <label>Signature</label>
+                            <md-icon class="material-icons grey-icon">assignment</md-icon>
+                            <textarea type="text" readonly name="signature" ng-model="vm.signature"></textarea>
+                        </md-input-container>
+                        <md-button class="md-icon-button margin-top-10" ng-click="vm.editSignature()">
+                            <md-icon>mode_edit</md-icon><md-tooltip md-direction="bottom">{{vm.signature?'Change Signature':'Set Signature'}}</md-tooltip>
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+            <h4 ng-if="::vm.isGuest" align="center">You are a guest user. You will get more SelfCare options once services are onboarded.</h4>
+            <h3 ng-if="vm.userApps.length" class="md-headline">Assigned Apps</h3>
+            <div class="my-account">
+                <div class="app" ng-repeat="app in vm.userApps">
+                    <span>{{app.appname}}</span>
+                    <div class="service" ng-repeat="serv in app.services">
+                        <span>{{serv.servicename}}</span>
+                    </div>
+                </div>
+            </div>
+        </md-card-content>
+    </md-card>
+</md-content>

@@ -1,0 +1,27 @@
+<md-content class="right-content layout-padding" flex>
+    <md-card>
+        <div promise-loader="vm.getCatgoriesPromise" text="Loading Categories.."></div>
+        <md-card-content promise-hider="vm.getCatgoriesPromise">
+            <div layout="column" layout-align-xs="" layout-xs="column" class="no-padding" layout-margin>
+                <md-input-container flex="100" flex-xs="100" class="padding-b-10">
+                    <h4 class="section-heading">Linked Categories</h4>
+                    <md-chips ng-model="vm.linkedCategories" readonly="true">
+                        <md-chip-template layout>
+                            <strong flex-order="1" flex-order-gt-sm="0">{{$chip.categoryName}}</strong>
+                            <md-icon flex-order="0" flex-order-gt-sm="1" usc-right="editAppCategory" ng-class="{'spin': $chip.spinning}" class="cursor-pointer" ng-click="vm.unlinkCategory($chip)">close</md-icon>
+                        </md-chip-template>
+                    </md-chips>
+                </md-input-container>
+                <md-input-container flex="100" flex-xs="100" class="padding-b-10">
+                    <h4 class="section-heading">Unlinked Categories</h4>
+                    <md-chips ng-model="vm.unlinkedCategories" readonly="true">
+                        <md-chip-template layout>
+                            <strong flex-order="1" flex-order-gt-sm="0">{{$chip.categoryName}}</strong>
+                            <md-icon flex-order="0" flex-order-gt-sm="1" usc-right="editAppCategory" ng-class="{'spin': $chip.spinning}" class="cursor-pointer" ng-click="vm.linkCategory($chip)">add</md-icon>
+                        </md-chip-template>
+                    </md-chips>
+                </md-input-container>
+            </div>
+        </md-card-content>
+    </md-card>
+</md-content>

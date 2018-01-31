@@ -1,0 +1,31 @@
+<md-content layout-padding layout-wrap>
+    <md-card>
+        <md-card-title layout="row" layout-align="space-between center">
+            <div md-truncate class="md-title">Existing Categories</div>
+            <md-button flex="none" class="md-raised md-primary" ng-click="vm.requestNew()">
+                <md-icon>add_circle</md-icon> Request New <span hide show-gt-sm>Category</span></md-button>
+        </md-card-title>
+        <md-card-content>
+            <div promise-loader="vm.fetchCategoriesPromise" text="Loading Categories.."></div>
+            <md-expansion-panel-group promise-hider="vm.fetchCategoriesPromise" md-component-id="categories">
+                <md-expansion-panel ng-repeat="category in ::vm.allCategories">
+                    <md-expansion-panel-collapsed class="cursor-pointer" md-ink-ripple ng-click="::vm.activeCategory=category">
+                        <div class="md-title">{{::category.categoryName}}</div>
+                        <div class="md-summary"></div>
+                        <md-expansion-panel-icon></md-expansion-panel-icon>
+                    </md-expansion-panel-collapsed>
+                    <md-expansion-panel-expanded>
+                        <md-expansion-panel-header class="cursor-pointer" md-ink-ripple ng-click="::$panel.collapse()" md-no-sticky>
+                            <div class="md-title" md-truncate>{{::category.categoryName}}</div>
+                            <div class="md-summary"></div>
+                            <md-expansion-panel-icon></md-expansion-panel-icon>
+                        </md-expansion-panel-header>
+                        <md-expansion-panel-content>
+                            <view-edit-category-component ng-if="vm.activeCategory==category" category="category"></view-edit-category-component>
+                        </md-expansion-panel-content>
+                    </md-expansion-panel-expanded>
+                </md-expansion-panel>
+            </md-expansion-panel-group>
+        </md-card-content>
+    </md-card>
+</md-content>

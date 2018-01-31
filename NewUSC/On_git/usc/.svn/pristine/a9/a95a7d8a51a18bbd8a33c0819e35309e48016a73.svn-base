@@ -1,0 +1,18 @@
+<md-content layout-padding layout-wrap>
+    <md-card>
+        <md-card-content>
+            <section layout="row" layout-gt-sm="row" layout-align="center center">
+                <md-button usc-right="{{criteria.right}}" flex flex-gt-sm="grow" ng-click="vm.changeCriteria(criteria)" style="padding: 0 10px" class="no-margin middle button-group" ng-class="{'selected': vm.selectedCriteria==criteria }" ng-repeat="criteria in ::vm.criterias">
+                    <md-icon style="font-size:22px;margin-right: 3px">{{::criteria.icon}}</md-icon><span hide show-gt-sm style="font-size:14px"> {{::criteria.text}}</span>
+                    <md-tooltip hide-gt-sm md-direction="bottom">{{::criteria.text}}</md-tooltip>
+                </md-button>
+            </section>
+            <br>
+            <quick-date-range-component on-custom="vm.dateSelectorInstance.openSelector" start-date="vm.startDate" end-date="vm.endDate" date-range="vm.dateRange" on-range-change="vm.setDateRange"></quick-date-range-component>
+
+            <dept-feedback-component start-date="vm.startDate" end-date="vm.endDate" ng-if="vm.selectedCriteria.value=='dept'"></dept-feedback-component>
+            
+            <app-feedbacks-component start-date="vm.startDate" end-date="vm.endDate" ng-if="vm.selectedCriteria.value=='app'"></app-feedbacks-component>
+        </md-card-content>
+    </md-card>
+</md-content>

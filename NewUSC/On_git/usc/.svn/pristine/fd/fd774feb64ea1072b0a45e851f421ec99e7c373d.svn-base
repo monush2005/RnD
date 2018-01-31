@@ -1,0 +1,57 @@
+<md-content layout-padding layout-wrap>
+    <form name="vm.composeForm" layout="column">
+        <h4>Broadcast message based on: </h4>
+        <md-radio-group layout="row" layout-align="space-around" name="baseType" ng-init="vm.baseType='users'" ng-model="vm.baseType">
+            <md-radio-button value="users" class="md-primary">Users</md-radio-button>
+            <md-radio-button value="apps" class="md-primary">Apps</md-radio-button>
+            <md-radio-button value="categories" class="md-primary">App Categories</md-radio-button>
+        </md-radio-group>
+        <br>
+        <md-input-container ng-if="vm.baseType=='users'">
+            <label>Users ({{vm.selectedUsers.length}} Selected)</label>
+            <md-icon>account_circle</md-icon>
+            <md-select ng-required="true" placeholder="Users" name="selectedUsers" clear-on-destroy ng-model="vm.selectedUsers" multiple md-select-search="vm.subUsers.length>5">
+                <md-option ng-value="user" ng-repeat="user in vm.subUsers">{{::user.userId}}</md-option>
+            </md-select>
+            <div ng-messages="vm.composeForm.selectedUsers.$error">
+                <div ng-message="required">Please select at least one user.</div>
+            </div>
+        </md-input-container>
+        <md-input-container ng-if="vm.baseType=='apps'">
+            <label>Apps ({{vm.selectedApps.length}} Selected)</label>
+            <md-icon>dashboard</md-icon>
+            <md-select ng-required="true" placeholder="Apps" name="selectedApps" clear-on-destroy ng-model="vm.selectedApps" multiple md-select-search="vm.allApps.length>5">
+                <md-option ng-value="app" ng-repeat="app in vm.allApps">{{::app.appname}}</md-option>
+            </md-select>
+            <div ng-messages="vm.composeForm.selectedApps.$error">
+                <div ng-message="required">Please select at least one app.</div>
+            </div>
+        </md-input-container>
+        <md-input-container ng-if="vm.baseType=='categories'">
+            <label>App Categories ({{vm.selectedCategories.length}} Selected)</label>
+            <md-icon>bubble_chart</md-icon>
+            <md-select ng-required="true" placeholder="App Categories" md-on-open="vm.getCategories()" name="selectedCategories" clear-on-destroy ng-model="vm.selectedCategories" multiple md-select-search="vm.allCategories>5">
+                <md-option ng-value="category" ng-repeat="category in vm.allCategories">{{::category.categoryName}}</md-option>
+            </md-select>
+            <div ng-messages="vm.composeForm.selectedCategories.$error">
+                <div ng-message="required">Please select at least one category.</div>
+            </div>
+        </md-input-container>
+        <md-input-container>
+            <label>Broadcast Message</label>
+            <textarea  maxlength="400" md-maxlength="400" type="text" required ng-model="vm.message" name="message" rows="2"></textarea>
+            <div ng-messages="vm.composeForm.message.$error">
+                <div ng-message="required">Message is required.</div>
+            </div>
+        </md-input-container>
+        <div align="center">
+            <md-checkbox ng-model="vm.toSubusers" class="md-primary" name="subusers">
+                Also send to subusers
+            </md-checkbox>
+        </div>
+        <div align="center">
+            <md-button class="md-raised" ng-click="vm.cancel()">Cancel</md-button>
+            <md-button ng-disabled="vm.composeForm.$invalid" is-busy="vm.broadcastPromise" class="md-raised md-primary" ng-click="vm.broadcast()">Broadcast</md-button>
+        </div>
+    </form>
+</md-content>

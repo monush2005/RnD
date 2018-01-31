@@ -1,0 +1,26 @@
+<md-content layout-padding layout-wrap>
+    <form name="vm.form" layout="column">
+        <md-radio-group class="margin-10" flex ng-model="vm.filters.selected.stateRadio" layout="row" layout-align="center center">
+            <md-radio-button ng-click="vm.filters.selected.state='all'" value="all" class="md-primary">All</md-radio-button>
+            <md-radio-button ng-click="vm.filters.selected.state='99'" value="central" class="md-primary">Central</md-radio-button>
+            <md-radio-button ng-click="vm.filters.selected.state=''" value="state" class="md-primary">State</md-radio-button>
+        </md-radio-group>
+        <md-input-container flex class="no-margin-bottom" ng-if="vm.filters.selected.stateRadio=='state'">
+            <label>State</label>
+            <md-icon>pin_drop</md-icon>
+            <md-select md-on-open="vm.fetchStates()" placeholder="State" ng-required="vm.filters.selected.state==''" name="state" ng-model="vm.filters.selected.state" md-select-search="vm.filters.master.allStates.length>5">
+                <md-option ng-value="state.stateid" ng-repeat="state in vm.filters.master.allStates">{{::state.statename}}</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container flex>
+            <label>Category</label>
+            <md-icon>bubble_chart</md-icon>
+            <md-select md-on-open="vm.fetchCategories()" placeholder="Category" name="category" ng-model="vm.filters.selected.category" md-select-search="vm.filters.master.allCategories.length>5">
+                <md-option ng-value="category.categoryId" ng-repeat="category in vm.filters.master.allCategories">{{::category.categoryName}}</md-option>
+            </md-select>
+        </md-input-container>
+        <div align="center">
+        	<md-button ng-click="vm.submit()" ng-disabled="vm.form.$invalid" class="md-raised md-primary">Submit</md-button>
+        </div>
+    </form>
+</md-content>

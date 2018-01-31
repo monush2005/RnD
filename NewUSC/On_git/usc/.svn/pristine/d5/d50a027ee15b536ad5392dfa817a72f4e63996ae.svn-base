@@ -1,0 +1,54 @@
+<md-content layout-padding layout-wrap>
+    <div style="margin: 10px" class="md-headline">{{::vm.title}}</div>
+    <form name="vm.whForm" layout="row" layout-wrap>
+        <div layout="row" layout-align="space-around" flex="100" layout-wrap>
+            <md-input-container flex="100" flex-gt-sm="45">
+                <label>Start Day</label>
+                <md-icon>today</md-icon>
+                <md-select ng-required="true" placeholder="Start Day" name="startDay" ng-model="vm.wh.startDay">
+                    <md-option ng-value="$index" ng-repeat="day in vm.days">{{::day}}</md-option>
+                </md-select>
+                <div ng-messages="vm.whForm.startDay.$error">
+                    <div ng-message="required">Start Day is required.</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex="100" flex-gt-sm="45">
+                <label>End Day</label>
+                <md-icon style="transform: scaleX(-1)">today</md-icon>
+                <md-select ng-required="true" placeholder="End Day" ng-change="vm.validateEndDay()" name="endDay" ng-model="vm.wh.endDay">
+                    <md-option ng-value="$index" ng-repeat="day in vm.days">{{::day}}</md-option>
+                </md-select>
+                <div ng-messages="vm.whForm.endDay.$error">
+                    <div ng-message="required">End Day is required.</div>
+                    <div ng-message="sameDay">End Day cannot be same as Start Day.</div>
+                </div>
+            </md-input-container>
+        </div>
+        <div layout="row" layout-align="space-around" flex="100" layout-wrap>
+            <md-input-container flex="100" flex-gt-sm="45">
+                <label>Start Time</label>
+                <md-icon style="transform: rotate(-95deg);">access_time</md-icon>
+                <input type="text" ng-pattern="vm.timePattern" ng-model="vm.wh.startTime" name="startTime" required />
+                <div ng-messages="vm.whForm.startTime.$error">
+                    <div ng-message="required">Start Time is required!</div>
+                    <div ng-message="pattern">Please enter time in valid format!</div>
+                </div>
+                <div style="padding-top: 10px;font-size: 14px;color: grey;">HH:MM (24 Hours)</div>
+            </md-input-container>
+            <md-input-container flex="100" flex-gt-sm="45">
+                <label>End Time</label>
+                <md-icon style="transform: rotate(-181deg);">access_time</md-icon>
+                <input type="text" ng-pattern="vm.timePattern" ng-model="vm.wh.endTime" name="endTime" required />
+                <div ng-messages="vm.whForm.endTime.$error">
+                    <div ng-message="required">End Time is required!</div>
+                    <div ng-message="pattern">Please enter time in valid format!</div>
+                </div>
+                <div style="padding-top: 10px;font-size: 14px;color: grey;">HH:MM (24 Hours)</div>
+            </md-input-container>
+        </div>
+        <div align="center" flex="100">
+            <md-button class="md-raised" ng-click="vm.cancelAction()">Cancel</md-button>
+            <md-button type="submit" is-busy="vm.submitPromise" ng-disabled="vm.whForm.$invalid" ng-click="vm.submitAction()" class="md-raised md-primary">{{::vm.ok}}</md-button>
+        </div>
+    </form>
+</md-content>

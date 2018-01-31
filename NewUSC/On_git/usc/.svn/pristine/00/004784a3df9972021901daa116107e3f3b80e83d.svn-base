@@ -1,0 +1,34 @@
+<div promise-loader="vm.checkingGAStatusPromise" text="Loading Google Analytics.."></div>
+<div promise-hider="vm.checkingGAStatusPromise" layout-align="center" layout="row" layout-wrap ng-show="!vm.isLoggedInGoogle">
+    <p flex="100" layout="row" layout-align="center">To View Google Analytics, you need to sign in to Google account linked with UMANG analytics.</p>
+    <md-button flex="none" is-busy="vm.loginToGooglePromise" ng-click="vm.loginGoogle()" class="md-raised md-primary">
+        <md-icon class="fa fa-google"></md-icon> Login and Authorize</md-button>
+</div>
+<div promise-hider="vm.checkingGAStatusPromise" ng-show="vm.isLoggedInGoogle">
+    <section layout="row" layout-wrap layout-gt-sm="row" layout-align="center center">
+        <md-button flex flex-gt-sm="none" ng-click="vm.changeView(view)" style="padding: 0 10px" class="no-margin middle button-group" ng-class="{'selected': vm.selectedView==view }" ng-repeat="view in ::vm.views">
+            <md-icon style="font-size:20px;margin-right: 3px" class="fa {{::view.icon}}"></md-icon><span hide show-gt-sm style="font-size:14px"> {{::view.text}}</span>
+            <md-tooltip hide-gt-sm md-direction="bottom">{{::view.text}}</md-tooltip>
+        </md-button>
+    </section>
+    <br>
+    <section layout="row" layout-wrap layout-gt-sm="row" layout-align="center center">
+        <md-button flex flex-gt-sm="15" ng-click="vm.changeCriteria(criteria)" style="padding: 0 10px" class="no-margin middle button-group" ng-class="{'selected': vm.selectedCriteria==criteria }" ng-repeat="criteria in ::vm.criterias">
+            <md-icon style="font-size:22px;margin-right: 3px">{{::criteria.icon}}</md-icon><span hide show-gt-sm style="font-size:14px"> {{::criteria.text}}</span>
+            <md-tooltip hide-gt-sm md-direction="bottom">{{::criteria.text}}</md-tooltip>
+        </md-button>
+    </section>
+    <br>
+    <div promise-loader="vm.getDataPromise" error-text="No Data Found!" text="Loading Data.."></div>
+    <div ng-show="vm.selectedCriteria.value=='state'" promise-hider="vm.getDataPromise">
+        <highchart-component sortable="true" on-series-click="vm.getCityData" fullscreen-button="true" for-analytics="true" json="vm.json"></highchart-component>
+        <div promise-loader="vm.getSubDataPromise" error-text="No Data Found!" text="Loading Data.."></div>
+        <highchart-component sortable="true" ng-if="vm.subJson" fullscreen-button="true" for-analytics="true" json="vm.subJson"></highchart-component>
+    </div>
+    <div ng-show="vm.selectedCriteria.value=='screen'" promise-hider="vm.getDataPromise">
+        <analytics-table-component export-name="Screen-Distribution" export="true" table="vm.screenTable"></analytics-table-component>
+    </div>
+    <div ng-show="vm.selectedCriteria.value=='device'" promise-hider="vm.getDataPromise">
+        <analytics-table-component export-name="Device-Distribution" export="true"  table="vm.deviceTable"></analytics-table-component>
+    </div>
+</div>

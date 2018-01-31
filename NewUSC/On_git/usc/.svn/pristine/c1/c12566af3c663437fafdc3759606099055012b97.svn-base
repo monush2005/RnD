@@ -1,0 +1,17 @@
+{
+    "lang": "en",
+    "dir": "ltr",
+    "name": "UMANG SelfCare Portal",
+    "short_name": "SelfCare",
+    "icons": [
+    {
+        "src": "icon.png",
+        "sizes": "144x144",
+        "type": "image/png"
+    }],
+    "theme_color": "#00599d",
+    "background_color": "#00599d",
+    "start_url": "/usc/",
+    "display": "standalone",
+    "orientation": "natural"
+}

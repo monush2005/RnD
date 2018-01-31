@@ -1,0 +1,59 @@
+<md-content layout-padding>
+    <md-card>
+        <md-card-title>
+            <div  flex="80" class="md-title">Roles Created By You</div>
+        </md-card-title>
+         <md-card-title id="serchbtn" ng-hide="vm.allRoles<=0">
+         <md-input-container flex="80">
+                    <label>Search by Role Name</label>
+                    <md-icon>search</md-icon>
+                    <input ng-model="vm.search" type="Search">
+                    <i class="material-icons"  ng-click="vm.search = ''" ng-show="vm.search" style="margin-top: 7px;font-size: 20px;position:  absolute;top: 0px;right: 0px;">close</i>
+                </md-input-container>
+             <md-input-container flex="20" style="margin-top: 22px;">
+                <label>Sort By</label>
+                <md-select ng-model="vm.sortType" ng-change="vm.sortApps()">
+                    <md-option value="latestFirst" selected>Sort By Latest</md-option>
+                    <md-option value="oldestFirst">Sort By Old</md-option>   
+                </md-select>
+            </md-input-container> 
+            </md-card-title>
+        <md-card-content>
+            <div promise-loader="vm.rolesPromise" text="Loading roles.."></div>
+            <div id="roletable2"> 
+            <table width="100%" class="rolesPromise_table">
+           <thead>
+            <tr>
+            <td>Role Name</td>
+            <td>Date of Creation</td>
+            <td>Action</td>
+            </tr>
+            </thead>
+          
+           
+            <tr ng-repeat="role in vm.allRoles | filter:vm.search">
+            <td md-truncate highlight-bind="role.roleName | vm.search">{{role.roleName}}</td>
+            <td md-truncate highlight-bind="role.creationDate | vm.search">{{role.creationDate}}</td>
+            <td> <md-button is-busy="role.getRolePromise" ng-click="vm.getAndEditRole(role)" class="md-raised md-primary">
+                        Edit
+                    </md-button></td>
+            </tr>
+          
+            </table>
+           </div>
+           <!--  <md-list>
+                <md-list-item ng-repeat="role in vm.allRoles">
+                    <md-icon class="md-avatar">security</md-icon>
+                    <p md-truncate><strong>{{ role.roleName }}</strong><br>Creation Date:{{ role.creationDate}}</p>
+                    <md-button is-busy="role.getRolePromise" ng-click="vm.getAndEditRole(role)" class="md-raised">
+                        Edit
+                    </md-button>
+                </md-list-item>
+            </md-list> -->
+            <div align="center" ng-if="vm.allRoles && !vm.allRoles.length">
+                <h4>You have not created any roles yet!</h4>
+                <md-button ui-sref="selfcare.roles.create" class="md-raised md-primary"> <md-icon>group_add</md-icon> Create New Role </md-button>
+            </div>
+        </md-card-content>
+    </md-card>
+</md-content>

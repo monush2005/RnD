@@ -1,0 +1,8 @@
+<div layout="column" layout-fill>
+	<header-component ></header-component>
+	<div layout="row" flex>
+		<sidenav-component layout="column"></sidenav-component>
+		<ui-view id="mainContent" class="pos-rel" layout="column" class="fade-up" flex></ui-view>
+	</div>
+</div>
+

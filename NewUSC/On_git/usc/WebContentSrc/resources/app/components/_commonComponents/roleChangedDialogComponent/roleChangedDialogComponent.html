@@ -1,0 +1,10 @@
+<md-content layout-padding layout-margin>
+    <form name="vm.editUserForm" layout="row" layout-wrap layout-align="start center" id="editUserForm_main">
+        
+        <p>Dear User, your role has been changed. Please visit the Manage Role section and modify/edit the role of your.</p>
+        <div flex="100" align="center">
+           
+            <md-button ng-disabled="vm.editUserForm.$invalid" is-busy="vm.savingUserPromise" type="submit" ng-click="vm.viewRolesEdit()" class="md-raised md-primary">View</md-button>
+        </div>
+    </form>
+</md-content>

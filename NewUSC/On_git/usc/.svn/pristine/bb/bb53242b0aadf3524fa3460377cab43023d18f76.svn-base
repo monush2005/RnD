@@ -1,0 +1,158 @@
+(function(app) {
+    'use strict';
+    app.component('manageRequestsComponent', {
+        templateUrl: 'resources/app/components/manageRequestsComponent/manageRequestsComponent.html',
+        controller: manageRequestsComponentController,
+        controllerAs: 'vm',
+        bindings: {
+            status: '<'
+        }
+    })
+
+    manageRequestsComponentController.$inject = ['$localStorage', 'usersService', 'onboardService', 'customDialogService', 'customToastService', '$mdDialog', 'questionnaireService'];
+
+    function manageRequestsComponentController($localStorage, usersService, onboardService, customDialogService, customToastService, $mdDialog, questionnaireService) {
+        var vm = this;
+        vm.viewDetails = viewDetails;
+        vm.approveRequest = approveRequest;
+        vm.rejectRequest = rejectRequest;
+        vm.editUser = editUser;
+        vm.viewQuestionnaire = viewQuestionnaire;
+        vm.filterRequests = filterRequests;
+        vm.statuses = ['pending', 'approved', 'rejected'];
+        vm.icons = {
+            pending: 'access_time',
+            approved: 'done_all',
+            rejected: 'close'
+        }
+
+        vm.$onInit = function() {
+            tabChanged();
+        }
+
+        vm.uiOnParamsChanged = function(newValues, $transition$) {
+            vm.status = newValues.status;
+            tabChanged();
+        }
+
+        function editUser(request) {
+            request.getUserPromise = usersService.getSubUserDetails(request.emailId).then((detailedUser) => {
+                customDialogService.showComponent({
+                    component: 'viewAndEditUserComponent',
+                    bindings: {
+                        user: detailedUser,
+                        forDialog: true
+                    },
+                    clickOutsideToClose: false
+                }).then(() => {
+                    customToastService.freeText('User Details have been successfully updated.');
+                })
+            })
+        }
+
+        function tabChanged() {
+            delete vm.startDate;
+            delete vm.endDate;
+            delete vm.search;
+            vm.hadResults = false;
+            vm.selectedTabIndex = vm.statuses.indexOf(vm.status);
+            vm.requests = null;
+            vm.requestsBackup = null;
+            vm.getRequestsPromise = onboardService.fetchOnboardingRequests(vm.status).then((requests) => {
+                vm.requestsBackup = _.cloneDeep(requests);
+                vm.requests = requests;
+                fetchQsSubmittedUsers();
+            })
+        }
+
+        function fetchQsSubmittedUsers() {
+            if (vm.status == 'approved' && _.existsBy($localStorage.userRights, 'viewQuestionaire', 'rightName'))
+                usersService.getSubmittedUsers().then((submittedUsers) => {
+                    _.map(vm.requests, (request) => {
+                        request.hasSubmitted = !!_.find(submittedUsers, { userId: request.userId });
+                    })
+                })
+        }
+
+        function viewQuestionnaire(request) {
+            request.getUserQuesionnairePromise = questionnaireService.getSubUserQuestionnaire(request.userId);
+            request.getUserQuesionnairePromise.then((questionnaire) => {
+                customDialogService.showComponent({
+                    component: 'previewQuestionnaireComponent',
+                    bindings: {
+                        readOnly: true,
+                        masterJson: questionnaire.masterJson,
+                        responseJson: questionnaire.responseJson,
+                        user: request
+                    },
+                    clickOutsideToClose: true
+                })
+            });
+        }
+
+        function viewDetails(request) {
+            customDialogService.showComponent({
+                component: 'viewOnboardingRequestComponent',
+                bindings: {
+                    request: request,
+                    forDialog: true,
+                    readOnly: vm.status != 'pending'
+                }
+            }).then(() => {
+                _.pull(vm.requests, request);
+            })
+        }
+
+        function approveRequest(request) {
+            customDialogService.showComponent({
+                component: 'promptComponent',
+                bindings: {
+                    title: 'Approval Comment (Optional)',
+                    ok: 'Approve',
+                    cancel: 'Cancel',
+                    initialValue: 'Approved by NEGD',
+                    onSubmit: (comment) => {
+                        return onboardService.approveRequest(request.requestId, comment).then(() => {
+                            customToastService.freeText('Request has been successfully approved!');
+                            _.pull(vm.requests, request);
+                        });
+                    }
+                }
+            });
+        }
+
+        function rejectRequest(request) {
+            customDialogService.showComponent({
+                component: 'promptComponent',
+                bindings: {
+                    title: 'Rejection Comment (Optional)',
+                    ok: 'Reject',
+                    cancel: 'Cancel',
+                    initialValue: 'Rejected by NEGD',
+                    onSubmit: (comment) => {
+                        return onboardService.rejectRequest(request.requestId, comment).then(() => {
+                            customToastService.freeText('Request has been successfully rejected!');
+                            _.pull(vm.requests, request);
+                        });
+                    }
+                }
+            });
+        }
+
+        function filterRequests(request) {
+            let bool = true;
+
+            if(vm.startDate)
+                bool = bool && moment(request.cdate).isSameOrAfter(vm.startDate, 'day');
+
+            if(vm.endDate)
+                bool = bool && moment(request.cdate).isSameOrBefore(vm.endDate, 'day');
+
+            if(vm.searchText)
+                bool = bool && request.organizationName.toLowerCase().includes(vm.searchText.toLowerCase());
+
+            return bool;
+        }
+
+    }
+})(angular.module('selfcare'));

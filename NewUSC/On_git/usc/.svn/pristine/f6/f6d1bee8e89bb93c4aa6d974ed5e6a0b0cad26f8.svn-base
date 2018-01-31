@@ -1,0 +1,5 @@
+<div class="image-preview" style="cursor:default" layout="row" layout-align="center center">
+    <md-icon title="Exit Fullscreen" md-ink-ripple class="close-button-hc" ng-click="vm.close()">close</md-icon>
+    <highchart-component no-export="false" sortable="vm.sortable" height="500" for-analytics="vm.forAnalytics" json="vm.json" style="min-width: calc(100% - 10px);max-height:calc(100% - 10px)">
+    </highchart-component>
+</div>

@@ -1,0 +1,12 @@
+<md-content layout-padding>
+
+    
+    <form layout="row" flex="100" name="vm.statusForm" layout-align="space-around" layout-wrap>
+    <p flex="100"><strong>Attachment:</strong> {{::vm.emailData.attachment}}</p>
+              <p flex="100"><strong>subject:</strong> {{::vm.emailData.subject}}</p>
+         <!--<img src="icon.apple-touch-icon-120x120.png" alt="Flowers in Chania">  -->   
+            <div class="divider"></div>
+            <img src="::vm.emailData.attachment" alt="No attachment fond">
+  
+        </form>
+</md-content>

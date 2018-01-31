@@ -1,0 +1,70 @@
+<br>
+<div>
+    <form layout="row" layout-wrap name="vm.deptFeedbacksForm">
+        <md-input-container class="input-margins" flex="auto">
+            <label>Departments/Apps</label>
+            <md-icon class="grey-icon">apps</md-icon>
+            <md-select multiple md-select-search="true" ng-change="vm.refreshResults()" ng-model="vm.deptFeedbacksFilters.apps" name="apps">
+                <md-option ng-value="app" ng-repeat="app in vm.allApps">{{::app.appname}}</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container class="input-margins" flex="auto">
+            <label>Services</label>
+            <md-icon class="grey-icon">dashboard</md-icon>
+            <md-select multiple md-select-search="true" ng-change="vm.refreshResults()" ng-model="vm.deptFeedbacksFilters.services" name="services">
+                <md-option ng-value="service" ng-repeat="service in vm.allServices">{{::service.servicename}}</md-option>
+            </md-select>
+        </md-input-container>
+        <div flex="100" layout="row" layout-align="center center">
+            <md-button ng-click="vm.filterDepartments()" class="md-raised md-primary">
+                <md-icon>filter_list</md-icon> Filter Apps</md-button>
+            <md-button ng-show="vm.hasDeptFilters" ng-click="vm.clearDepartmentsFilter()" class="md-raised md-warn">
+                <md-icon>clear_all</md-icon> Clear Apps Filter</md-button>
+        </div>
+        <md-input-container class="input-margins" flex="100">
+            <label>Filter By</label>
+            <md-icon class="grey-icon">filter_list</md-icon>
+            <md-select multiple md-select-search="true" ng-change="vm.refreshResults()" ng-model="vm.deptFeedbacksFilters.filterBy" name="filterBy">
+                <md-option ng-value="filter" ng-repeat="filter in vm.filterByList">{{::filter.name}}</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container class="input-margins" flex="auto">
+            <label>Platform</label>
+            <md-icon class="grey-icon">devices</md-icon>
+            <md-select multiple md-select-search="true" ng-change="vm.refreshResults()" ng-model="vm.deptFeedbacksFilters.os" name="os">
+                <md-option ng-value="os" ng-repeat="os in vm.opSystemsList">{{::os.name}}</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container class="input-margins" flex="auto">
+            <label>Language</label>
+            <md-icon class="grey-icon">translate</md-icon>
+            <md-select multiple md-select-search="true" ng-change="vm.refreshResults()" ng-model="vm.deptFeedbacksFilters.langs" name="langs">
+                <md-option ng-value="lang" ng-repeat="lang in vm.langsList">{{::lang.language}}</md-option>
+            </md-select>
+        </md-input-container>
+        <div flex="100" layout="row" layout-align="center center">
+            <md-button ng-show="vm.hasFilters()" class="md-raised md-warn" ng-click="vm.clearFilters()">
+                <md-icon>clear_all</md-icon> Clear All Filters</md-button>
+        </div>
+    </form>
+    <div promise-loader="vm.getResultsPromise" text="Loading feedbacks..."></div>
+    <div promise-hider="vm.getResultsPromise">
+        <md-card ng-repeat="feedback in vm.feedbacks">
+            <md-card-content>
+                <div layout="row" layout-align="space-between">
+                    <star-rating-component style="color:gold" rating="feedback.stars"></star-rating-component>
+                    <h5 class="no-margin">{{feedback.os}}</h5>
+                    <h5 class="no-margin">{{feedback.appServiceName}}</h5>
+                    <h5 class="no-margin">{{feedback.datetime | uscDate}}</h5>
+                </div>
+                <div layout="row" layout-align="space-between">
+                    <p>{{feedback.text}}</p>
+                    <div layout="column" layout-align="center center">
+                        <md-button is-busy="feedback.showProfilePromise" ng-click="vm.showProfileInfo(feedback)" class="md-primary">Profile Info</md-button>
+                    </div>
+                </div>
+            </md-card-content>
+        </md-card>
+        <pagination-component api="vm.paginator" on-fetch="vm.getResults" fetch-on-init="true" ng-show="vm.feedbacks.length"></pagination-component>
+    </div>
+</div>

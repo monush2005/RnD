@@ -1,0 +1,46 @@
+<md-content flex class="right-content">
+    <md-tabs md-selected="vm.selectedTabIndex" md-dynamic-height md-border-bottom>
+        <md-tab md-on-select="enabled=true" md-on-deselect="enabled=false" ui-sref-opts="{notify:false}" ui-sref="selfcare.campaigns.view({status:status})" ng-repeat="status in ::vm.statuses">
+            <md-tab-label>
+                <md-icon style="margin-right: 10px;">{{::vm.statusIcons[status]}}</md-icon>
+                {{::status}}
+            </md-tab-label>
+        </md-tab>
+    </md-tabs>
+    <md-content class="md-padding">
+        <div align="center">
+            <span class="small-grey-text">{{vm.statusDesc[vm.status]}}</span>
+        </div>
+        <div promise-loader="vm.fetchingPromise"></div>
+        <div ng-if="vm.campaigns && !vm.campaigns.length" layout="row" layout-align="center center">
+            <h3>No records found!</h3>
+        </div>
+        <md-card ng-repeat="campaign in vm.campaigns|filter:vm.filter">
+            <md-card-content>
+                <div layout="row">
+                    <div flex layout="row" layout-wrap>
+                        <div flex-gt-sm="70" flex="100"><strong style="line-height: 40px;"><md-icon>access_time</md-icon> Scheduled Date/Time: {{::campaign.scheduletime|uscDate}}</strong></div>
+                        <div flex-gt-sm="15" flex="50" flex-order-gt-sm="0" flex-order="1">
+                            <md-button ng-click="vm.viewCampaignDetails(campaign)" class="md-primary">
+                                <md-icon>info</md-icon>
+                                <span>View Details</span>
+                            </md-button>
+                        </div>
+                        <div ng-if="::vm.buttonName" flex-gt-sm="15" flex="50" flex-order-gt-sm="0" flex-order="1">
+                            <md-button is-busy="campaign.cancelPromise" ng-click="vm.stopOrCancel(campaign)" class="md-warn">
+                                <md-icon>cancel</md-icon>
+                                <span>{{vm.buttonName}}</span>
+                            </md-button>
+                        </div>
+                        <p flex="100">
+                            <md-icon>title</md-icon><strong> Title: </strong> {{::campaign.title}}
+                        </p>
+                        <div ng-show="campaign.message" class="divider"></div>
+                        <p ng-show="campaign.message" flex="100">
+                            <md-icon>subtitles</md-icon><strong> Message: </strong> {{::campaign.message}}</p>
+                    </div>
+                </div>
+            </md-card-content>
+        </md-card>
+    </md-content>
+</md-content>

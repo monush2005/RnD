@@ -1,0 +1,100 @@
+<md-content layout-padding>
+    <md-card>
+        <md-card-content>
+            <div layout="column" class="no-margin" layout-padding>
+                <div align="center">
+                    <img src="{{vm.app.image}}">
+                    <br>
+                    <md-button usc-right="editAppProfile" class="md-raised md-primary" ng-click="vm.editLogo()">Change</md-button>
+                </div>
+                 <div layout="row">
+                    <md-input-container flex class="padding-b-10">
+                        <label>Live Since</label>
+                        <input readonly ng-model="vm.app.liveDate" />
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex class="padding-b-10">
+                        <label>App Name</label>
+                        <input readonly ng-model="vm.app.appname" />
+                    </md-input-container>
+                    <div usc-right="editAppProfile">
+                        <md-button class="md-raised md-primary" ng-click="vm.requestChange('App Name', vm.app.appname,100)">Request Change</md-button>
+                    </div>
+                </div>
+                <div layout="row">
+                    <md-input-container flex class="padding-b-10">
+                        <label>Short Description</label>
+                        <textarea readonly ng-model="vm.app.shortdesc"></textarea>
+                    </md-input-container>
+                    <div usc-right="editAppProfile">
+                        <md-button class="md-raised md-primary" ng-click="vm.requestChange('Short Description', vm.app.shortdesc, 60)">Request Change</md-button>
+                    </div>
+                </div>
+                <div layout="row">
+                    <md-input-container flex class="padding-b-10">
+                        <label>Long Description</label>
+                        <textarea readonly ng-model="vm.app.description"></textarea>
+                    </md-input-container>
+                    <div usc-right="editAppProfile">
+                        <md-button class="md-raised md-primary" ng-click="vm.requestChange('Long Description', vm.app.description, 200)">Request Change</md-button>
+                    </div>
+                </div>
+                <div layout="row">
+                    <md-input-container flex class="padding-b-10">
+                        <label>Helpline Numbers</label>
+                        <textarea readonly ng-model="vm.app.contact"></textarea>
+                    </md-input-container>
+                    <div usc-right="editAppProfile">
+                        <md-button class="md-raised md-primary" ng-click="vm.editHelpline()">Edit</md-button>
+                    </div>
+                </div>
+                <div layout="row">
+                    <md-input-container flex class="padding-b-10">
+                        <label>Email ID</label>
+                        <input readonly ng-model="vm.app.email"/>
+                    </md-input-container>
+                    <div usc-right="editAppProfile">
+                        <md-button class="md-raised md-primary" ng-click="vm.editEmail()">Edit</md-button>
+                    </div>
+                </div>
+                <div layout="row">
+                    <md-input-container flex class="padding-b-10">
+                        <label>Working Hours</label>
+                        <input readonly ng-model="vm.app.workinghours"/>
+                    </md-input-container>
+                    <div usc-right="editAppProfile">
+                        <md-button class="md-raised md-primary" ng-click="vm.editWorkingHours()">Edit</md-button>
+                    </div>
+                </div>
+                <div layout="row">
+                    <md-input-container flex class="padding-b-10">
+                        <label>Website URL</label>
+                        <input readonly ng-model="vm.app.url"/>
+                    </md-input-container>
+                    <div usc-right="editAppProfile">
+                        <md-button class="md-raised md-primary" ng-click="vm.editWebsite()">Edit</md-button>
+                    </div>
+                </div>
+                <div layout="row">
+                    <md-input-container flex class="padding-b-10">
+                        <label>Latitude/Logitude</label>
+                        <input readonly ng-init="vm.app.latlong=vm.app.lat+', '+vm.app.lon" ng-model="vm.app.latlong"/>
+                    </md-input-container>
+                    <div usc-right="editAppProfile">
+                        <md-button class="md-raised md-primary" ng-click="vm.editLatLong()">Edit</md-button>
+                    </div>
+                </div>
+                <div layout="row">
+                    <md-input-container flex class="padding-b-10">
+                        <label>Address</label>
+                        <textarea readonly ng-model="vm.app.address"></textarea>
+                    </md-input-container>
+                    <div usc-right="editAppProfile">
+                        <md-button class="md-raised md-primary" ng-click="vm.requestChange('Address', vm.app.address)">Request Change</md-button>
+                    </div>
+                </div>
+            </div>
+        </md-card-content>
+    </md-card>
+</md-content>

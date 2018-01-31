@@ -1,0 +1,102 @@
+(function(app) {
+    'use strict';
+    app.component('viewAndEditUserComponent', {
+        templateUrl: 'resources/app/components/userComponents/viewAndEditUserComponent/viewAndEditUserComponent.html',
+        controller: viewAndEditUserComponentController,
+        controllerAs: 'vm',
+        bindings: {
+            user: '<',
+            forDialog: '<'
+        }
+    })
+
+    viewAndEditUserComponentController.$inject = ['$localStorage', '$mdDialog', 'usersService', 'rolesRightsService', '$q', 'commonDataService'];
+
+    function viewAndEditUserComponentController($localStorage, $mdDialog, usersService, rolesRightsService, $q, commonDataService) {
+        var vm = this;
+        vm.saveUser = saveUser;
+        vm.cancel = cancel;
+        vm.fetchStates = fetchStates;
+        vm.stateChange = stateChange;
+        vm.onAppsDDOpen = onAppsDDOpen;
+
+        vm.$onInit = function() {
+            vm.state = vm.user.stateCentral;
+            commonDataService.getStateName(vm.state).then((name) => {
+                vm.user.stateName = name;
+            })
+
+            if (vm.user.roleLogicalName.toLowerCase() == "guest") {
+                vm.isRoleEditable = true;
+                vm.stateRadio = vm.state == '99'?'central':'state';
+                if(vm.stateRadio=='state')
+                    fetchStates();
+                getRoles();
+            }
+            getnSetAllApps();
+        }
+
+        function fetchStates() {
+            if(vm.allStates)
+                return
+
+            return commonDataService.fetchStates().then((states) => {
+                states = _.intersectionWith(states, _.map($localStorage.userApps), (state, app) => {
+                    return state.stateid == app.state;
+                })
+                vm.allStates = states;
+            })
+        }
+
+        function onAppsDDOpen(argument) {
+            if(!vm.state)
+                alert('Please select state first!');
+        }
+
+        function stateChange(argument) {
+            getnSetAllApps();
+        }
+
+        function saveUser() {
+            var payload = {
+                userId: vm.user.userId,
+                status: vm.user.status
+            }
+            vm.savingUserPromise = usersService.saveUserStatus(payload).then((data) => {
+                var appsPayload = {
+                    userId: vm.user.userId,
+                    selectedApps: vm.selectedApps
+                }
+                return usersService.saveUserApps(appsPayload);
+            }).then(() => {
+                if (!vm.isRoleEditable)
+                    return $q.resolve();
+
+                var payload = {
+                    userId: vm.user.userId,
+                    roleId: vm.user.role.roleId,
+                    state: vm.state
+                }
+                return usersService.saveUserRole(payload);
+            }).then(() => {
+                $mdDialog.hide();
+            })
+        }
+
+        function getnSetAllApps() {
+            vm.allApps = _($localStorage.userApps).filter({state : vm.state}).map(_.trimAppDetails).value();
+            vm.selectedApps = _.filter(vm.allApps, app => _.includes(vm.user.appids, app.appid))
+        }
+
+        function getRoles(argument) {
+            rolesRightsService.getMyRoles().then((roles) => {
+                vm.roles = roles;
+            })
+        }
+
+        function cancel() {
+            $mdDialog.cancel();
+        }
+
+    }
+})(angular.module('selfcare'));

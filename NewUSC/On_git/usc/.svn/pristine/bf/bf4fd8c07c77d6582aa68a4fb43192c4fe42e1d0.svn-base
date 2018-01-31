@@ -1,0 +1,17 @@
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th ng-repeat="column in vm.table.columns track by $index">
+                    <strong>{{column}}</strong>
+                    <md-icon style="float:right; cursor: pointer;" ng-click="vm.exportToCSV()" ng-if="vm.export && $last">file_download<md-tooltip md-direction="bottom" md-visible="tooltipVisible">Export to CSV</md-tooltip></md-icon>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in vm.table.rows track by $index">
+                <td ng-repeat="columnValue in row track by $index">{{columnValue}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

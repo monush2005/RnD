@@ -1,0 +1,57 @@
+<div layout="row" layout-wrap>
+    <div class="analytics-dashboard-title" style="line-height: 38px;">Total Registration Attempts</div>
+    <div promise-hider="vm.getDataPromise" class="analytics-dashboard-sum"><span ng-show="vm.regAttemptsTotal"> - </span>{{vm.regAttemptsTotal|number}}</div>
+    <div flex="100" promise-loader="vm.getDataPromise" text="Loading Data.." error-text="No Data Found!"></div>
+    <div flex="100" layout="row" promise-hider="vm.getDataPromise" layout-wrap layout-align="center">
+        <div flex="100" flex-gt-sm="50" ng-repeat="status in vm.statuses">
+            <md-card class="cursor-pointer hoverable" ui-sref="{{status.state}}">
+                <md-card-content style="z-index: 1" layout="row">
+                    <div>
+                        <h3 class="no-margin"> {{::status.display}}
+                        <md-icon class="cursor-pointer info-icon"><md-tooltip md-direction="bottom">{{::status.tooltip}}</md-tooltip>info</md-icon></h3>
+                        <br> <span style="font-size:24px">{{(vm.jsons[status.value].totalUsers || '0')|number}}</span>
+                    </div>
+                    <div flex>
+                        <highchart-component no-export="true" height="80" json="vm.jsons[status.value].sparkline"></highchart-component>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+    </div>
+    <div class="analytics-dashboard-title">Registration Mode</div>
+    <div flex="100" promise-loader="vm.getDataPromise" text="Loading Data.." error-text="No Data Found!"></div>
+    <div flex="100" layout="row" layout-wrap promise-hider="vm.getDataPromise" layout-align="center">
+        <div flex="100" flex-gt-sm="{{vm.modeFlex}}" ng-repeat="mode in vm.regModes">
+            <md-card ng-show="vm.regModesJson[mode.value].totalUsers">
+                <md-card-content style="z-index: 1" layout="row">
+                    <div>
+                        <h3 class="no-margin"> {{::mode.display}}
+                        <md-icon class="cursor-pointer info-icon"><md-tooltip md-direction="bottom">{{::mode.tooltip}}</md-tooltip>info</md-icon></h3>
+                        <br> <span style="font-size:24px">{{(vm.regModesJson[mode.value].totalUsers || '0')|number}}</span>
+                    </div>
+                    <div flex>
+                        <highchart-component no-export="true" height="80" json="vm.regModesJson[mode.value].sparkline"></highchart-component>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+    </div>
+    <div class="analytics-dashboard-title">Registration Channel</div>
+    <div flex="100" promise-loader="vm.getDataPromise" text="Loading Data.." error-text="No Data Found!"></div>
+    <div flex="100" layout="row" promise-hider="vm.getDataPromise" layout-wrap layout-align="center">
+        <div flex="100" flex-gt-sm="50" ng-repeat="channel in vm.regChannels">
+            <md-card>
+                <md-card-content style="z-index: 1" layout="row">
+                    <div>
+                        <h3 class="no-margin"> {{::channel.display}}
+                        <md-icon class="cursor-pointer info-icon"><md-tooltip md-direction="bottom">{{::channel.tooltip}}</md-tooltip>info</md-icon></h3>
+                        <br> <span style="font-size:24px">{{(vm.regChannelsJson[channel.value].totalUsers || '0')|number}}</span>
+                    </div>
+                    <div flex>
+                        <highchart-component no-export="true" height="80" json="vm.regChannelsJson[channel.value].sparkline"></highchart-component>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+    </div>
+</div>

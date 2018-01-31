@@ -1,0 +1,15 @@
+<md-content layout-padding layout-wrap>
+    <div class="no-padding" promise-loader="vm.masterFormPromise" text="Loading Questionnaire Form.."></div>
+    <div class="no-padding" promise-hider="vm.masterFormPromise">
+        <mw-form-viewer read-only="vm.readOnly" ng-if="vm.isForm" options="vm.previewOptions" form-data="vm.masterJson" response-data="vm.responseJson" on-submit="vm.saveResponse()"></mw-form-viewer>
+    </div>
+    <div promise-hider="vm.masterFormPromise" align="center" ng-hide="vm.isForm">
+        <h4>You have not created questionnaire yet!</h4>
+        <md-button ui-sref="selfcare.questionnaire.build" class="md-raised md-primary">
+            <md-icon>assignment</md-icon> Create Questionnaire </md-button>
+    </div>
+    <div align="center" ng-if="vm.readOnly">
+    	<md-button class="md-raised" ng-click="vm.cancel()">Cancel</md-button>
+    	<md-button class="md-raised md-primary" ng-click="vm.exportQuestionnaire()">Export as PDF</md-button>
+    </div>
+</md-content>

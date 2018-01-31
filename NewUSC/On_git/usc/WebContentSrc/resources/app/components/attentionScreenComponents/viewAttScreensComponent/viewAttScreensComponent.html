@@ -1,0 +1,36 @@
+<md-content layout-padding layout-wrap>
+    <md-card>
+        <md-card-title>
+            <div class="md-title" md-truncate><md-icon>playlist_play</md-icon> Active Attention Screens</div>
+        </md-card-title>
+        <md-card-content>
+            <div promise-loader="vm.fetchActivePromise" text="Loading Active Attention Screens.."></div>
+            <div promise-hider="vm.fetchActivePromise" layout="column" layout-gt-sm="row">
+                <att-screen-component on-schedule="vm.fetchActiveScreens" layout="colmun" flex="100" active="true" date="item.date" screen="item.screen" ng-repeat="item in vm.activeScreens"></att-screen-component>
+            </div>
+            <div layout="row" layout-align="space-between">
+                <md-button class="md-primary" ng-click="vm.changeDates(false)" ng-disabled="vm.disableButtons || vm.disablePrevious">
+                    <md-icon>navigate_before</md-icon>
+                    <span>Previous 3 Dates</span>
+                </md-button>
+                <md-button class="md-primary" ng-disabled="vm.disableButtons" ng-click="vm.changeDates(true)">
+                    <span>Next 3 Dates</span>
+                    <md-icon>navigate_next</md-icon>
+                </md-button>
+            </div>
+        </md-card-content>
+    </md-card>
+    <md-card>
+        <md-card-title layout="row" layout-align="space-between center">
+            <div class="md-title" md-truncate><md-icon>playlist_add_check</md-icon> Uploaded Attention Screens</div>
+            <md-button flex="none" class="md-raised md-primary" ui-sref="selfcare.attention.upload"><md-icon>cloud_upload</md-icon> Upload New</md-button>
+        </md-card-title>
+        <md-card-content>
+            <div promise-loader="vm.fetchScreensPromise" text="Loading Uploaded Attention Screens.."></div>
+            <div  promise-hider="vm.fetchScreensPromise" layout="column" layout-gt-sm="row">
+                <att-screen-component on-schedule="vm.fetchActiveScreens" layout="column" flex="100" screen="screen" ng-repeat="screen in vm.screens"></att-screen-component>
+            </div>
+            <pagination-component fetch-on-init="true" hide-page-size="true" hide-page-num="true" default-page-size="3" on-fetch="vm.fetchAllScreens"></pagination-component>
+        </md-card-content>
+    </md-card>
+</md-content>

@@ -1,0 +1,31 @@
+<md-content ng-class="{'no-padding':vm.dialogMode}" layout-padding>
+    <md-card ng-class="{'no-padding no-margin':vm.dialogMode}">
+     <md-card-title>
+            <div class="md-title">{{::!vm.role?'Create New Role':'Edit Role'}}<md-icon class="cursor-pointer info-icon"> <md-tooltip md-direction="bottom">You have to assign at least one right and at max one less right to the role.</md-tooltip>info</md-icon></div>
+        </md-card-title>
+        <md-card-content>
+            <form layout="row" name="vm.createRoleForm" layout-wrap>
+                <md-input-container flex="100" class="md-icon-float md-block">
+                    <label>Role Name</label>
+                    <md-icon>security</md-icon>
+                    <input required ng-model="vm.roleName" name="roleName" type="text" maxlength="50">
+                    <div ng-messages="vm.createRoleForm.roleName.$error">
+                        <div ng-message="required">Role name is required.</div>
+                    </div>
+                </md-input-container>
+                <div align="center" flex="100" hide>
+                    <md-button ng-click="vm.selectUnselectAll(true)" class="md-raised">Select All</md-button>
+                    <md-button ng-click="vm.selectUnselectAll(false)" class="md-raised">Unselect All</md-button>
+                </div>
+                <md-input-container class="no-margin" flex="100" flex-gt-sm="33" flex-gt-xs="50" ng-repeat="right in vm.allRights">
+                    <md-switch class="md-primary" md-theme="selfcare" ng-model="right.selected">{{right.displayRightName}}</md-switch>
+                </md-input-container>
+                <div flex="100" align="center" layout-margin>
+                    <md-button ng-if="vm.dialogMode" ng-click="vm.cancel()" class="md-raised">Cancel</md-button>
+                    <md-button is-busy="vm.createRolePromise" ng-click="vm.createRole()" class="md-raised md-primary" ng-if="::!vm.role" ng-disabled="!vm.createRoleForm.$valid">Create</md-button>
+                    <md-button ng-if="::vm.role" is-busy="vm.saveRolePromise" ng-click="vm.saveEditedRole()" class="md-raised md-primary" ng-disabled="!vm.createRoleForm.$valid">Save</md-button>
+                </div>
+            </form>
+        </md-card-content>
+    </md-card>
+</md-content>

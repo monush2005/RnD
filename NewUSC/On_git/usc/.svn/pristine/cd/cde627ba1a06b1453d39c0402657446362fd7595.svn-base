@@ -1,0 +1,67 @@
+<md-content>
+    <div layout="row" layout-wrap>
+        <div flex="100" layout="row" layout-align="center" layout-wrap>
+           <quick-date-range-component flex on-custom="vm.dateSelectorInstance.openSelector" start-date="vm.startDate" end-date="vm.endDate" date-range="vm.dateRange" on-range-change="vm.setDateRange"></quick-date-range-component>
+        </div>
+        <report-card-component date-range="{{vm.dateRange}}" serviceid="vm.serviceid" start-date="vm.startDate" end-date="vm.endDate" for-dashboard="true" appid="vm.appid" flex="100" flex-gt-sm="50"></report-card-component>
+        <md-card flex layout-margin class="dashboard-complaints" layout-padding>
+            <div align="center" class="margin-10">
+                <h4 class="no-margin" style="color:white">Complaints Summary</h4>
+            </div>
+            <md-card-content>
+                <div ng-click="vm.goToQueries('email')" ng-if="vm.appid" class="container-div">
+                    <div class="md-headline">Emails</div>
+                    <div class="md-subhead">Total<span>{{vm.queryCounts.totalEmailCount}}</span> </div>
+                    <div class="md-subhead">Pending<span>{{vm.queryCounts.emailPendingCount}}</span></div>
+                    <md-divider></md-divider>
+                </div>
+                <div ng-click="vm.goToQueries('ivr')" class="container-div">
+                    <div class="md-headline">IVR</div>
+                    <div class="md-subhead">Total<span>{{vm.queryCounts.totalIvrCount}}</span> </div>
+                    <div class="md-subhead">Pending<span>{{vm.queryCounts.ivrPendingCount}}</span></div>
+                    <md-divider></md-divider>
+                </div>
+                <div ng-click="vm.goToQueries('chat')" class="container-div">
+                    <div class="md-headline">Chat</div>
+                    <div class="md-subhead">Total<span>{{vm.queryCounts.totalChatCount}}</span> </div>
+                    <div class="md-subhead">Pending<span>{{vm.queryCounts.chatPendingCount}}</span></div>
+                    <md-divider></md-divider>
+                </div>
+                <div ng-click="vm.goToQueries('all')" class="container-div">
+                    <div class="md-headline">All Complaints</div>
+                    <div class="md-subhead">Total<span>{{vm.queryCounts.totalChatCount+vm.queryCounts.totalIvrCount+vm.queryCounts.totalEmailCount}}</span> </div>
+                    <div class="md-subhead">Pending<span>{{vm.queryCounts.chatPendingCount+vm.queryCounts.ivrPendingCount+vm.queryCounts.emailPendingCount}}</span></div>
+                    <md-divider></md-divider>
+                </div>
+            </md-card-content>
+        </md-card>
+        <div promise-loader="vm.dashboardDataPromise" flex="100"></div>
+        <div flex="100" layout="row" layout-align="center" promise-hider="vm.dashboardDataPromise" layout-wrap>
+            <md-card flex="100" layout-padding>
+                <md-card-content>
+                    <highchart-component json="vm.userDataJSON"></highchart-component>
+                </md-card-content>
+            </md-card>
+            <md-card flex="100" layout-padding>
+                <md-card-content>
+                    <highchart-component json="vm.successRateJSON"></highchart-component>
+                </md-card-content>
+            </md-card>
+            <md-card flex="100" layout-padding>
+                <md-card-content>
+                    <highchart-component json="vm.reponseTimeJSON"></highchart-component>
+                </md-card-content>
+            </md-card>
+            <md-card flex="100" flex-gt-sm="50" layout-padding>
+                <md-card-content>
+                    <highchart-component json="vm.platformJSON"></highchart-component>
+                </md-card-content>
+            </md-card>
+            <md-card flex layout-padding>
+                <md-card-content>
+                    <highchart-component json="vm.responseSlabJSON"></highchart-component>
+                </md-card-content>
+            </md-card>
+        </div>
+    </div>
+</md-content>

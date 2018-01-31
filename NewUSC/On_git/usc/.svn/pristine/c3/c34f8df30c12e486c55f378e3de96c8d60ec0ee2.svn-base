@@ -1,0 +1,80 @@
+(function(app) {
+    'use strict';
+    app.component('editUsersComponent', {
+        templateUrl: 'resources/app/components/userComponents/editUsersComponent/editUsersComponent.html',
+        controller: editUsersComponentController,
+        controllerAs: 'vm',
+        bindings: {
+            forTree: '<'
+        }
+    })
+
+    editUsersComponentController.$inject = ['$localStorage', 'userTreeService', 'usersService', 'customDialogService', 'customToastService'];
+
+    function editUsersComponentController($localStorage, userTreeService, usersService, customDialogService, customToastService) {
+        var vm = this;
+        var isNewRedirect = true;
+        vm.editUser = editUser;
+        vm.filterUsers = filterUsers;
+        vm.clearFilters = clearFilters;
+        vm.viewTree = viewTree;
+
+        vm.$onInit = function() {
+            getSubUsers();
+        }
+
+        function getSubUsers() {
+            vm.getSubUsersPromise = usersService.getSubUsers(vm.filters && vm.filters.payload).then((subUsers) => {
+                vm.subUsers = subUsers;
+                if(vm.forTree)
+                    vm.subUsers.unshift({userId:$localStorage.userInfo.userId});
+            });
+        }
+
+        function clearFilters() {
+            delete vm.filters;
+            getSubUsers();
+        }
+
+        function editUser(user) {
+            user.getUserPromise = usersService.getSubUserDetails(user.userId).then((detailedUser) => {
+                customDialogService.showComponent({
+                    component: 'viewAndEditUserComponent',
+                    bindings: {
+                        user: detailedUser,
+                        forDialog: true
+                    },
+                    clickOutsideToClose: false
+                }).then(() => {
+                    customToastService.freeText('User Details have been successfully updated.');
+                })
+            })
+        }
+
+        function filterUsers() {
+            customDialogService.showComponent({
+                component: 'filterUsersComponent',
+                bindings: {
+                    filters: _.cloneDeep(vm.filters)
+                },
+                clickOutsideToClose: true
+            }).then((newFilters) => {
+                vm.filters = newFilters;
+                getSubUsers();
+            })
+        }
+
+        function viewTree(user) {
+            user.getTreePromise = userTreeService.fetchUserTree(user.userId, isNewRedirect).then((tree) => {
+                isNewRedirect = false;
+                customDialogService.showComponent({
+                    component: 'userTreeComponent',
+                    bindings: {
+                        tree: tree
+                    },
+                    closeButton: true
+                })
+            });
+        }
+    }
+})(angular.module('selfcare'));

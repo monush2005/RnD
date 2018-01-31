@@ -1,0 +1,110 @@
+(function(app) {
+    'use strict';
+    app.component('createUserComponent', {
+        templateUrl: 'resources/app/components/userComponents/createUserComponent/createUserComponent.html',
+        controller: createUserComponentController,
+        controllerAs: 'vm',
+        bindings: {
+
+        }
+    })
+
+    createUserComponentController.$inject = ['$mdSelect', '$localStorage', 'rolesRightsService', '$mdDialog', '$state', 'usersService', 'commonDataService'];
+
+    function createUserComponentController($mdSelect, $localStorage, rolesRightsService, $mdDialog, $state, usersService, commonDataService) {
+        var vm = this;
+        vm.userData = {};
+        vm.roles = [];
+        vm.stateAdminDummyRole = {
+            roleName: 'State Admin',
+            roleId: '0'
+        };
+        vm.fetchedRolesOnce = false;
+        vm.getRoles = getRoles;
+        vm.createUser = createUser;
+        vm.fetchStates = fetchStates;
+        vm.filterAndLoadApps = filterAndLoadApps;
+        vm.onAppDropdownOpen = onAppDropdownOpen;
+
+        vm.$onInit = function() {
+            vm.isSuperAdmin = $localStorage.userRole.logicalName.toLowerCase() == 'superadmin';
+            if (vm.isSuperAdmin) {
+                vm.userData.state = '99';
+            } else {
+                vm.userData.state = $localStorage.userInfo.statecentral;
+            }
+
+            vm.emailPattern = envVars.emailPattern;
+            vm.mobilePattern = envVars.mobilePattern;
+            filterAndLoadApps();
+            fetchStates()
+        }
+
+        function filterAndLoadApps() {
+            vm.userData.selectedApps = [];
+            vm.allApps = _($localStorage.userApps).filter({ state: vm.userData.state }).map(_.trimAppDetails).value();
+            if (vm.userData.state != '99' && vm.isSuperAdmin) {
+                _.pull(vm.roles, vm.stateAdminDummyRole);
+                vm.roles.push(vm.stateAdminDummyRole)
+            } else {
+                _.pull(vm.roles, vm.stateAdminDummyRole);
+                if (vm.userData.role == vm.stateAdminDummyRole)
+                    delete vm.userData.role;
+            }
+        }
+
+        function getRoles() {
+            if (vm.fetchedRolesOnce)
+                return; // to prevent fetching user roles every time dropdown is opened.
+
+            return rolesRightsService.getMyRoles().then((roles) => {
+                vm.fetchedRolesOnce = true;
+                if (roles.length) {
+                    vm.roles = vm.roles.concat(roles);
+                } else {
+                    $mdSelect.hide();
+                    var noRoleCreated = $mdDialog.confirm({
+                        title: 'No Roles Available!',
+                        textContent: 'You need to create a role first to create a user.',
+                        ok: 'Go to Create Roles',
+                        cancel: 'Close',
+                        clickOutsideToClose: false
+                    });
+
+                    $mdDialog.show(noRoleCreated).then(() => {
+                        $state.go('selfcare.roles.create');
+                    })
+                }
+            })
+        }
+
+        function createUser() {
+            vm.createUserPromise = usersService.createUser(vm.userData).then(function(data) {
+                var userCreated = $mdDialog.alert({
+                    title: 'Successful!',
+                    textContent: 'User has been created. Password for user has been sent to email and SMS.',
+                    ok: 'Okay',
+                    clickOutsideToClose: true
+                });
+
+                $mdDialog.show(userCreated).then(() => {
+                    $state.reload('selfcare.users');
+                })
+            });
+        }
+
+        function onAppDropdownOpen() {
+            if (!vm.userData.state)
+                alert('Please select state first!');
+        }
+
+        function fetchStates() {
+            return commonDataService.fetchStates().then((states) => {
+                states = _.intersectionWith(states, _.map($localStorage.userApps), (state, app) => {
+                    return state.stateid == app.state;
+                })
+                vm.allStates = states;
+            });
+        }
+    }
+})(angular.module('selfcare'));

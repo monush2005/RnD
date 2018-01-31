@@ -1,0 +1,3 @@
+<div style="max-width: 100%; height: {{::vm.height?vm.height:300}}px;">
+    <div></div>
+</div>

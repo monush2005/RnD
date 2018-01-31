@@ -1,0 +1,55 @@
+<div class="expand-apps animate-show-hide" ng-click="vm.showServices()" ng-show="('selfcare.dashboard.services.performance' | isState) && !vm.areServicesVisible" layout="row" layout-align="center center">
+    <md-icon style="color:white">keyboard_arrow_down</md-icon> <span>Show all Services</span>
+    <md-icon style="color:white">keyboard_arrow_down</md-icon>
+</div>
+<md-content id="servicesContent" class="md-padding">
+    <div ng-if="('selfcare.dashboard.services' | isState) || vm.areServicesVisible" class="animate-if">
+        <div ng-init="vm.$onInit()" class="no-padding" layout="row" style="margin-top: -10px;margin-bottom: -10px;">
+            <md-input-container flex="100" style="margin-top: 14px;">
+                <input type="text" placeholder="Search Services.." ng-model="vm.serviceFilter">
+            </md-input-container>
+            <md-input-container flex="noshrink">
+                <label>Sort By</label>
+                <md-select ng-model="vm.sortType" ng-change="vm.sortServices()">
+                    <md-option value="latestFirst">Newly added</md-option>
+                    <md-option value="oldestFirst">Oldest</md-option>
+                    <md-option value="aToZ">A to Z (by service name)</md-option>
+                    <md-option value="zToA">Z to A (by service name)</md-option>
+                    <md-option value="appLatestFirst">Newly added (by app)</md-option>
+                    <md-option value="appOldestFirst">Oldest (by app)</md-option>
+                    <md-option value="appAToZ">A to Z (by app name)</md-option>
+                    <md-option value="appZToA">Z to A (by app name)</md-option>
+                </md-select>
+            </md-input-container>
+            <div layout="row" flex="noshrink">
+                <md-button class="md-fab md-mini md-primary" ng-click="vm.openFilterDialog()">
+                    <md-tooltip md-direction="bottom">Filter Services</md-tooltip>
+                    <md-icon md-menu-origin>filter_list</md-icon>
+                </md-button>
+                <md-button ng-show="vm.hasFilters" class="md-fab md-mini md-warn" ng-click="vm.clearFilters()">
+                    <md-tooltip md-direction="bottom">Clear Filters</md-tooltip>
+                    <md-icon md-menu-origin>close</md-icon>
+                </md-button>
+            </div>
+        </div>
+        <div class="dashboard-app-cards" scroll-horizontal="services" layout="row" layout-align="start center" ng-if="vm.allServices.length>0">
+            <md-card class="cursor-pointer hoverable" ui-sref-opts="{notify:false}" ng-click="vm.areServicesVisible=false" ui-sref="selfcare.dashboard.services.performance({serviceid:service.serviceid})" ng-repeat="service in vm.allServices|filter:vm.serviceFilter">
+                <div align="center">
+                    <img class="md-card-image" ng-src="{{::service.image}}">
+                </div>
+                <md-card-footer align="center">
+                    <div title="{{::service.servicename}}" class="app-name" md-truncate>{{::service.servicename}}</div>
+                </md-card-footer>
+                <div class="visit-app" ui-sref="selfcare.dashboard.service.home({serviceid:service.serviceid})" ng-click="$event.stopPropagation()">Visit Settings</div>
+            </md-card>
+        </div>
+        <div align="center" ng-if="!vm.allServices.length">
+            <h4>No apps found in selected criteria.</h4>
+        </div>
+    </div>
+    <div align="center" ng-if="('selfcare.dashboard.services' | isState) && vm.allServices.length">
+        <br>
+        <h4>Please click on any above service to view its performance.</h4>
+    </div>
+    <ui-view class="fade-up"></ui-view>
+</md-content>

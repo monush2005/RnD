@@ -1,0 +1,7 @@
+<md-content scroll-horizontal="tree">
+    <div class="tree">
+        <ul>
+            <user-tree-directive user="vm.tree"></user-tree-directive>
+        </ul>
+    </div>
+</md-content>

@@ -1,0 +1,56 @@
+<md-content layout-padding layout-wrap>
+    <md-card>
+        <md-card-content>
+            <md-tabs md-selected="vm.selectedTabIndex" md-dynamic-height md-border-bottom>
+                <md-tab md-on-select="enabled=true" md-on-deselect="enabled=false" ui-sref-opts="{notify:false}" ui-sref="selfcare.users.requests({status:status})" ng-repeat="status in ::vm.statuses"><md-tab-label>
+                        <md-icon style="margin-right: 10px;">{{::vm.icons[status]}}</md-icon>
+                         {{::status}}
+                    </md-tab-label>
+                </md-tab>
+            </md-tabs>
+            <div promise-loader="vm.getRequestsPromise" text="Loading requests.."></div>
+            <div ng-show="vm.requests.length" promise-hider="vm.getRequestsPromise" layout="row" layout-wrap layout-align="center center">
+                <md-input-container flex="100" flex-gt-sm="50" flex-gt-sm="45">
+                    <label>Start Date</label>
+                    <md-datepicker date-picker-clear md-open-on-focus ng-model="vm.startDate"></md-datepicker>
+                </md-input-container>
+                <md-input-container flex="100" flex-gt-sm="50" flex-gt-sm="45">
+                    <label>End Date</label>
+                    <md-datepicker date-picker-clear md-open-on-focus ng-model="vm.endDate"></md-datepicker>
+                </md-input-container>
+                 <div flex="100" class="search-box">
+                    <md-icon style="margin-right: 9px;">search</md-icon>
+                    <input ng-model="vm.searchText" type="Search" placeholder="Search Organization...">
+                </div>
+            </div>
+            <md-list flex layout-margin>
+                <md-list-item ng-repeat="request in vm.requests | filter : vm.filterRequests">
+                    <md-icon style="font-size: 35px" class="md-avatar">business</md-icon>
+                    <p md-truncate highlight-bind="request.organization | vm.searchText"></p>
+                    <md-button usc-right="viewQuestionaire" is-busy="request.getUserQuesionnairePromise" ng-disabled="!request.hasSubmitted" hide show-gt-sm ng-show="vm.status=='approved'" ng-click="vm.viewQuestionnaire(request)" class="md-raised">
+                        {{request.hasSubmitted?'View Questionnaire':'Not Submitted'}}
+                    </md-button>
+                    <a hide show-gt-sm href="mailto:{{request.emailId}}" class="md-button md-raised">
+                        <md-icon style="color: grey">email</md-icon>
+                        <span>Contact</span>
+                    </a>
+                    <md-button ng-click="vm.viewDetails(request)" class="md-raised">
+                        View Details
+                    </md-button>
+                    <md-button hide show-gt-sm md-theme="selfcare" ng-show="vm.status=='pending'" ng-click="vm.approveRequest(request)" class="md-raised md-primary">
+                        Approve
+                    </md-button>
+                    <md-button is-busy="request.getUserPromise" hide show-gt-sm ng-show="vm.status=='approved'" ng-click="vm.editUser(request)" class="md-raised md-primary">
+                        Edit User
+                    </md-button>
+                    <md-button hide show-gt-sm ng-show="vm.status=='pending'" ng-click="vm.rejectRequest(request)" class="md-raised md-warn">
+                        Reject
+                    </md-button>
+                </md-list-item>
+            </md-list>
+            <div align="center" ng-hide="vm.requests.length" promise-hider="vm.getRequestsPromise">
+                <h4>No results found!</h4>
+            </div>
+        </md-card-content>
+    </md-card>
+</md-content>

@@ -1,0 +1,96 @@
+<md-content layout-padding>
+    <md-card>
+        <md-card-content>
+            <div promise-loader="vm.getSubUsersPromise" text="Loading users.."></div>
+            <div promise-hider="vm.getSubUsersPromise" layout="row" ng-show="vm.filters.payload || vm.subUsers.length" layout-wrap>
+                <md-input-container flex>
+                    <label>Search by User ID and Organisation Name</label>
+                    <md-icon>search</md-icon>
+                    <input ng-model="vm.searchText" type="Search">
+                    <i class="material-icons"  ng-click="vm.searchText = ''" ng-show="vm.searchText" style="margin-top: 7px;font-size: 20px;position:  absolute;top: 0px;right: 0px;">close</i>
+                </md-input-container>
+                 
+                <md-button class="md-fab md-mini md-primary" ng-click="vm.filterUsers()">
+                    <md-tooltip md-direction="bottom">Modify Filters</md-tooltip>
+                    <md-icon md-menu-origin>filter_list</md-icon>
+                </md-button>
+                
+                 <md-input-container flex="20">
+                <label>Sort By</label>
+                <md-select ng-model="vm.sortType" ng-change="vm.sortApps()">
+                    <md-option value="latestFirst" selected>Sort By Latest</md-option>
+                    <md-option value="oldestFirst">Sort By Old</md-option>
+                    <md-option value="aToZ">Sort By Organisation Name (A to Z)</md-option>
+                    <md-option value="zToA">Sort By Organisation Name (Z to A)</md-option>
+                    <!-- <md-option value="LTon">User-Id(zToA)</md-option>
+                    <md-option value="NToP">User-Id(zToA)</md-option> -->
+                     
+                </md-select>
+            </md-input-container>
+                
+                
+                <md-button ng-show="vm.filters.payload" class="md-fab md-mini md-warn" ng-click="vm.clearFilters()">
+                    <md-tooltip md-direction="bottom">Clear Filters</md-tooltip>
+                    <md-icon md-menu-origin>close</md-icon>
+                </md-button>
+               
+                <table width="100%" layout-margin ng-container matColumnDef="position" id="table" class="Useredittable">
+                <thead>
+                <tr class="text-left">
+                <td>User ID</td>
+                <td>Organization Name</td>
+                <td>Date of Creation</td>
+                <td>Action</td>
+                </tr>
+                </thead>
+               
+                <tbody>
+                <tr ng-repeat="user in vm.subUsers | filter : vm.searchText">
+              
+                  <td md-truncate highlight-bind="user.userId | vm.searchText">{{user.userId}}</td>
+                   <td>{{ user.applicationName}}</td>  
+                 <!--  <td>{{ user.applicationName <= 0 || user.applicationName== undefined ? 'NA' : user.applicationName}}</td> -->  
+                 <!--  <td>{{ng-if="user.applicationName <= 0 || user.applicationName== undefined" 'NA' else= user.applicationName}}</td> -->             
+                  <!-- <td>{{user.creationDate}}</td> -->
+                  <td>{{user.creationDate}}</td>
+                  <td> <md-button flex="10" ng-hide="::vm.forTree" is-busy="user.getUserPromise" ng-click="vm.editUser(user)" class="md-raised md-primary">
+                            Edit
+                        </md-button>
+                        <md-button ng-show="::vm.forTree" is-busy="user.getTreePromise" ng-click="vm.viewTree(user)" class="md-raised md-primary">
+                            View Tree
+                        </md-button></td>
+                </tr>
+               
+                </tbody>
+                </table>
+               
+                
+                
+             <!--    <md-list flex="100" layout-margin>
+                    <md-list-item ng-repeat="user in vm.subUsers|filter:vm.searchFilter">
+                        <md-icon flex="5" style="font-size: 35px" class="md-avatar">account_circle</md-icon>
+                        <div flex="85" layout="column"       layout-align="center start">
+                        <span flex="100" md-truncate highlight-bind="user.userId | vm.searchFilter"></span>
+                       <span class="applicationName_here" flex="100" md-truncate highlight-bind="user.applicationName | vm.searchFilter"></span>
+                        <span class="applicationName_here" flex="100" md-truncate highlight-bind="user.creationDate | vm.searchFilter"></span>
+                        </div>
+                        <md-button flex="10" ng-hide="::vm.forTree" is-busy="user.getUserPromise" ng-click="vm.editUser(user)" class="md-raised">
+                            View / Edit
+                        </md-button>
+                        <md-button ng-show="::vm.forTree" is-busy="user.getTreePromise" ng-click="vm.viewTree(user)" class="md-raised">
+                            View Tree
+                        </md-button>
+                    </md-list-item>
+                </md-list> -->
+            </div>
+            <div promise-hider="vm.getSubUsersPromise" ng-hide="vm.filters.payload || vm.subUsers.length" align="center">
+                <h4>You have no users under you!</h4>
+                <md-button ui-sref="selfcare.users.create" class="md-raised md-primary">
+                    <md-icon>person_add</md-icon> Create New User </md-button>
+            </div>
+            <div promise-hider="vm.getSubUsersPromise" ng-show="vm.filters.payload && !vm.subUsers.length" align="center">
+                <h4>No results found!</h4>
+            </div>
+        </md-card-content>
+    </md-card>
+</md-content>

@@ -1,0 +1,50 @@
+<section layout="row" layout-wrap layout-gt-sm="row" layout-align="center center">
+    <md-button flex flex-gt-sm="noshrink" ng-click="vm.changeCriteria(criteria)" style="padding: 0 10px" class="no-margin middle button-group" ng-class="{'selected': vm.selectedCriteria==criteria }" ng-repeat="criteria in ::vm.criterias">
+        <md-icon style="font-size:22px;margin-right: 3px">{{::criteria.icon}}</md-icon><span hide show-gt-sm style="font-size:14px"> {{::criteria.text}}</span>
+        <md-tooltip hide-gt-sm md-direction="bottom">{{::criteria.text}}</md-tooltip>
+    </md-button>
+</section>
+<div layout-gt-sm="row" layout="column">
+    <md-card flex-gt-sm="20">
+        <div class="search-box in-card">
+            <md-icon style="margin-right: 9px;">search</md-icon>
+            <input ng-model="vm.search" type="Search" placeholder="Search...">
+        </div>
+        <div layout="column">
+            <md-button flex class="md-raised md-primary" ng-click="vm.showFilterComp()">{{vm.hasFilters?'Modify Filters':'Filter'}}</md-button>
+            <md-button class="md-raised" ng-show="vm.hasFilters" ng-click="vm.clearFilters()">Clear Filters</md-button>
+        </div>
+        <md-content style="max-height: 300px">
+            <md-list>
+                <md-list-item ng-class="{'box-bg1': vm.selectedApp==app}" title="{{::app.appname}}" ng-click="vm.selectApp(app)" ng-repeat="app in vm.allApps|filter:{'appname': vm.search}">
+                    <p md-truncate> {{ app.appname }} </p>
+                </md-list-item>
+            </md-list>
+        </md-content>
+        <h4 align="center" ng-show="!vm.allApps.length">No Results Found!</h4>
+    </md-card>
+    <md-card flex-gt-sm layout="column" layout-wrap>
+        <div layout="row" layout-align="center center" class="margin-10" ng-hide="vm.selectedApp">
+            <h4>Please select a department to view its performance.</h4>
+        </div>
+        <div layout-align="center center" layout="row" ng-show="vm.graphForItems.length">
+            <label><strong>Graph for : </strong></label>
+            <md-input-container flex="none" >
+                <md-select ng-change="vm.getData()" ng-model="vm.graphFor">
+                    <md-option ng-value="item" ng-repeat="item in vm.graphForItems">{{::item.name}}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div promise-loader="vm.getDataPromise" error-text="No Data Found!" text="Loading Data.."></div>
+        <highchart-component sortable="vm.selectedCriteria.value!='temporal'" on-series-click="vm.onSeriesClick"  promise-hider="vm.getDataPromise" for-analytics="true" fullscreen-button="true" json="vm.json"></highchart-component>
+        <div promise-loader="vm.getSubDataPromise" ng-show="vm.getSubDataPromise" error-text="No Data Found!" text="Loading Data.."></div>
+        <div promise-hider="vm.getSubDataPromise">
+            <highchart-component sortable="true" fullscreen-button="true" for-analytics="true" ng-show="vm.sub.ageJson" json="vm.sub.ageJson"></highchart-component>
+            <highchart-component sortable="true" fullscreen-button="true" for-analytics="true" ng-show="vm.sub.genderJson" json="vm.sub.genderJson"></highchart-component>
+            <highchart-component sortable="true" fullscreen-button="true" for-analytics="true" ng-show="vm.sub.qualJson" json="vm.sub.qualJson"></highchart-component>
+            <highchart-component sortable="true" fullscreen-button="true" for-analytics="true" ng-show="vm.sub.occupJson" json="vm.sub.occupJson"></highchart-component>
+            <highchart-component sortable="true" fullscreen-button="true" for-analytics="true" ng-show="vm.sub.districtJson" json="vm.sub.districtJson"></highchart-component>
+        </div>
+        <br>
+    </md-card>
+</div>

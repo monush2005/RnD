@@ -1,0 +1,28 @@
+<md-content layout-padding layout-wrap>
+    <form name="vm.requestForm" layout="row" layout-wrap>
+        <md-input-container flex="100">
+            <label>Subject</label>
+            <input readonly type="text" ng-model="vm.subject">
+        </md-input-container>
+        <md-input-container flex="100">
+            <label>New {{::vm.name}}</label>
+            <textarea focus-on-init type="text" ng-model="vm.newValue" maxlength="{{vm.maxLength}}" md-maxlength="vm.maxLength" required name="value" rows="2"></textarea>
+            <div ng-messages="vm.requestForm.value.$error">
+                <div ng-message="required">Please provide new {{::vm.name}}</div>
+                <div ng-message="md-maxlength">{{::vm.name}} cannot be greater than {{::vm.maxLength}}</div>
+            </div>
+        </md-input-container>
+        <md-input-container flex="100">
+            <label>Comments (Optional)</label>
+            <textarea type="text" ng-model="vm.comment" rows="2" maxlength="{{vm.maxLength}}" md-maxlength="vm.maxLength"></textarea>
+        </md-input-container>
+        <div flex="100" align="center">
+            <!-- <p class="small-grey-text">Change of {{vm.name}} includes language translation, so it can not be updated directly. </p> -->
+            <p style="color: red" class="small-grey-text">Any requests for change/updation of data which require language translation are temporarily disabled.</p>
+        </div>
+        <div align="center" flex="100">
+            <md-button class="md-raised" ng-click="vm.cancel()">Cancel</md-button>
+           <!--  <md-button ng-disabled="vm.requestForm.$invalid || vm.newValue==vm.initValue" is-busy="vm.requestPromise" class="md-raised md-primary" ng-click="vm.submit()">Request</md-button> -->
+        </div>
+    </form>
+</md-content>

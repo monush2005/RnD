@@ -1,0 +1,122 @@
+(function(app) {
+    'use strict';
+    app.component('appFeedbacksComponent', {
+        templateUrl: 'resources/app/components/ratingAndFeebacksComponent/appFeedbacksComponent/appFeedbacksComponent.html',
+        controller: appFeedbacksComponentController,
+        controllerAs: 'vm',
+        bindings: {
+            startDate: '<',
+            endDate: '<'
+        }
+    })
+
+    appFeedbacksComponentController.$inject = ['$localStorage', 'commonDataService', 'ratingsService', 'customDialogService'];
+
+    function appFeedbacksComponentController($localStorage, commonDataService, ratingsService, customDialogService) {
+        var vm = this;
+        vm.clearFilters = clearFilters;
+        vm.hasFilters = hasFilters;
+        vm.getResults = getResults;
+        vm.refreshResults = refreshResults;
+        vm.showProfileInfo = showProfileInfo;
+
+        vm.appFeedbacksFilters = {};
+
+        vm.filterByList = [{
+            name: 'Five Star',
+            value: '5',
+        }, {
+            name: 'Four Star',
+            value: '4',
+        }, {
+            name: 'Three Star',
+            value: '3',
+        }, {
+            name: 'Two Star',
+            value: '2',
+        }, {
+            name: 'One Star',
+            value: '1',
+        }, {
+            name: 'Feedback without Rating',
+            value: 'fwr',
+        }, {
+            name: 'Rating Without Feedback',
+            value: 'rwf',
+        }, {
+            name: 'Other Feedback',
+            value: 'other',
+        }]
+
+        vm.opSystemsList = [{
+            name: 'Android',
+            value: 'android'
+        }, {
+            name: 'iOS',
+            value: 'ios'
+        }, {
+            name: 'Windows Phone',
+            value: 'wp'
+        }, {
+            name: 'Website',
+            value: 'web'
+        }, {
+            name: 'Mobile Web',
+            value: 'mobileweb'
+        }]
+
+        vm.$onInit = function() {
+            getLanguges();
+        }
+
+        vm.$onChanges = function() {
+            refreshResults();
+        }
+
+        function getLanguges() {
+            commonDataService.fetchLanguages().then((langs) => {
+                vm.langsList = langs;
+            })
+        }
+
+        function refreshResults() {
+            if (vm.paginator)
+                vm.paginator.goToPage(1);
+        }
+
+        function getResults(page, size) {
+            let filters = _.cloneDeep(vm.appFeedbacksFilters);
+            filters.startDate = vm.startDate;
+            filters.endDate = vm.endDate;
+            filters.page = page;
+            filters.size = size;
+
+            vm.getResultsPromise = ratingsService.getAppFeedbacks(filters).then((results) => {
+                vm.results = results;
+                return results.totalUsers;
+            })
+
+            return vm.getResultsPromise;
+        }
+
+        function clearFilters() {
+            vm.appFeedbacksFilters = {};
+            refreshResults();
+        }
+
+        function hasFilters() {
+            return _.flatMap(vm.appFeedbacksFilters, i => i.toString()).join('') != '';
+        }
+
+        function showProfileInfo(feedback) {
+            feedback.showProfilePromise = ratingsService.getProfileInfo(feedback.profileId).then((profile) => {
+                customDialogService.showComponent({
+                    component: 'userProfileComponent',
+                    bindings: {
+                        profile: profile,
+                    }
+                });
+            })
+        }
+    }
+})(angular.module('selfcare'));

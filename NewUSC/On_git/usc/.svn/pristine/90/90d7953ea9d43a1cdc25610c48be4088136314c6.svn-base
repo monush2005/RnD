@@ -1,0 +1,109 @@
+(function(app) {
+    'use strict';
+    app.component('createRoleComponent', {
+        templateUrl: 'resources/app/components/roleComponents/createRoleComponent/createRoleComponent.html',
+        controller: createRoleComponentController,
+        controllerAs: 'vm',
+        bindings: {
+            role: '<',
+            dialogMode: '<'
+        }
+    })
+
+    createRoleComponentController.$inject = ['$localStorage', 'rolesRightsService', '$mdDialog', '$state', 'customToastService'];
+
+    function createRoleComponentController($localStorage, rolesRightsService, $mdDialog, $state, customToastService) {
+        var vm = this;
+        vm.cancel = cancel;
+        vm.createRole = createRole;
+        vm.saveEditedRole = saveEditedRole;
+        vm.selectUnselectAll = selectUnselectAll;
+
+        vm.$onInit = function() {
+            vm.allRights = _($localStorage.userRights).filter(right => !right.temp).value();
+            vm.allRights = _.cloneDeep(vm.allRights);
+            if (vm.role) {
+                fillForm(vm.role);
+            }
+        }
+
+        function cancel() {
+            let canExit = false;
+            if (isFormDirty())
+                canExit = confirm("Are you sure you want to exit without saving?");
+            else
+                canExit = true;
+
+            if (canExit)
+                $mdDialog.cancel();
+        }
+
+        function createRole() {
+            if (!areRightsValid())
+                return;
+
+            vm.createRolePromise = rolesRightsService.createRole({
+                roleName: vm.roleName,
+                rights: _.filter(vm.allRights, 'selected')
+            }).then((data) => {
+                var confirmDialog = $mdDialog.confirm()
+                    .title('Role Created')
+                    .htmlContent(`<b>${vm.roleName}</b> role has been created. What would you like to do next?`)
+                    .ok('Create New User')
+                    .cancel('Create another Role')
+
+                $mdDialog.show(confirmDialog)
+                    .then(() => {
+                        $state.go('selfcare.users.create');
+                    }).catch(() => {
+                        $state.reload('selfcare.roles.create');
+                    })
+            })
+        }
+
+        function saveEditedRole() {
+            if (!areRightsValid())
+                return;
+
+            vm.saveRolePromise = rolesRightsService.saveRole({
+                roleId: vm.role.roleId,
+                roleName: vm.roleName,
+                rights: _.filter(vm.allRights, 'selected')
+            }).then(() => {
+                return $mdDialog.hide(vm.roleName);
+            })
+        }
+
+        function fillForm(role) {
+            vm.allRights = _.markSelectedBy(vm.allRights, _.map(role.rights, 'rightId'), 'rightId');
+            vm.roleName = role.roleName;
+        }
+
+        function isFormDirty() {
+            let originalRights = _.map(vm.role.rights, 'rightId');
+            let selectedRights = _(vm.allRights).filter('selected').map('rightId').value();
+
+            return (_.difference(originalRights, selectedRights).length || _.difference(selectedRights, originalRights).length || vm.roleName != vm.role.roleName)
+        }
+
+        function areRightsValid() {
+            var numberOfSelectedRights = _.filter(vm.allRights, 'selected').length
+            if (!numberOfSelectedRights) {
+                customToastService.freeText('Please select atleast one Right', undefined, true)
+                return false;
+            }
+            if (numberOfSelectedRights == vm.allRights.length) {
+                customToastService.freeText('You cannot select all rights, please select atleast one less right.', undefined, true)
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function selectUnselectAll(toSelect) {
+            _.each(vm.allRights, (right) => {
+                right.selected = toSelect;
+            });
+        }
+    }
+})(angular.module('selfcare'));

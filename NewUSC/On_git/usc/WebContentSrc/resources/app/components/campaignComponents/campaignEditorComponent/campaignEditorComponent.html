@@ -1,0 +1,277 @@
+<form name="vm.campaignForm" layout="row" layout-wrap layout-padding>
+    <div layout="row" flex="100" layout-wrap layout-align="space-around">
+        <div flex="95">
+            <h4><span>Notification Type 
+            <md-icon class="cursor-pointer info-icon"><md-tooltip md-direction="bottom">Send notifications on the basis of user's app profile using "Profile Mode" or upload file containing mobile number in "File Mode" </md-tooltip> info</md-icon></span> </h4>
+            <md-radio-group ng-disabled="::vm.readOnly" ng-model="vm.extractType" layout="row">
+                <md-radio-button value="extract" class="md-primary"> Profile Based </md-radio-button>
+                <md-radio-button value="file" class="md-primary"> File Based </md-radio-button>
+            </md-radio-group>
+            <br>
+        </div>
+        <div ng-show="vm.readOnly && vm.extractType=='file'">
+            <md-button ng-click="vm.downloadFile()" is-busy="vm.downloadFilePromise" class="md-fab md-mini custom-green">
+                <md-tooltip md-direction="bottom">Download File</md-tooltip>
+                <md-icon>file_download</md-icon>
+            </md-button>
+        </div>
+        <div flex="95" ng-hide="::vm.readOnly" ng-if="vm.extractType=='file'">
+            <div layout="column" class="no-padding">
+                <div layout="row">
+                    <h4>Attach file</h4>
+                    <h5 style="padding-left: 10px"><a href="#" ng-click="vm.downloadSample()" >(Download Sample File)</a></h5>
+                </div>
+                <span class="small-grey-text">Notifications will be sent only if user is registered on UMANG and is logged in.</span>
+                <label ng-if="!vm.campaignModel.extractFile" for="file" md-ink-ripple="true" class="md-fab calender-bg md-button md-ink-ripple md-container-ignore md-no-float">
+                    <md-tooltip md-direction="bottom" md-visible="tooltipVisible">Attach File</md-tooltip>
+                    <md-icon style="color:white">attach_file</md-icon>
+                </label>
+                <label ng-if="vm.campaignModel.extractFile" ng-click="vm.campaignModel.extractFile=''" md-ink-ripple="true" class="md-fab md-warn md-button md-ink-ripple md-container-ignore md-no-float">
+                    <md-tooltip md-direction="bottom" md-visible="tooltipVisible">Remove File</md-tooltip>
+                    <md-icon>close</md-icon>
+                </label>
+                <md-input-container class="no-margin" flex="100">
+                    <input accept=".csv" clear-on-destroy type="file" name="extractFile" id="file" file-model ng-model="vm.campaignModel.extractFile" ng-change="vm.selectedFileChange()" required class="file-input-fab">
+                    <div ng-messages="vm.campaignForm.extractFile.$error">
+                        <div ng-message="required">
+                            Extract File is required.
+                        </div>
+                        <div ng-message="notCSV">
+                            Only .CSV file can be uploaded.
+                        </div>
+                    </div>
+                </md-input-container>
+                <div ng-if="vm.campaignModel.extractFile && vm.campaignForm.extractFile.$valid">
+                    <h5 class="no-margin-top">Selected File: {{vm.campaignModel.extractFile.name}} ({{vm.campaignModel.extractFile.size/1024|number}} KB)</h5>
+                </div>
+            </div>
+        </div>
+        <md-input-container flex="95">
+            <label>Notification Title</label>
+            <md-icon class="grey-icon">title</md-icon>
+            <input ng-disabled="::vm.readOnly" md-maxlength="150" maxlength="150" required autocomplete="off" type="text" ng-model="vm.campaignModel.campaignTitle" name="campaignTitle" />
+            <div ng-messages="vm.campaignForm.campaignTitle.$error">
+                <div ng-message="required">
+                    Notifications Title is required.
+                </div>
+                <div ng-message="md-maxlength">
+                    Maximum allowed title length is 150.
+                </div>
+            </div>
+        </md-input-container>
+        <md-input-container ng-if="vm.extractType!='file'" flex="95">
+            <label>Message</label>
+            <md-icon class="grey-icon">subtitles</md-icon>
+            <input ng-disabled="::vm.readOnly" clear-on-destroy md-maxlength="500" maxlength="500" required autocomplete="off" type="text" ng-model="vm.campaignModel.campaignSubTitle" name="campaignSubTitle" />
+            <div ng-messages="vm.campaignForm.campaignSubTitle.$error">
+                <div ng-message="required">
+                    Message is required.
+                </div>
+                <div ng-message="md-maxlength">
+                    Maximum allowed message length is 500.
+                </div>
+            </div>
+        </md-input-container>
+        <div flex="95" layout="row" layout-wrap style="margin-bottom:18px">
+            <md-input-container flex="100">
+                <label>Action on Notification Click
+                    <md-tooltip md-direction="bottom">This action will be performed when user clicks on notification.</md-tooltip>
+                </label>
+                <md-icon class="grey-icon">touch_app</md-icon>
+                <md-select ng-disabled="::vm.readOnly" ng-model="vm.campaignModel.selectedNotificationType">
+                    <md-option ng-repeat="type in vm.notificationTypes" ng-value="type">
+                        {{::type.name}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container ng-if="vm.campaignModel.selectedNotificationType.value=='openAppWithDialog'" flex="100">
+                <label>Dialog Description</label>
+                <md-icon class="grey-icon">subtitles</md-icon>
+                <textarea ng-disabled="::vm.readOnly" clear-on-destroy md-maxlength="500" maxlength="500" required autocomplete="off" type="text" ng-model="vm.campaignModel.longDescription" name="longDescription"></textarea>
+                <div ng-messages="vm.campaignForm.longDescription.$error">
+                    <div ng-message="required">
+                        Dialog Description is required.
+                    </div>
+                    <div ng-message="md-maxlength">
+                        Maximum allowed dialog description length is 500.
+                    </div>
+                </div>
+            </md-input-container>
+            <md-input-container ng-if="vm.campaignModel.selectedNotificationType.value=='browser' || vm.campaignModel.selectedNotificationType.value=='webview'" flex="100">
+                <label>Redirect URL</label>
+                <md-icon class="grey-icon">link</md-icon>
+                <input ng-disabled="::vm.readOnly" clear-on-destroy required autocomplete="off" type="url" ng-model="vm.campaignModel.redirectUrl" name="redirectUrl" />
+                <div ng-messages="vm.campaignForm.redirectUrl.$error">
+                    <div ng-message="required">
+                        Redirect URL is required.
+                    </div>
+                    <div ng-message="url">
+                        Please enter a valid URL.
+                    </div>
+                </div>
+            </md-input-container>
+            <md-input-container ng-if="vm.campaignModel.selectedNotificationType.value=='webview'" flex="100">
+                <label>WebView Title</label>
+                <md-icon class="grey-icon">title</md-icon>
+                <input ng-disabled="::vm.readOnly" clear-on-destroy required autocomplete="off" type="text" ng-model="vm.campaignModel.webViewTitle" name="webViewTitle" />
+                <div ng-messages="vm.campaignForm.webViewTitle.$error">
+                    <div ng-message="required">
+                        WebViewT itle is required.
+                    </div>
+                </div>
+            </md-input-container>
+            <md-input-container ng-if="vm.campaignModel.selectedNotificationType.value=='service'" flex="100">
+                <label>App to redirect to</label>
+                <md-icon class="grey-icon">apps</md-icon>
+                <md-select ng-disabled="::vm.readOnly" md-select-search="vm.allApps.length>5" clear-on-destroy required ng-model="vm.campaignModel.redirectApp" name="redirectApp">
+                    <md-option ng-value="app.appid" ng-repeat="app in vm.allApps">{{::app.appname}}</md-option>
+                </md-select>
+                <div ng-messages="vm.campaignForm.redirectApp.$error">
+                    <div ng-message="required">Redirect App is required.</div>
+                </div>
+            </md-input-container>
+        </div>
+    </div>
+    <div layout="column" flex="100" ng-if="vm.extractType!='file'">
+        <div layout="row" layout-align="space-around" style="margin-top: -25px;" layout-wrap>
+            <md-input-container flex="45">
+                <h4>Operating System</h4>
+                <md-checkbox ng-disabled="::vm.readOnly" ng-change="vm.validateOS()" name="oses" ng-model="os.selected" class="md-primary" ng-repeat="os in vm.campaignModel.oses">{{os.name}}</md-checkbox>
+                <div ng-messages="vm.campaignForm.oses.$error" ng-show="vm.campaignForm.oses.$dirty">
+                    <div ng-message="atleastOne">Please select atleast one OS!</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex="45">
+                <h4>Gender</h4>
+                <md-checkbox ng-disabled="::vm.readOnly" ng-change="vm.validateGender()" name="genders" ng-model="gender.selected" class="md-primary" ng-repeat="gender in vm.campaignModel.genders">{{gender.name}}</md-checkbox>
+                <div ng-messages="vm.campaignForm.genders.$error" ng-show="vm.campaignForm.genders.$dirty">
+                    <div ng-message="atleastOne">Please select atleast one gender!</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex="100" flex-gt-sm="45">
+                <label>Qualifications ({{vm.campaignModel.selectedQualifications.length}} Selected)</label>
+                <md-icon class="grey-icon">school</md-icon>
+                <md-select ng-required="::false && !vm.readOnly" multiple class="capitalize" ng-model="vm.campaignModel.selectedQualifications" md-on-close="vm.qualificationFilter=''" placeholder="Qualifications" name="selectedQualifications">
+                    <md-select-header ng-hide="::vm.readOnly" ng-if="vm.allQualifications.length>5" search="vm.qualificationFilter" select-all="vm.allQualifications|vm.campaignModel.selectedQualifications">
+                    </md-select-header>
+                    <md-option ng-disabled="::vm.readOnly" ng-value="qualification" ng-repeat="qualification in vm.allQualifications |
+              filter:vm.qualificationFilter" class="capitalize">{{::qualification.qualName}}</md-option>
+                </md-select>
+                <div ng-messages="vm.campaignForm.selectedQualifications.$error">
+                    <div ng-message="required">Atleast one Qualification is required!</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex="100" flex-gt-sm="45">
+                <label>Occupations ({{vm.campaignModel.selectedOccupations.length}} Selected)</label>
+                <md-icon class="grey-icon">business_center</md-icon>
+                <md-select ng-required="::false && !vm.readOnly" multiple class="capitalize" ng-model="vm.campaignModel.selectedOccupations" md-on-close="vm.occFilter=''" placeholder="Occupations" name="selectedOccupations">
+                    <md-select-header ng-hide="::vm.readOnly" ng-if="vm.allOccupations.length>5" search="vm.occFilter" select-all="vm.allOccupations|vm.campaignModel.selectedOccupations">
+                    </md-select-header>
+                    <md-option ng-disabled="::vm.readOnly" ng-value="occupation" ng-repeat="occupation in vm.allOccupations |
+              filter:vm.occFilter" class="capitalize">{{::occupation.occuName}}</md-option>
+                </md-select>
+                <div ng-messages="vm.campaignForm.selectedOccupations.$error">
+                    <div ng-message="required">Atleast one occupation is required!</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex="95">
+                <label>States ({{vm.campaignModel.selectedStates.length}} Selected)</label>
+                <md-icon class="grey-icon">pin_drop</md-icon>
+                <md-select ng-required="::false && !vm.readOnly" multiple class="capitalize" ng-model="vm.campaignModel.selectedStates" md-on-close="vm.statesFilter=''" placeholder="States" name="selectedStates">
+                    <md-select-header ng-hide="::vm.readOnly" ng-if="vm.allStates.length>5" search="vm.statesFilter" select-all="vm.allStates|vm.campaignModel.selectedStates">
+                    </md-select-header>
+                    <md-option ng-disabled="::vm.readOnly" ng-value="state" ng-repeat="state in vm.allStates |
+              filter:vm.statesFilter" class="capitalize">{{::state.statename}}</md-option>
+                </md-select>
+                <div ng-messages="vm.campaignForm.selectedStates.$error">
+                    <div ng-message="required">Atleast one state is required!</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex="95">
+                <label>Favourite Apps ({{vm.campaignModel.selectedApps.length}} Selected)</label>
+                <md-icon class="grey-icon">apps</md-icon>
+                <md-select multiple class="capitalize" ng-model="vm.campaignModel.selectedApps" md-on-close="vm.appFilter=''" placeholder="Favourite Apps" name="favApps">
+                    <md-select-header ng-hide="::vm.readOnly" ng-if="vm.allApps.length>5" search="vm.appFilter" select-all="vm.allApps|vm.campaignModel.selectedApps">
+                    </md-select-header>
+                    <md-option ng-disabled="::vm.readOnly" ng-value="app" ng-repeat="app in vm.allApps |
+              filter:vm.appFilter" class="capitalize">{{::app.appname}}</md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="45">
+                <label>Start Age</label>
+                <md-icon class="grey-icon">timelapse</md-icon>
+                <input ng-disabled="::vm.readOnly" ng-required="vm.campaignModel.age[1]" type="number" max="120" ng-model="vm.campaignModel.age[0]" min="1" name="startAge" />
+                <div ng-messages="vm.campaignForm.startAge.$error">
+                    <div ng-message="required">
+                        Start Age is required if end age is mentioned!
+                    </div>
+                    <div ng-message="max">
+                        Age can't be more than 120!
+                    </div>
+                    <div ng-message="min">
+                        Min Age can't be less than 1!
+                    </div>
+                </div>
+            </md-input-container>
+            <md-input-container flex="45">
+                <label>End Age</label>
+                <md-icon class="grey-icon">timelapse</md-icon>
+                <input ng-disabled="::vm.readOnly" ng-required="vm.campaignModel.age[0]" type="number" ng-model="vm.campaignModel.age[1]" min="{{vm.campaignModel.age[0]?vm.campaignModel.age[0]:1}}" max="120" name="endAge" />
+                <div ng-messages="vm.campaignForm.endAge.$error">
+                    <div ng-message="required">
+                        End Age is required if Start age is mentioned!
+                    </div>
+                    <div ng-message="max">
+                        Age can't be more than 120!
+                    </div>
+                    <div ng-message="min">
+                        Max Age can't be less than Start Age!
+                    </div>
+                </div>
+            </md-input-container>
+        </div>
+    </div>
+    <div layout="row" layout-wrap flex="100" layout-align="space-around">
+        <md-input-container flex="100" flex-gt-sm="45">
+            <label>Schedule Date</label>
+            <md-datepicker ng-disabled="::vm.readOnly" md-open-on-focus name="campaignDate" required flex="100" md-min-date="vm.minCampaignDate" md-max-date="vm.maxCampaignDate" ng-model="vm.campaignModel.campaignDate" ng-change="vm.checkFutureDateTime()"></md-datepicker>
+            <div ng-messages="vm.campaignForm.campaignDate.$error">
+                <div ng-message="valid">Notification date is not valid!</div>
+                <div ng-message="required">Notification date is required!</div>
+                <div ng-message="futureDate">Notification date should be in future!</div>
+            </div>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="45">
+            <label>Schedule Time</label>
+            <md-icon class="grey-icon">access_time</md-icon>
+            <!-- <input ng-disabled="::vm.readOnly" type="time" ng-model="vm.campaignModel.campaignDate" ng-change="vm.checkFutureDateTime()" name="campaignTime" required />
+            <div ng-messages="vm.campaignForm.campaignTime.$error">
+                <div ng-message="futureTime">Campaign time should be atleast 15 minutes from now!</div>
+                <div ng-message="required">Campaign time is required!</div>
+            </div> -->
+            <input type="text" ng-disabled="::vm.readOnly" ng-pattern="vm.timePattern" ng-model="vm.campaignModel.campaignTime" ng-change="vm.checkFutureDateTime()" name="campaignTime" required />
+            <div ng-messages="vm.campaignForm.campaignTime.$error">
+                <div ng-message="pattern">Please enter time in valid format!</div>
+                <div ng-message="futureTime">Notification time should be atleast 15 minutes from now!</div>
+                <div ng-message="required">Notification time is required!</div>
+            </div>
+            <div style="padding-top: 10px;font-size: 14px;color: grey;">HH:MM (24 Hours)</div>
+        </md-input-container>
+    </div>
+    <div ng-if="::vm.readOnly" layout="row" flex="100" layout-align="space-around">
+        <md-input-container flex="45">
+            <label>Success Count</label>
+            <md-icon class="grey-icon">done_all</md-icon>
+            <input ng-disabled="true" type="text" ng-model="vm.campaignModel.successcount" />
+        </md-input-container>
+        <md-input-container flex="45">
+            <label>Failure Count</label>
+            <md-icon class="grey-icon">warning</md-icon>
+            <input ng-disabled="true" type="text" ng-model="vm.campaignModel.failurecount" />
+        </md-input-container>
+    </div>
+    <div align="center" flex="100" layout-margin ng-hide="::vm.readOnly">
+        <md-button is-busy="vm.submitPromise" class="md-raised custom-green" type="submit" ng-click="vm.submitForm()" ng-disabled="!vm.campaignForm.$valid">Schedule</md-button>
+        <md-button class="md-raised custom-red" ng-click="vm.resetForm()">Reset</md-button>
+    </div>
+</form>

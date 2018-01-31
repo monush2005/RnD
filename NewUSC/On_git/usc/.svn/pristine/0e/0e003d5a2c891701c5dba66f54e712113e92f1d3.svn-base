@@ -1,0 +1,19 @@
+<md-card ng-if="::vm.screen" flex>
+    <img image-loader="33" preview-image class="md-card-image" ng-src="{{vm.screen.imageUrl}}">
+    <md-card-content flex>
+        <h2 align="center">{{::vm.screen.title}}</h2>
+        <p>{{::vm.screen.description}}</p>
+    </md-card-content>
+    <div class="md-actions" layout="row" layout-align="center center">
+        <md-button class="md-raised" ng-disabled="true">{{::vm.screen.buttonText}}</md-button>
+    </div>
+    <md-divider></md-divider>
+    <div align="center">
+    	<h4 ng-show="vm.active">{{vm.date|date}}</h4>
+        <md-button class="md-primary md-raised" ng-if="::vm.active" is-busy="vm.deactivatePromise" ng-click="vm.deactivateScreen()"><md-icon>timer_off</md-icon>  Deactivate</md-button>
+        <md-button class="md-primary md-raised" ng-if="::!vm.active" is-busy="vm.schedulePromise" ng-click="vm.scheduleScreen()"><md-icon>access_time</md-icon> Schedule</md-button>
+    </div>
+</md-card>
+<md-card ng-if="!vm.screen" layout-padding flex layout-align="center center">
+	<h4 align="center">No Screen active on {{vm.date|date}}</h4>
+</md-card>

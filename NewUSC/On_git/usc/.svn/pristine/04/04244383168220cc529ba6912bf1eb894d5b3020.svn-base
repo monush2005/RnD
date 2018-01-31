@@ -1,0 +1,8 @@
+<div>
+    <div promise-loader="vm.getDataPromise" text="Loading Data.."  error-text="No Data Found!"></div>
+    <div promise-hider="vm.getDataPromise">
+        <highchart-component fullscreen-button="true" for-analytics="true" json="vm.jsons.daily"></highchart-component>
+        <highchart-component fullscreen-button="true" for-analytics="true" json="vm.jsons.weekly"></highchart-component>
+        <highchart-component fullscreen-button="true" for-analytics="true" json="vm.jsons.monthly"></highchart-component>
+    </div>
+</div>
